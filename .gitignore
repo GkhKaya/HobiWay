@@ -1,0 +1,49 @@
+# macOS ile ilgili dosyalar
+.DS_Store
+
+# Xcode ile ilgili dosyalar
+build/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdatad
+*.xcscmblueprint
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/
+
+# Derleme ürünleri
+DerivedData/
+*.o
+*.d
+*.dtapi
+*.ipa
+*.app
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+.swiftpm/
+*.xpackage/
+
+# CocoaPods ile ilgili dosyalar
+Pods/
+Podfile.lock
+
+# Carthage ile ilgili dosyalar
+Carthage/Build/
+
+# Fastlane ile ilgili dosyalar
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Diğer
+*.swp
+*.swo
+*.lock
+*.tmp
+*.log
+*.xcconfig
