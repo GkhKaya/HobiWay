@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  HobiWay
+
+  Created by Gokhan Kaya on 5.10.2024.
+  
+*/
+
+
+//General
+"email" = "Email";
+"password" = "password";
+
+//Auth
+"hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
+"learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Learning a new hobby is a fantastic journey to add color to your life and gain new skills.";
+"signIn" = "Sign In";
+"signUp" = "Sign Up";
+"welcomeBack" = "Welcome Back";
+"pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
+"rememberMe" = "Remember Me";
+"forgotPassword" = "Forgot Password";
+"signInWithApple" = "Sign In With Apple";
+"signUpWithApple" = "Sign Up With Apple";
+"signUpWithGoogle" = "Sign Up With Google";
+"signInWithGoogle" = "Sign In With Google";
