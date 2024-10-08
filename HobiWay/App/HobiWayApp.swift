@@ -11,7 +11,7 @@ import SwiftUI
 struct HobiWayApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthRootView()
         }
     }
 }

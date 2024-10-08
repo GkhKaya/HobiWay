@@ -30,31 +30,31 @@ struct AuthRootView: View {
                         
                         HStack{
                             NavigationLink(destination: AuthSignUpView()){
-                      
-                                    Text(LocalKeys.Auth.signUp.rawValue.locale())
-                                    .foregroundStyle(.white)
-                                    .modifier(Px18Bold())
-                                        .padding()
-                                        .background(Color.safetyOrange)
-                                        .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                                    
                                 
-                            }
+                                Text(LocalKeys.Auth.signUp.rawValue.locale())
+                                    .foregroundStyle(.white)
+                                    .modifier(Px16Bold())
+                                    .padding()
+                                    .padding(.horizontal,ProjectPaddings.normal.rawValue)                                        .background(Color.safetyOrange)
+                                    .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                
+                                
+                            }.padding(.trailing,ProjectPaddings.normal.rawValue)
                             
-                            NavigationLink(destination: AuthSignUpView()){
+                            NavigationLink(destination: AuthSignInView()){
                                 Text(LocalKeys.Auth.signIn.rawValue.locale())
-       
-                                    .modifier(Px18Bold())
-                                        
-                                        .padding()
-                                        .background(
-                                            RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
-                                                .fill(Color.clear)
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
-                                                .stroke(Color.safetyOrange, lineWidth: 2)                                         )
-                                        
+                                
+                                    .modifier(Px16Bold())
+                                    .padding()
+                                    .padding(.horizontal,ProjectPaddings.normal.rawValue)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
+                                            .fill(Color.clear)
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
+                                            .stroke(Color.safetyOrange, lineWidth: 2)                                         )
+                                
                                 
                             }
                         }.padding(.top)

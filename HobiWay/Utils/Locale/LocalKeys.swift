@@ -13,6 +13,7 @@ struct LocalKeys{
     enum General : String{
         case email = "email"
         case password = "password"
+        case fullName = "fullName"
     }
     
     enum Auth : String{
@@ -21,6 +22,7 @@ struct LocalKeys{
         case signIn = "signIn"
         case signUp = "signUp"
         case welcomeBack = "welcomeBack"
+        case joinUs = "joinUs"
         case pleaseEnterYourDetailsToContinueLearningAboutYourHobbies = "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies"
         case rememberMe = "rememberMe"
         case forgotPassword = "forgotPassword"
@@ -28,6 +30,8 @@ struct LocalKeys{
         case signInWithGoogle = "signInWithGoogle"
         case signUpWithApple = "signUpWithApple"
         case signUpWithGoogle = "signUpWithGoogle"
+        case ifYouDontHaveAnAccount = "ifYouDontHaveAnAccount"
+        case ifYouHaveAnAccount = "ifYouHaveAnAccount"
     }
 }
 extension String{

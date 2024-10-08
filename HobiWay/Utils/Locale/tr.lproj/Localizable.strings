@@ -9,7 +9,9 @@
 
 //General
 "email" = "Email";
-"password" = "password";
+"password" = "Password";
+"fullName" = "Full Name";
+
 
 //Auth
 "hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
@@ -17,10 +19,13 @@
 "signIn" = "Sign In";
 "signUp" = "Sign Up";
 "welcomeBack" = "Welcome Back";
+"joinUs" = "Join Us";
 "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
 "rememberMe" = "Remember Me";
 "forgotPassword" = "Forgot Password";
-"signInWithApple" = "Sign In With Apple";
-"signUpWithApple" = "Sign Up With Apple";
+"signInWithApple" = "Sign In With Apple ";
+"signUpWithApple" = "Sign Up With Apple ";
 "signUpWithGoogle" = "Sign Up With Google";
 "signInWithGoogle" = "Sign In With Google";
+"ifYouDontHaveAnAccount" = "If you dont have an account";
+"ifYouHaveAnAccount" = "If you have an account";
