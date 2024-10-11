@@ -10,7 +10,9 @@ import SwiftUI
 struct AuthSignUpView: View {
     @ObservedObject private var vm = AuthSignUpViewViewModel()
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.presentationMode) var presentationMode // Geri gitmek için kullanılacak
+    @Environment(\.presentationMode) var presentationMode
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
     
     
     
@@ -50,7 +52,15 @@ struct AuthSignUpView: View {
                     
                     // MARK: - Sign Up Button
                     Button{
-                        
+                        Task{
+                            do {
+                                try await vm.signUp()
+                                alertMessage = "Successfully signed up!"
+                            } catch {
+                                alertMessage = (error as? AuthError)?.localizedDescription ?? "An unknown error occurred."
+                            }
+                            showAlert = true
+                        }
                     }label:{
                         Text(LocalKeys.Auth.signUp.rawValue.locale())
                             .foregroundStyle(.winterHaven)
@@ -137,7 +147,13 @@ struct AuthSignUpView: View {
                     
                     Spacer()
                 }.padding()
-            }.navigationBarBackButtonHidden(true)
+            }
+            .alert(isPresented: $showAlert) { // Alert gösterme
+                Alert(title: Text("Sign Up"),
+                      message: Text(alertMessage),
+                      dismissButton: .default(Text("OK")))
+            }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
