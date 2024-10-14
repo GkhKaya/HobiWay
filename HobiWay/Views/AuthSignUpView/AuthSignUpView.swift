@@ -13,6 +13,8 @@ struct AuthSignUpView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var navigateToSignIn: Bool = false // Navigate state
+
     
     
     
@@ -63,7 +65,8 @@ struct AuthSignUpView: View {
                         }
                     }label:{
                         Text(LocalKeys.Auth.signUp.rawValue.locale())
-                            .foregroundStyle(.winterHaven)
+                            .foregroundStyle(.white)
+                            .modifier(Px16Bold())
                     }
                     .padding()
                     .padding(.horizontal,ProjectPaddings.large.rawValue)
@@ -151,12 +154,15 @@ struct AuthSignUpView: View {
             .alert(isPresented: $showAlert) { // Alert gösterme
                 Alert(title: Text("Sign Up"),
                       message: Text(alertMessage),
-                      dismissButton: .default(Text("OK")))
+                      dismissButton: .default(Text("OK")) {
+                                              navigateToSignIn = true // Set navigation to true when alert is dismissed
+                                          })
+                }
             }
             .navigationBarBackButtonHidden(true)
         }
     }
-}
+  
 
 #Preview {
     AuthSignUpView()

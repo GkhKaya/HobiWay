@@ -12,6 +12,10 @@ struct AuthSignInView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject private var vm = AuthSignInViewViewModel()
     
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -45,16 +49,28 @@ struct AuthSignInView: View {
                     
                     // MARK: - Sign Up Button
                     Button{
-                        
+                        Task{
+                            do {
+                                try await vm.signIn()
+                            } catch {
+                                // If an error occurs, show the alert with an error message
+                                alertMessage = error.localizedDescription
+                                showAlert = true
+                            }
+                        }
                     }label:{
                         Text(LocalKeys.Auth.signIn.rawValue.locale())
-                            .foregroundStyle(.winterHaven)
+                            .foregroundStyle(.white)
+                            .modifier(Px16Bold())
                     }
                     .padding()
                     .padding(.horizontal,ProjectPaddings.large.rawValue)
                     .background(.safetyOrange)
                     .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                     .padding(.top,ProjectPaddings.normal.rawValue)
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Sign In Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    }
                     
                     // MARK: - or Text
                     
@@ -91,7 +107,9 @@ struct AuthSignInView: View {
                         // MARK: - Sign Up Google Button
                         
                         Button{
-                            
+                            Task{
+                                try await vm.googleSignIn()
+                            }
                         }label: {
                             
                             HStack{

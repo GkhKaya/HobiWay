@@ -23,11 +23,27 @@ final class AuthSignInViewViewModel : ObservableObject {
         
         if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
             do{
-                let returnerUserData = try await authManager.signIn(email: email, password: password)
-                print("Succes")
+                _ = try await authManager.signIn(email: email, password: password)
             }catch{
                 throw AuthError.userNotFound
             }
         }
+    }
+    
+    func googleSignIn() async throws {
+        
+        do{
+            let helper  = SignInGoogleHelper()
+            let token = try await helper.signIn()
+            
+            if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
+                _ = try await authManager.signInWithGoogle(tokens: token)
+            }
+        }catch{
+            throw AuthError.signInFailed
+        }
+        
+        
+        
     }
 }

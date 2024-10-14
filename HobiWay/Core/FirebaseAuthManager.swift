@@ -73,7 +73,7 @@ extension FirebaseAuthManager{
 }
 
 //MARK: SIGN IN SSO
-/*extension FirebaseAuthManager{
+extension FirebaseAuthManager{
     func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
         let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
         return try await signIn(credential: credential)
@@ -84,7 +84,7 @@ extension FirebaseAuthManager{
         return AuthDataResultModel(user: authDataResult.user)
         
     }
-}*/
+}
 
 
 //MARK: Manage Account
