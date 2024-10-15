@@ -11,9 +11,13 @@ struct AuthSignInView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject private var vm = AuthSignInViewViewModel()
+    @State private var showForgotPasswordSheet: Bool = false
+
     
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var isSignInSuccessful = false // Yeni @State değişkeni
+
     
     
     var body: some View {
@@ -40,18 +44,39 @@ struct AuthSignInView: View {
                         TextFieldWidget(title:LocalKeys.General.email.rawValue.locale(),iconName: "envelope.fill", text: $vm.email)
                             .padding(.top,ProjectPaddings.extraSmall.rawValue)
                         
+                      
+                        
                         
                         SecureFieldWidget(iconName: "lock.fill", text: $vm.password)
                             .padding(.top,ProjectPaddings.extraSmall.rawValue)
                         
+                        HStack {
+                            Toggle(isOn: $vm.remember, label: {
+                                Text("label")
+                            }).toggleStyle(RememberStyle())
+                            Spacer()
+                            Button(action: {
+                                showForgotPasswordSheet = true
+                            }, label: {
+                                Text(LocalKeys.Auth.forgotPassword.rawValue.locale()).bold().font(.footnote)
+                                    .foregroundStyle(.safetyOrange)
+
+                                    .modifier(Px16Bold())
+                            }).tint(.primary)
+                                .sheet(isPresented: $showForgotPasswordSheet) {
+                                    ForgotPasswordView()
+                                }
+                        }.padding(.horizontal,ProjectPaddings.small.rawValue)
+                        
                     }.padding(.top,ProjectPaddings.large.rawValue)
                     
                     
-                    // MARK: - Sign Up Button
+                    // MARK: - Sign In Button
                     Button{
                         Task{
                             do {
                                 try await vm.signIn()
+                                isSignInSuccessful = true
                             } catch {
                                 // If an error occurs, show the alert with an error message
                                 alertMessage = error.localizedDescription
@@ -109,6 +134,7 @@ struct AuthSignInView: View {
                         Button{
                             Task{
                                 try await vm.googleSignIn()
+                                isSignInSuccessful = true
                             }
                         }label: {
                             
@@ -150,6 +176,9 @@ struct AuthSignInView: View {
                     
                     Spacer()
                 }.padding()
+                    .navigationDestination(isPresented: $isSignInSuccessful) {
+                        HomeView().navigationBarBackButtonHidden()
+                    }
             }.navigationBarBackButtonHidden(true)
         }
     }
@@ -158,3 +187,6 @@ struct AuthSignInView: View {
 #Preview {
     AuthSignInView()
 }
+
+
+    

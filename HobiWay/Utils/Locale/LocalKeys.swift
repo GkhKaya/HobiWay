@@ -24,6 +24,7 @@ struct LocalKeys{
         case welcomeBack = "welcomeBack"
         case joinUs = "joinUs"
         case pleaseEnterYourDetailsToContinueLearningAboutYourHobbies = "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies"
+        case sendedMail = "sendedMail"
         case rememberMe = "rememberMe"
         case forgotPassword = "forgotPassword"
         case signInWithApple = "signInWithApple"
@@ -32,6 +33,7 @@ struct LocalKeys{
         case signUpWithGoogle = "signUpWithGoogle"
         case ifYouDontHaveAnAccount = "ifYouDontHaveAnAccount"
         case ifYouHaveAnAccount = "ifYouHaveAnAccount"
+        case pleaseEnterEmail = "pleaseEnterEmail"
     }
 }
 extension String{

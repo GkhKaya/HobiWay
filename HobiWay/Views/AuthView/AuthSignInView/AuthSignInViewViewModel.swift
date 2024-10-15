@@ -10,6 +10,8 @@ import Foundation
 final class AuthSignInViewViewModel : ObservableObject {
     @Published var email : String = ""
     @Published var password : String = ""
+    @Published var remember: Bool = false
+
     
     
     func signIn() async throws{
@@ -24,6 +26,12 @@ final class AuthSignInViewViewModel : ObservableObject {
         if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
             do{
                 _ = try await authManager.signIn(email: email, password: password)
+                
+                if remember{
+                    UserDefaults.standard.set(true, forKey: "isRemembered")
+                    UserDefaults.standard.set(email, forKey: "userEmail")
+                }
+                
             }catch{
                 throw AuthError.userNotFound
             }

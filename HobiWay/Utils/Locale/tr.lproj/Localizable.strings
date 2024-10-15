@@ -19,10 +19,12 @@
 "signIn" = "Sign In";
 "signUp" = "Sign Up";
 "welcomeBack" = "Welcome Back";
+"sendedMail" = "Sended mail";
 "joinUs" = "Join Us";
 "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
 "rememberMe" = "Remember Me";
 "forgotPassword" = "Forgot Password";
+"pleaseEnterEmail" = "Please enter your email";
 "signInWithApple" = "Sign In With Apple ";
 "signUpWithApple" = "Sign Up With Apple ";
 "signUpWithGoogle" = "Sign Up With Google";

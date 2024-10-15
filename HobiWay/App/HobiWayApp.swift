@@ -25,7 +25,7 @@ struct HobiWayApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            AuthRootView()
+            MainRoot()
         }
     }
 }

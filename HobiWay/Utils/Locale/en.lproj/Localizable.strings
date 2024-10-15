@@ -22,9 +22,13 @@
 "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
 "rememberMe" = "Remember Me";
 "forgotPassword" = "Forgot Password";
+"sendedMail" = "Sended mail";
+
+"pleaseEnterEmail" = "Please enter your email";
 "signInWithApple" = "Sign In With Apple ";
 "signUpWithApple" = "Sign Up With Apple ";
 "signUpWithGoogle" = "Sign Up With Google";
 "signInWithGoogle" = "Sign In With Google";
 "ifYouDontHaveAnAccount" = "If you dont have an account";
 "ifYouHaveAnAccount" = "If you have an account";
+
