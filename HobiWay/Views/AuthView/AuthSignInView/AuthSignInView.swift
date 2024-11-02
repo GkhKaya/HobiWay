@@ -16,7 +16,7 @@ struct AuthSignInView: View {
     
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @State private var isSignInSuccessful = false // Yeni @State değişkeni
+    @State private var isSignInSuccessful = false
 
     
     
@@ -26,12 +26,7 @@ struct AuthSignInView: View {
                 Color.winterHaven.ignoresSafeArea()
                 
                 VStack{
-                    // MARK: - Welcome Text
-                    HStack {
-                        Text(LocalKeys.Auth.welcomeBack.rawValue.locale())
-                            .modifier(Px32Bold())
-                        Spacer()
-                    }
+                  
                     // MARK: - Welcome Description
                     
                     Text(LocalKeys.Auth.learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills.rawValue.locale())
@@ -76,7 +71,9 @@ struct AuthSignInView: View {
                         Task{
                             do {
                                 try await vm.signIn()
-                                isSignInSuccessful = true
+                                
+                                try await vm.openInformationViewFunc()
+                                
                             } catch {
                                 // If an error occurs, show the alert with an error message
                                 alertMessage = error.localizedDescription
@@ -88,6 +85,7 @@ struct AuthSignInView: View {
                             .foregroundStyle(.white)
                             .modifier(Px16Bold())
                     }
+                    
                     .padding()
                     .padding(.horizontal,ProjectPaddings.large.rawValue)
                     .background(.safetyOrange)
@@ -95,6 +93,9 @@ struct AuthSignInView: View {
                     .padding(.top,ProjectPaddings.normal.rawValue)
                     .alert(isPresented: $showAlert) {
                         Alert(title: Text("Sign In Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    }
+                    .navigationDestination(isPresented: $vm.openInformationView) {
+                        InformationView().navigationBarBackButtonHidden()
                     }
                     
                     // MARK: - or Text
@@ -148,7 +149,8 @@ struct AuthSignInView: View {
                                 
                             } .padding()
                                 .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                                .background(colorScheme == .light ? Color.white : Color.black)                         .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                .background(colorScheme == .light ? Color.white : Color.black)
+                                .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                             
                         }
                         
@@ -176,12 +178,18 @@ struct AuthSignInView: View {
                     
                     Spacer()
                 }.padding()
-                    .navigationDestination(isPresented: $isSignInSuccessful) {
+                    
+                    .navigationDestination(isPresented: $vm.openhomeView) {
                         HomeView().navigationBarBackButtonHidden()
                     }
-            }.navigationBarBackButtonHidden(true)
+            }
+            .navigationTitle(LocalKeys.Auth.welcomeBack.rawValue.locale())
+            .navigationBarBackButtonHidden(true)
+         
         }
     }
+    
+    
 }
 
 #Preview {

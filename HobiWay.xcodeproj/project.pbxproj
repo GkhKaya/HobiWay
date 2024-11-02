@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		762CADD22CBCEC5800F1557A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 762CADD12CBCEC5800F1557A /* GoogleSignIn */; };
 		762CADD42CBCEC5800F1557A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 762CADD32CBCEC5800F1557A /* GoogleSignInSwift */; };
+		76D04AD12CBF052C001F35D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 76D04AD02CBF052C001F35D1 /* FirebaseFirestore */; };
+		76D04AD32CBF052C001F35D1 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 76D04AD22CBF052C001F35D1 /* FirebaseFirestoreCombine-Community */; };
 		76E65FD92CB55D8200CF1DD9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 76E65FD82CB55D8200CF1DD9 /* FirebaseAnalytics */; };
 		76E65FDB2CB55D8200CF1DD9 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 76E65FDA2CB55D8200CF1DD9 /* FirebaseAnalyticsOnDeviceConversion */; };
 		76E65FDD2CB55D8200CF1DD9 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 76E65FDC2CB55D8200CF1DD9 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -49,8 +51,10 @@
 				76E65FD92CB55D8200CF1DD9 /* FirebaseAnalytics in Frameworks */,
 				76E65FDD2CB55D8200CF1DD9 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				762CADD42CBCEC5800F1557A /* GoogleSignInSwift in Frameworks */,
+				76D04AD32CBF052C001F35D1 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				76E65FDB2CB55D8200CF1DD9 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				76E65FE02CB5602500CF1DD9 /* FirebaseAuth in Frameworks */,
+				76D04AD12CBF052C001F35D1 /* FirebaseFirestore in Frameworks */,
 				76E65FE22CB5602500CF1DD9 /* FirebaseAuthCombine-Community in Frameworks */,
 				762CADD22CBCEC5800F1557A /* GoogleSignIn in Frameworks */,
 			);
@@ -110,6 +114,8 @@
 				76E65FE12CB5602500CF1DD9 /* FirebaseAuthCombine-Community */,
 				762CADD12CBCEC5800F1557A /* GoogleSignIn */,
 				762CADD32CBCEC5800F1557A /* GoogleSignInSwift */,
+				76D04AD02CBF052C001F35D1 /* FirebaseFirestore */,
+				76D04AD22CBF052C001F35D1 /* FirebaseFirestoreCombine-Community */,
 			);
 			productName = HobiWay;
 			productReference = 76BD80312CB02EC9007B143C /* HobiWay.app */;
@@ -408,6 +414,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 762CADD02CBCEC5800F1557A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		76D04AD02CBF052C001F35D1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76E65FD72CB55D8200CF1DD9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		76D04AD22CBF052C001F35D1 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 76E65FD72CB55D8200CF1DD9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
 		};
 		76E65FD82CB55D8200CF1DD9 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

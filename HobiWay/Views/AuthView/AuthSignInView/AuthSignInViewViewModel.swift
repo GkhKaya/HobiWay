@@ -11,7 +11,13 @@ final class AuthSignInViewViewModel : ObservableObject {
     @Published var email : String = ""
     @Published var password : String = ""
     @Published var remember: Bool = false
-
+    @Published private var isFirstLaunch = false
+    @Published var openInformationView = false
+    @Published var openhomeView = false
+    @Published  var isSignInSuccessful = false
+    
+    
+    
     
     
     func signIn() async throws{
@@ -38,6 +44,8 @@ final class AuthSignInViewViewModel : ObservableObject {
         }
     }
     
+    
+    
     func googleSignIn() async throws {
         
         do{
@@ -54,4 +62,35 @@ final class AuthSignInViewViewModel : ObservableObject {
         
         
     }
+    
+    
+    
+    func openInformationViewFunc() async throws {
+        
+        
+        if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
+            let userId = try  authManager.getAuthenticatedUser().uid
+            
+            if let firestoreService : FirestoreService = ServiceLocator.shared.getService(){
+                
+                if let userData : UserModel = try await firestoreService.getDocumentWhere(from: "users", where: [(field: "id", value: userId)]){
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                       if userData.age == 0 {
+                                           self.openInformationView = true
+                                       } else {
+                                           self.openhomeView = true
+                                       }
+                                   }
+                   
+                }
+                
+            }
+        }
+        
+    }
+    
+    
 }
+
+

@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @State var isFirstSignIn: Bool = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            GeometryReader{geometry in
+                ZStack{
+                    Color.winterHaven.ignoresSafeArea()
+                    
+                    VStack{
+                        Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
+                    }
+                }
+            }
+        }
     }
 }
 

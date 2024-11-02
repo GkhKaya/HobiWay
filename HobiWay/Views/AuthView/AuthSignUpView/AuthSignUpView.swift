@@ -24,12 +24,7 @@ struct AuthSignUpView: View {
                 Color.winterHaven.ignoresSafeArea()
                 
                 VStack{
-                    // MARK: - Welcome Text
-                    HStack {
-                        Text(LocalKeys.Auth.joinUs.rawValue.locale())
-                            .modifier(Px32Bold())
-                        Spacer()
-                    }
+                   
                     // MARK: - Welcome Description
                     
                     Text(LocalKeys.Auth.learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills.rawValue.locale())
@@ -40,8 +35,7 @@ struct AuthSignUpView: View {
                     
                     VStack(){
                         
-                        TextFieldWidget(title:LocalKeys.General.fullName.rawValue.locale(),iconName: "person.fill", text: $vm.userName)
-                            .padding(.top,ProjectPaddings.extraSmall .rawValue)
+                        
                         TextFieldWidget(title:LocalKeys.General.email.rawValue.locale(),iconName: "envelope.fill", text: $vm.email)
                             .padding(.top,ProjectPaddings.extraSmall.rawValue)
                         
@@ -150,7 +144,7 @@ struct AuthSignUpView: View {
                     
                     Spacer()
                 }.padding()
-            }
+            }.navigationTitle(LocalKeys.Auth.joinUs.rawValue.locale())
             .alert(isPresented: $showAlert) { // Alert gösterme
                 Alert(title: Text("Sign Up"),
                       message: Text(alertMessage),

@@ -10,7 +10,19 @@
 //General
 "email" = "Email";
 "password" = "Password";
+"phoneNumber" = "Phone Number";
 "fullName" = "Full Name";
+"next" = "Next";
+"hello" = "Hello";
+"age" = "Age";
+"gender"  ="Gender";
+"finish"  ="Finish";
+"alert" = "Alert";
+"okay" = "Okay";
+"man" = "Man";
+"woman" = "Woman";
+"other" = "Other";
+
 
 
 //Auth
@@ -31,3 +43,21 @@
 "signInWithGoogle" = "Sign In With Google";
 "ifYouDontHaveAnAccount" = "If you dont have an account";
 "ifYouHaveAnAccount" = "If you have an account";
+
+
+//Home View
+"theBestAppForLearnDreamHooby" = "theBestAppForLearnDreamHooby";
+
+//Information View
+
+"letsGetToNowYouALittleBit" = "Let's get to know you a little bit";
+"firstLetsLearnYourName" = "First let's learn your name";
+"weAreHobiWayDevelopmentTeam" = "We are HobiWay Development Team";
+"youCanReachUsAnytimeAtHobiwaycontact@devosuit.com" = "You can reach us anytime at hobiwaycontact@devosuit.com";
+"nowLetsKnowYourAgeAndGender" = "Now Let's Know Your Age And Gender";
+"nextIsYourpPhoneNumber" = "Next Is Your Phone Number";
+ "finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
+"pleaseSelectYouInterest" = "Please select your interest.";
+
+
+

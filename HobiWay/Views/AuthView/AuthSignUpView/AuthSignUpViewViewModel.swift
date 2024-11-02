@@ -28,7 +28,29 @@ final class AuthSignUpViewViewModel : ObservableObject{
         if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
             do{
                 let returnerUserData = try await authManager.createUser(email: email, password: password)
-                print("Successfully created user: \(returnerUserData.email!)")
+                
+                let newUser = UserModel(
+                    id: returnerUserData.uid,
+                    mail: email,
+                    fullName: "",
+                    interests: [],
+                    gender: 1,
+                    phoneNumber: "",
+                    age: 0,
+                    imageUrl: "",
+                    createdAt: Date(),
+                    inroduceYourself: ""
+                )
+                
+                
+                if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {
+                    try await firestoreService.setDocument(documentId: returnerUserData.uid, in: "users", data: newUser)
+                    print("Successfully created user and saved to Firestore with ID: \(returnerUserData.uid)")
+                } else {
+                    throw AuthError.custom(message: "FirestoreService not found")
+                }
+                
+                print("Successfully created user and saved to Firestore: \(returnerUserData.email!)")
             }catch{
                 throw AuthError.emailAlreadyInUse
             }
