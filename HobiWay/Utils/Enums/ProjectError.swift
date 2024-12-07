@@ -53,4 +53,26 @@ enum AuthError: LocalizedError {
             return message
         }
     }
+    
+    
+}
+
+enum AppErrorCode: Error {
+    case emptyField(fieldName: String)
+    case invalidInput(description: String)
+    case networkError
+    case unknownError
+    
+    var localizedDescription: String {
+        switch self {
+        case .emptyField(let fieldName):
+            return "\(fieldName) field cannot be empty."
+        case .invalidInput(let description):
+            return "Invalid input: \(description)"
+        case .networkError:
+            return "A network error occurred. Please try again later."
+        case .unknownError:
+            return "An unknown error occurred. Please contact support."
+        }
+    }
 }

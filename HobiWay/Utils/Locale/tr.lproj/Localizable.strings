@@ -25,6 +25,7 @@
 
 
 
+
 //Auth
 "hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
 "learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Learning a new hobby is a fantastic journey to add color to your life and gain new skills.";
@@ -46,7 +47,9 @@
 
 
 //Home View
-"theBestAppForLearnDreamHooby" = "theBestAppForLearnDreamHooby";
+"theBestAppForLearnDreamHooby" = "The Best App For Learn Dream Hooby";
+"createYourFirstHobbyPlan" = "Create your first hobby plan";
+"welcomeBack" = "Welcome Back!";
 
 //Information View
 
@@ -58,6 +61,35 @@
 "nextIsYourpPhoneNumber" = "Next Is Your Phone Number";
  "finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
 "pleaseSelectYouInterest" = "Please select your interest.";
+
+
+//Create Hobby View
+"pleaseEnterTheHobbyYouWant"="Please enter the hobby you want";
+"chooseTheBudgetYouCanUseForThisHobby"="Choose the budget you can use for this hobby";
+"lowBudget" = "Low Budget";
+"lowBudgetDesc"= "Roadmap with the least possible budget";
+"mediumBudget" = "Medium Budget";
+"mediumBudgetDesc"="A roadmap created with a medium budget max 100$";
+"highBudget" = "High Budget";
+"highBudgetDesc" = "A roadmap without budget constraints";
+"pleaseSelectRoadmapLanguage" = "Please Select Roadmap Language";
+"activeLanguages" = "Active Languages";
+"selectLevel" = "Please select the starting level of the roadmap";
+"beginnerLevel" = "Beginner Level";
+"beginnerLevelDesc" = "Roadmap starts from 0";
+"intermediateLevel" = "Intermediate Level";
+"intermediateLevelDesc" = "Starts at intermediate level, skipping the starting name";
+"advancedLevel" = "Advanced Level";
+"advancedLevelDesc" = "You should choose it for more than what you know.";
+"pleaseChooseTheMinutesYouCanSparePerDay" = "Please Choose the Minutes You Can Spare Per Day";
+"minute15" = "15 Minute";
+"minute15Desc" = "If you have little free time, choose this one";
+"minute30" = "30 Minute";
+"minute30Desc" = "Half an hour a day can do wonders";
+"minute60" = "60 Minute";
+"minute60Desc" = "If you're serious about this, choose this one.";
+
+
 
 
 

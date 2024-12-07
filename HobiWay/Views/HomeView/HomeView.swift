@@ -17,13 +17,49 @@ struct HomeView: View {
                     Color.winterHaven.ignoresSafeArea()
                     
                     VStack{
-                        Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
-                    }
+                        HStack {
+                            VStack {
+                                Text(LocalKeys.HomeView.welcomeBack.rawValue.locale())
+                                    .modifier(Px16Light())
+                                
+                                Text("Gökhan Kaya")
+                                    .modifier(Px18Bold())
+                            }
+                            
+                          
+                            Spacer()
+
+                            
+                            Button {
+                                
+                            }label: {
+                                Image(systemName: "bell")
+                                    .resizable()
+                                    .frame(width: geometry.dw(width: 0.07),height: geometry.dh(height: 0.035))
+                                    .foregroundStyle(.libertyBlue)
+                            }
+                                
+                            
+                            
+                            
+                        }
+                        Spacer()
+                        
+                        Text(LocalKeys.HomeView.createYourFirstHobbyPlan.rawValue.locale())
+                            .modifier(Px24Bold())
+                   
+                        
+                        
+                        Spacer()
+                    }.padding()
+                    
+                   
                 }
             }
         }
     }
 }
+
 
 #Preview {
     HomeView()

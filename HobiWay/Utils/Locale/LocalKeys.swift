@@ -29,6 +29,8 @@ struct LocalKeys{
     
     enum HomeView : String{
         case theBestAppForLearnDreamHooby = "theBestAppForLearnDreamHooby"
+        case createYourFirstHobbyPlan = "createYourFirstHobbyPlan"
+        case welcomeBack = "welcomeBack"
     }
     
     enum Auth : String{
@@ -51,16 +53,16 @@ struct LocalKeys{
         case pleaseEnterEmail = "pleaseEnterEmail"
     }
     
-enum InformationView : String{
-    case letsGetToNowYouALittleBit = "letsGetToNowYouALittleBit"
-    case firstLetsLearnYourName = "firstLetsLearnYourName"
-    case weAreHobiWayDevelopmentTeam = "weAreHobiWayDevelopmentTeam"
-    case youCanReachUsAnytimeAtHobiwaycontactdevosuitcom = "youCanReachUsAnytimeAtHobiwaycontact@devosuit.com"
-    case nowLetsKnowYourAgeAndGender = "nowLetsKnowYourAgeAndGender"
-    case nextIsYourpPhoneNumber = "nextIsYourpPhoneNumber"
-    case finallyTellUsALittleAboutYourself = "finallyTellUsALittleAboutYourself"
-    case pleaseSelectYouInterest = "pleaseSelectYouInterest"
-}
+    enum InformationView : String{
+        case letsGetToNowYouALittleBit = "letsGetToNowYouALittleBit"
+        case firstLetsLearnYourName = "firstLetsLearnYourName"
+        case weAreHobiWayDevelopmentTeam = "weAreHobiWayDevelopmentTeam"
+        case youCanReachUsAnytimeAtHobiwaycontactdevosuitcom = "youCanReachUsAnytimeAtHobiwaycontact@devosuit.com"
+        case nowLetsKnowYourAgeAndGender = "nowLetsKnowYourAgeAndGender"
+        case nextIsYourpPhoneNumber = "nextIsYourpPhoneNumber"
+        case finallyTellUsALittleAboutYourself = "finallyTellUsALittleAboutYourself"
+        case pleaseSelectYouInterest = "pleaseSelectYouInterest"
+    }
     
     enum InformationViewError : String{
         case pleaseEnterYourName = "pleaseEnterYourName"
@@ -68,6 +70,37 @@ enum InformationView : String{
         case pleaseSelectLeastTwoInterest = "pleaseSelectLeastTwoInterest"
         case pleaseEnterLeast100Characters = "pleaseEnterLeast100Characters"
     }
+    
+    enum CreateHobbyCardView: String{
+        case chooseTheBudgetYouCanUseForThisHobby = "chooseTheBudgetYouCanUseForThisHobby"
+        case pleaseEnterTheHobbyYouWant = "pleaseEnterTheHobbyYouWant"
+        case lowBudget = "lowBudget"
+        case lowBudgetDesc = "lowBudgetDesc"
+        case mediumBudget = "mediumBudget"
+        case mediumBudgetDesc = "mediumBudgetDesc"
+        case highBudget = "highBudget"
+        case highBudgetDesc = "highBudgetDesc"
+        case pleaseSelectRoadmapLanguage = "pleaseSelectRoadmapLanguage"
+        case activeLanguages = "activeLanguages"
+        case selectLevel = "selectLevel"
+        case beginnerLevel = "beginnerLevel"
+        case intermediateLevel = "intermediateLevel"
+        case advancedLevel = "advancedLevel"
+        case beginnerLevelDesc = "beginnerLevelDesc"
+        case intermediateLevelDesc = "intermediateLevelDesc"
+        case advancedLevelDesc = "advancedLevelDesc"
+        case pleaseChooseTheMinutesYouCanSparePerDay = "pleaseChooseTheMinutesYouCanSparePerDay"
+        case minute15 = "minute15"
+        case minute15Desc = "minute15Desc"
+        case minute30 = "minute30"
+        case minute30Desc = "minute30Desc"
+        case minute60 = "minute60"
+        case minute60Desc = "minute60Desc"
+    
+    }
+    
+    
+    
 }
 extension String{
     /// It localize any string from Localizable string

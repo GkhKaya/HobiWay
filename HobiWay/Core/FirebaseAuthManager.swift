@@ -87,6 +87,7 @@ extension FirebaseAuthManager{
 }
 
 
+
 //MARK: Manage Account
 
 extension FirebaseAuthManager{
