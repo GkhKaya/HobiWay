@@ -1,6 +1,8 @@
 # macOS ile ilgili dosyalar
 .DS_Store
 
+
+
 # Xcode ile ilgili dosyalar
 build/
 *.xcworkspace
@@ -47,3 +49,4 @@ fastlane/test_output
 *.tmp
 *.log
 *.xcconfig
+*.plist

@@ -35,7 +35,7 @@ struct HobiWayApp: App {
   
     var body: some Scene {
         WindowGroup {
-            MainRoot()
+            SomeTest(text: .constant("Lutfen bana 20 yaşında bir erkeke icin flüt hobisi için bir plan hazırla. Bu kisinin bu hobi icin bütçesi orta düzeyde. Baslangic seviyesi ise beginner. Günlük 20 dakikasını ayırabilir. en cok görsel öğrenme tekniğinden verim alıyor. Ana dili Türkçe ve ileri seviye ingilizce biliyor.bu bilgiler ile detaylı bir plan oluştur ve json olarak ver"))
         }
     }
 }
