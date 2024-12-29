@@ -369,7 +369,7 @@ struct InformationView: View {
                         }, title: LocalKeys.General.finish.rawValue.locale())
                         .padding(.top, ProjectPaddings.normal.rawValue)
                         .navigationDestination(isPresented: $vm.openHomeView) {
-                            HomeView()
+                            TabBarView().ignoresSafeArea()
                         }
                         Spacer()
                     }

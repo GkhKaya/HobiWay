@@ -7,67 +7,78 @@
 
 import SwiftUI
 
-struct HobbyCard: View {
+struct CourseCardView: View {
+    let courseTitle: String
+    
+    let weekCount: Int
+    
     var body: some View {
-        VStack{
-            GeometryReader{geometry in
-                ZStack(alignment:.top){
-                    ZStack {
-                        RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
-                            .frame(height: geometry.dh(height: 0.25))
-                            .foregroundStyle(.libertyBlue)
-                        
-                        VStack{
-                            HStack{
-                                Image(systemName: "person.fill")
-                                    .foregroundStyle(.white)
-                                Text("Gokhan Kaya")
-                                    .foregroundStyle(.white)
-                                    .modifier(Px16Bold())
-                                
-                                Spacer()
-                                
-                                Image(systemName: "clock.fill")
-                                    .foregroundStyle(.white)
-                                Text("8 Weeks")
-                                    .foregroundStyle(.white)
-                                    .modifier(Px16Bold())
-                            }.padding()
-                                .padding(.top,ProjectPaddings.extraLarge.rawValue)
-                            
-                            HStack{
-                                Image(systemName: "document.fill")
-                                    .foregroundStyle(.white)
-                                Text("Music")
-                                    .foregroundStyle(.white)
-                                    .modifier(Px16Bold())
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .foregroundStyle(.white)
-                                
-                            }.padding()
-                        }
-                    }
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
-                            .frame(height: geometry.dh(height: 0.075))
-                            .foregroundStyle(.safetyOrange)
-                        
-                        Text("sasasasasa")
-                            .foregroundStyle(.white)
-                            .modifier(Px16Bold())
-                    }
-                    
-                }.padding()
-                
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                Spacer()
+                Text(courseTitle)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                Spacer()
             }
+            .background(Color.orange)
+            
+            // Content
+            VStack {
+                HStack {
+                    HStack(spacing: 4) {
+                        
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.gray)
+                        Text("\(weekCount) Weeks")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                    .padding()
+                    Spacer()
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.gray)
+                        Text("\(weekCount) Weeks")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                    .padding()
+                }
+              
+                
+                HStack {
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.gray)
+                        Text("\(weekCount) Weeks")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                    .padding()
+                    Spacer()
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock.fill")
+                            .foregroundColor(.gray)
+                        Text("\(weekCount) Weeks")
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
+                    .padding()
+                }
+            }  .frame(maxWidth: .infinity)
+                .background(Color.white)
         }
+        .cornerRadius(12)
+        .shadow(radius: 4)
+        .padding()
     }
 }
 
 #Preview {
-    HobbyCard()
+    CourseCardView(courseTitle: "sefa", weekCount: 2)
 }

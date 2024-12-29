@@ -12,7 +12,7 @@ struct MainRoot: View {
 
     var body: some View {
         if isLoggedIn{
-            HomeView()
+            TabBarView()
         }else{
             AuthRootView()
         }

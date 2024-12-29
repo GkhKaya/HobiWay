@@ -23,7 +23,7 @@ protocol FirestoreServiceProtocol{
 
 class FirestoreService : FirestoreServiceProtocol{
     
-    private let db = Firestore.firestore()
+     let db = Firestore.firestore()
     private let decoder: Firestore.Decoder = {
             let decoder = Firestore.Decoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -149,4 +149,60 @@ class FirestoreService : FirestoreServiceProtocol{
                 throw error
             }
         }
+    
+    private func cleanJSONString(_ jsonString: String) -> String {
+            // Başındaki ve sonundaki boşlukları temizle
+            var cleaned = jsonString.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            // Eğer JSON string içinde "```json" veya "```" varsa temizle
+            // (Gemini bazen markdown formatında yanıt verebiliyor)
+            cleaned = cleaned.replacingOccurrences(of: "```json", with: "")
+            cleaned = cleaned.replacingOccurrences(of: "```", with: "")
+            
+            // Tekrar whitespace'leri temizle
+            cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            return cleaned
+        }
+        
+        func importJSONData(from jsonString: String, to collection: String) async throws {
+            // JSON string'i temizle
+            let cleanedJSON = cleanJSONString(jsonString)
+            print("Cleaned JSON: \(cleanedJSON)") // Debug için
+            
+            guard let jsonData = cleanedJSON.data(using: .utf8) else {
+                throw NSError(domain: "JSONParsingError", code: -1,
+                             userInfo: [NSLocalizedDescriptionKey: "Invalid JSON string encoding"])
+            }
+            
+            do {
+                // JSON parsing options'a fragment'ı ekle
+                let options = JSONSerialization.ReadingOptions.fragmentsAllowed
+                
+                guard let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: options) as? [String: Any] else {
+                    // Eğer dictionary olarak parse edilemezse, array olarak dene
+                    guard let jsonArray = try JSONSerialization.jsonObject(with: jsonData, options: options) as? [[String: Any]] else {
+                        throw NSError(domain: "JSONParsingError", code: -2,
+                                    userInfo: [NSLocalizedDescriptionKey: "Cannot parse JSON"])
+                    }
+                    
+                    // Array ise her bir elementi ekle
+                    for item in jsonArray {
+                        try await db.collection(collection).addDocument(data: item)
+                    }
+                    return
+                }
+                
+                // Tek bir object ise direkt ekle
+                try await db.collection(collection).addDocument(data: jsonObject)
+                print("JSON data successfully imported to Firestore")
+                
+            } catch {
+                print("Error parsing JSON: \(error)")
+                print("Original JSON string: \(jsonString)") // Debug için
+                throw error
+            }
+        }
+    
+    
 }

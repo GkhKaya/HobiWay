@@ -1,3 +1,4 @@
+
 //
 //  CreateHobbyView.swift
 //  HobiWay
@@ -12,7 +13,7 @@ struct CreateHobbyView: View {
     @State private var caseCounter: Int = 0
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-    
+    @State private var output: String = ""
     
     var body: some View {
         ZStack {
@@ -34,10 +35,8 @@ struct CreateHobbyView: View {
                                     caseCounter += 1
                                 }
                             }else{
-                                
-                                self.errorMessage = vm.errorMessage 
+                                self.errorMessage = vm.errorMessage
                             }
-                           
                         }, title: LocalKeys.General.next.rawValue.locale())
                     }
                     .padding()
@@ -55,7 +54,7 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.lowBudget.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.lowBudgetDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.lowBudget.rawValue,
-                                    isSelected: .constant( vm.selectedBudget == "low"),
+                                    isSelected: .constant(vm.selectedBudget == "low"),
                                     action: {
                                         vm.selectedBudget = "low"
                                     }
@@ -66,7 +65,7 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.mediumBudget.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.mediumBudgetDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.mediumBudget.rawValue,
-                                    isSelected: .constant( vm.selectedBudget == "medium"),
+                                    isSelected: .constant(vm.selectedBudget == "medium"),
                                     action: {
                                         vm.selectedBudget = "medium"
                                     }
@@ -77,14 +76,14 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.highBudget.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.highBudgetDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.highBudget.rawValue,
-                                    isSelected: .constant( vm.selectedBudget == "high"),
+                                    isSelected: .constant(vm.selectedBudget == "high"),
                                     action: {
                                         vm.selectedBudget = "high"
                                     }
                                 )
                             }
                             .padding(.top, ProjectPaddings.huge.rawValue)
-                                
+                            
                             ButtonWithBg(action: {
                                 vm.validateInputs(step: caseCounter)
                                 if (!vm.showError) {
@@ -92,7 +91,6 @@ struct CreateHobbyView: View {
                                         caseCounter += 1
                                     }
                                 }else{
-                                    
                                     self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
@@ -119,8 +117,6 @@ struct CreateHobbyView: View {
                                 Button {
                                     vm.selectedLanguage = "tr"
                                 }label: {
-                                    
-                                    
                                     ZStack {
                                         RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
                                             .frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
@@ -129,16 +125,12 @@ struct CreateHobbyView: View {
                                         Text("TR")
                                             .foregroundStyle(.winterHaven)
                                             .modifier(Px16Bold())
-                                        
-                                    }.frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
-                                        .foregroundStyle(.safetyOrange)
+                                    }
                                 }
                                 
                                 Button {
                                     vm.selectedLanguage = "eng"
                                 }label: {
-                                    
-                                    
                                     ZStack {
                                         RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
                                             .frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
@@ -147,10 +139,7 @@ struct CreateHobbyView: View {
                                         Text("ENG")
                                             .foregroundStyle(.winterHaven)
                                             .modifier(Px16Bold())
-                                        
-                                        
-                                    }.frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
-                                        .foregroundStyle(.safetyOrange)
+                                    }
                                 }
                             }
                             
@@ -161,12 +150,9 @@ struct CreateHobbyView: View {
                                         caseCounter += 1
                                     }
                                 }else{
-                                    
                                     self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
-                            
-                            
                         }
                         .padding()
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -175,7 +161,6 @@ struct CreateHobbyView: View {
                 case 3:
                     GeometryReader{geometry in
                         VStack(alignment:.center) {
-                            
                             HStack {
                                 Spacer()
                                 Text(LocalKeys.CreateHobbyCardView.selectLevel.rawValue.locale())
@@ -189,7 +174,7 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.beginnerLevel.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.beginnerLevelDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.beginnerLevel.rawValue,
-                                    isSelected: .constant( vm.selectedLevel == "beginner"),
+                                    isSelected: .constant(vm.selectedLevel == "beginner"),
                                     action: {
                                         vm.selectedLevel = "beginner"
                                     }
@@ -200,9 +185,9 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.intermediateLevel.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.intermediateLevelDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.mediumLevel.rawValue,
-                                    isSelected: .constant( vm.selectedLevel == "intermedite"),
+                                    isSelected: .constant(vm.selectedLevel == "intermediate"),
                                     action: {
-                                        vm.selectedLevel = "intermedite"
+                                        vm.selectedLevel = "intermediate"
                                     }
                                 )
                                 
@@ -211,9 +196,9 @@ struct CreateHobbyView: View {
                                     title: LocalKeys.CreateHobbyCardView.advancedLevel.rawValue.locale(),
                                     description: LocalKeys.CreateHobbyCardView.advancedLevelDesc.rawValue.locale(),
                                     imageName: ProjectImages.CreateHobbyViewImages.highLevel.rawValue,
-                                    isSelected: .constant( vm.selectedLevel == "advenced"),
+                                    isSelected: .constant(vm.selectedLevel == "advanced"),
                                     action: {
-                                        vm.selectedLevel = "advenced"
+                                        vm.selectedLevel = "advanced"
                                     }
                                 )
                             }.padding(.top,ProjectPaddings.large.rawValue)
@@ -225,19 +210,13 @@ struct CreateHobbyView: View {
                                         caseCounter += 1
                                     }
                                 }else{
-                                    
                                     self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
                             
-                            
                             Spacer()
-                            
-                            
                         }.padding()
                             .transition(.move(edge: .trailing).combined(with: .opacity))
-                        
-                        
                     }
                 case 4:
                     GeometryReader{geometry in
@@ -248,19 +227,36 @@ struct CreateHobbyView: View {
                                     .modifier(Px18Bold())
                                     .multilineTextAlignment(.center)
                                 Spacer()
-                                
                             }
                             
                             VStack(spacing:ProjectPaddings.normal.rawValue){
-                                CreateHobbyViewsCard(geometry: geometry, title: LocalKeys.CreateHobbyCardView.minute15.rawValue.locale(), description: LocalKeys.CreateHobbyCardView.minute15Desc.rawValue.locale(), imageName: ProjectImages.CreateHobbyViewImages.minute15.rawValue, isSelected: .constant(vm.selectedMunite == 15)) {
+                                CreateHobbyViewsCard(
+                                    geometry: geometry,
+                                    title: LocalKeys.CreateHobbyCardView.minute15.rawValue.locale(),
+                                    description: LocalKeys.CreateHobbyCardView.minute15Desc.rawValue.locale(),
+                                    imageName: ProjectImages.CreateHobbyViewImages.minute15.rawValue,
+                                    isSelected: .constant(vm.selectedMunite == 15)
+                                ) {
                                     vm.selectedMunite = 15
                                 }
                                 
-                                CreateHobbyViewsCard(geometry: geometry, title: LocalKeys.CreateHobbyCardView.minute30.rawValue.locale(), description: LocalKeys.CreateHobbyCardView.minute30Desc.rawValue.locale(), imageName: ProjectImages.CreateHobbyViewImages.minute30.rawValue, isSelected: .constant( vm.selectedMunite == 30)) {
+                                CreateHobbyViewsCard(
+                                    geometry: geometry,
+                                    title: LocalKeys.CreateHobbyCardView.minute30.rawValue.locale(),
+                                    description: LocalKeys.CreateHobbyCardView.minute30Desc.rawValue.locale(),
+                                    imageName: ProjectImages.CreateHobbyViewImages.minute30.rawValue,
+                                    isSelected: .constant(vm.selectedMunite == 30)
+                                ) {
                                     vm.selectedMunite = 30
                                 }
                                 
-                                CreateHobbyViewsCard(geometry: geometry, title: LocalKeys.CreateHobbyCardView.minute60.rawValue.locale(), description: LocalKeys.CreateHobbyCardView.minute60Desc.rawValue.locale(), imageName: ProjectImages.CreateHobbyViewImages.minute60.rawValue, isSelected: .constant( vm.selectedMunite == 60)) {
+                                CreateHobbyViewsCard(
+                                    geometry: geometry,
+                                    title: LocalKeys.CreateHobbyCardView.minute60.rawValue.locale(),
+                                    description: LocalKeys.CreateHobbyCardView.minute60Desc.rawValue.locale(),
+                                    imageName: ProjectImages.CreateHobbyViewImages.minute60.rawValue,
+                                    isSelected: .constant(vm.selectedMunite == 60)
+                                ) {
                                     vm.selectedMunite = 60
                                 }
                             }.padding(.top,ProjectPaddings.huge.rawValue)
@@ -272,63 +268,120 @@ struct CreateHobbyView: View {
                                         caseCounter += 1
                                     }
                                 }else{
-                                    
                                     self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
-                            
                             
                             Spacer()
                         }.padding()
                             .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
                 case 5:
-                    GeometryReader{geometry in
-                        VStack{
-                            HStack{
+                    GeometryReader { geometry in
+                        VStack {
+                            HStack {
                                 Spacer()
-                                Text("Why want you learning this hobby. Explain shotrtly")
+                                Text("Why want you learning this hobby. Explain shortly")
                                     .modifier(Px18Bold())
                                     .multilineTextAlignment(.center)
                                 Spacer()
                             }
                             
-                            
-                            TextEditor(text: $vm.explaneWhyText)
+                            TextEditor(text: $vm.explainWhyText)
                                 .frame(height: geometry.dh(height: 0.3))
                                 .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                                .padding(.top,ProjectPaddings.huge.rawValue)
-                            
+                                .padding(.top, ProjectPaddings.huge.rawValue)
                             
                             ButtonWithBg(action: {
                                 vm.validateInputs(step: caseCounter)
-                                
-                                if(!vm.showError){
-                                    withAnimation(.easeInOut(duration: 0.5)) {
-                                        Task{
-                                            vm.createPrompt()
+                                if !vm.showError {
+                                    Task {
+                                        await vm.createHobbyPlan()
+                                        if !vm.showError {
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                                NotificationCenter.default.post(name: Notification.Name("NavigateToHome"), object: nil)
+                                                            }
                                         }
-                                        caseCounter += 1
                                     }
-                                }else{
+                                } else {
                                     self.errorMessage = vm.errorMessage
                                 }
-                               
                             }, title: LocalKeys.General.finish.rawValue.locale())
-                        }.padding()
+                            
+                            Spacer()
+                        }
+                        .padding()
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
                     }
                 default:
-                    VStack{
-                        Text(vm.prompt ?? "fgf")
+                    VStack {
+                        Text("Hobby Creation Completed!")
+                            .modifier(Px18Bold())
+                            .padding(.top, ProjectPaddings.huge.rawValue)
+                        
+                        ButtonWithBg(action: {
+                            // Implement your success action here
+                        }, title: "Go to Dashboard")
                     }
+                    .padding()
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
             }
-            .animation(.easeInOut(duration: 0.5), value: caseCounter)
-        }.alert(isPresented:$vm.showError){
-            Alert(title: Text("Error"),message: Text(vm.errorMessage),dismissButton: .default(Text("Ok")))
+            
+            // Add loading overlay
+            if vm.progress {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                    
+                    VStack(spacing: 20) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(1.5)
+                        
+                        Text("Generating your hobby plan...")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    }
+                    .padding(30)
+                    .background(
+                        RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
+                            .fill(Color.libertyBlue.opacity(0.8))
+                    )
+                }
+                .transition(.opacity)
+            }
+            
+            // Error handling
+            if showError {
+                VStack {
+                    Spacer()
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                        .background(Color.white.opacity(0.8))
+                    
+                        .cornerRadius(8)
+                        .shadow(radius: 10)
+                    Spacer()
+                }
+                .transition(.opacity)
+                .animation(.easeInOut, value: showError)
+            }
+        }
+        .onChange(of: vm.showError) { newValue in
+            showError = newValue
         }
     }
 }
+
+struct CreateHobbyView_Previews: PreviewProvider {
+    static var previews: some View {
+        CreateHobbyView()
+    }
+}
+
 struct CreateHobbyViewsCard: View {
     var geometry: GeometryProxy
     var title: LocalizedStringKey
@@ -372,4 +425,3 @@ struct CreateHobbyViewsCard: View {
 #Preview {
     CreateHobbyView()
 }
-

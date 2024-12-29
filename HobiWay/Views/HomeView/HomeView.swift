@@ -35,7 +35,7 @@ struct HomeView: View {
                             }label: {
                                 Image(systemName: "bell")
                                     .resizable()
-                                    .frame(width: geometry.dw(width: 0.07),height: geometry.dh(height: 0.035))
+                                    .frame(width: geometry.dw(width: 0.07),height: geometry.dh(height: 0.039))
                                     .foregroundStyle(.libertyBlue)
                             }
                                 

@@ -186,6 +186,7 @@ struct TextFieldWidget: View {
                 TextField("", text: $text)
                     .foregroundColor(.winterHaven)
                     .focused($isFieldFocused)
+                    .textInputAutocapitalization(.never)
                     .onTapGesture {
                         withAnimation {
                             isFocused = true
@@ -235,9 +236,12 @@ struct SecureFieldWidget: View {
                 
                 // SecureField veya TextField
                 if isPasswordVisible {
-                    TextField("", text: $text) // Eğer şifre görünürse TextField kullan
+                    TextField("", text: $text)
+                    // Eğer şifre görünürse TextField kullan
                         .foregroundColor(.winterHaven)
                         .focused($isFieldFocused) // Odağı ayarlamak için kullanılıyor
+                        .textInputAutocapitalization(.never)
+
                         .onTapGesture {
                             withAnimation {
                                 isFocused = true

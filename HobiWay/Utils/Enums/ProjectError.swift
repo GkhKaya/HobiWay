@@ -62,6 +62,7 @@ enum AppErrorCode: Error {
     case invalidInput(description: String)
     case networkError
     case unknownError
+
     
     var localizedDescription: String {
         switch self {
@@ -73,6 +74,29 @@ enum AppErrorCode: Error {
             return "A network error occurred. Please try again later."
         case .unknownError:
             return "An unknown error occurred. Please contact support."
+        }
+    }
+}
+
+enum APIError: LocalizedError {
+    case requestFailed
+    case invalidResponse
+    case decodingError
+    case unknownError
+    case custom(message: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .requestFailed:
+            return "The request failed. Please try again."
+        case .invalidResponse:
+            return "The server returned an invalid response."
+        case .decodingError:
+            return "Failed to decode the server's response."
+        case .unknownError:
+            return "An unknown error occurred while processing the request."
+        case .custom(let message):
+            return message
         }
     }
 }

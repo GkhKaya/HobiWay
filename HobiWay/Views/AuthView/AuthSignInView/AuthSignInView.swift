@@ -180,7 +180,7 @@ struct AuthSignInView: View {
                 }.padding()
                     
                     .navigationDestination(isPresented: $vm.openhomeView) {
-                        HomeView().navigationBarBackButtonHidden()
+                        TabBarView().navigationBarBackButtonHidden()
                     }
             }
             .navigationTitle(LocalKeys.Auth.welcomeBack.rawValue.locale())

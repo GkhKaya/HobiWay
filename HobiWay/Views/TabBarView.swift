@@ -8,32 +8,44 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @State private var selectedTab: Int = 0
+    
     var body: some View {
-        TabView(){
+        TabView(selection: $selectedTab){
             HomeView()
                 .tabItem{
                     Image(systemName: "house")
                 }
+                .tag(0)
             ContentView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
-            ContentView()
+                .tag(1)
+            CreateHobbyView()
                 .tabItem {
                     Image(systemName: "plus.app")
                 }
+                .tag(2)
             ContentView()
                 .tabItem {
                     Image(systemName: "heart")
                 }
+                .tag(3)
             ContentView()
                 .tabItem {
                     Image(systemName: "gear")
                 }
-        }.tint(.libertyBlue)
+                .tag(4)
+        }
+        .tint(.libertyBlue)
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToHome"))) { _ in
+            withAnimation {
+                selectedTab = 0
+            }
+        }
     }
 }
-
 #Preview {
     TabBarView()
 }
