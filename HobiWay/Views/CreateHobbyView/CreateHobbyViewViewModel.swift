@@ -16,7 +16,7 @@ final class CreateHobbyViewViewModel: ObservableObject {
     @Published var selectedMunite: Int? = nil
     @Published var explainWhyText: String = ""
     @Published var prompt: String = ""
-    @Published var errorMessage: String = ""
+    @Published var errorMessage: LocalizedStringKey?
     @Published var showError: Bool = false
     @Published var progress: Bool = false
     
@@ -27,39 +27,40 @@ final class CreateHobbyViewViewModel: ObservableObject {
         switch step {
         case 0:
             if hobbyName.isEmpty {
-                setError("Hobby Name is required.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.hobbyNameRequired.rawValue.locale()
             }
         case 1:
             if selectedBudget == nil {
-                setError("Budget is required.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.budgetRequired.rawValue.locale()
             }
         case 2:
             if selectedLanguage.isEmpty {
-                setError("Language is required.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.languageRequired.rawValue.locale()
             }
         case 3:
             if selectedLevel == nil {
-                setError("Level is required.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.levelRequired.rawValue.locale()
             }
         case 4:
             if selectedMunite == nil || selectedMunite! % 5 != 0 {
-                setError("Minutes must be a multiple of 5.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.muniteRequired.rawValue.locale()
             }
         case 5:
             if explainWhyText.isEmpty {
-                setError("Reason is required.")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.resonRequired.rawValue.locale()
             }
         default:
             break
         }
     }
     
-    private func setError(_ message: String) {
-        DispatchQueue.main.async {
-            self.errorMessage = message
-            self.showError = true
-        }
-    }
+ 
     
     func createPrompt() {
         guard !hobbyName.isEmpty,
@@ -68,7 +69,8 @@ final class CreateHobbyViewViewModel: ObservableObject {
               let level = selectedLevel, !level.isEmpty,
               let munite = selectedMunite, munite % 5 == 0,
               !explainWhyText.isEmpty else {
-            setError("Please fill all required fields correctly.")
+            showError = true
+            errorMessage = LocalKeys.CreateHobbyViewErrorCode.pleaseFillAllRequiredFieldsCorrectly.rawValue.locale()
             return
         }
         
@@ -105,7 +107,8 @@ final class CreateHobbyViewViewModel: ObservableObject {
             
             // Gemini'den gelen sonucu kontrol et
             if geminiManager.result.isEmpty {
-                setError("Failed to generate hobby plan")
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
                 self.progress = false
                 return false
                 
@@ -120,7 +123,8 @@ final class CreateHobbyViewViewModel: ObservableObject {
             // JSON'ı parse et
             guard let jsonData = cleanedJSON.data(using: .utf8),
                   var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .fragmentsAllowed) as? [String: Any] else {
-                setError("Invalid JSON format")
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
+                self.progress = false
                 self.progress = false
                 return false
             }
@@ -140,7 +144,7 @@ final class CreateHobbyViewViewModel: ObservableObject {
             let userRef = firestoreService.db.collection("users").document(userId)
                    let userSnapshot = try await userRef.getDocument()
                    
-                   if userSnapshot.exists, var userData = userSnapshot.data() {
+            if userSnapshot.exists, let userData = userSnapshot.data() {
                        // Eğer 'hobbies' dizisi varsa, yeni hobbyId'yi ekleyin
                        var hobbies = userData["hobbies"] as? [String] ?? [String]()
                        hobbies.append(documentId)  // Yeni hobbyId'yi ekle
@@ -158,7 +162,7 @@ final class CreateHobbyViewViewModel: ObservableObject {
             
             
         } catch {
-            setError(APIError.requestFailed.errorDescription ?? error.localizedDescription)
+            
             return false
         }
     }

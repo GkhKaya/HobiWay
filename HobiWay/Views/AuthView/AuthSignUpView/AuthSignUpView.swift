@@ -11,8 +11,6 @@ struct AuthSignUpView: View {
     @ObservedObject private var vm = AuthSignUpViewViewModel()
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
-    @State private var showAlert: Bool = false
-    @State private var alertMessage: String = ""
     @State private var navigateToSignIn: Bool = false // Navigate state
 
     
@@ -49,13 +47,8 @@ struct AuthSignUpView: View {
                     // MARK: - Sign Up Button
                     Button{
                         Task{
-                            do {
                                 try await vm.signUp()
-                                alertMessage = "Successfully signed up!"
-                            } catch {
-                                alertMessage = (error as? AuthError)?.localizedDescription ?? "An unknown error occurred."
-                            }
-                            showAlert = true
+            
                         }
                     }label:{
                         Text(LocalKeys.Auth.signUp.rawValue.locale())
@@ -145,10 +138,10 @@ struct AuthSignUpView: View {
                     Spacer()
                 }.padding()
             }.navigationTitle(LocalKeys.Auth.joinUs.rawValue.locale())
-            .alert(isPresented: $showAlert) { // Alert gösterme
-                Alert(title: Text("Sign Up"),
-                      message: Text(alertMessage),
-                      dismissButton: .default(Text("OK")) {
+                .alert(isPresented: $vm.showAlert) { // Alert gösterme
+                Alert(title: Text(LocalKeys.Auth.signUp.rawValue.locale()),
+                      message: Text(vm.errorMessage),
+                      dismissButton: .default(Text(LocalKeys.General.okay.rawValue.locale())) {
                                               navigateToSignIn = true // Set navigation to true when alert is dismissed
                                           })
                 }

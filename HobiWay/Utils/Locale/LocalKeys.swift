@@ -25,6 +25,8 @@ struct LocalKeys{
         case man = "man"
         case woman = "woman"
         case other = "other"
+        case tr = "tr"
+        case eng = "eng"
     }
     
     enum HomeView : String{
@@ -51,6 +53,7 @@ struct LocalKeys{
         case ifYouDontHaveAnAccount = "ifYouDontHaveAnAccount"
         case ifYouHaveAnAccount = "ifYouHaveAnAccount"
         case pleaseEnterEmail = "pleaseEnterEmail"
+        case successfullySignedUp = "successfullySignedUp"
     }
     
     enum InformationView : String{
@@ -62,6 +65,7 @@ struct LocalKeys{
         case nextIsYourpPhoneNumber = "nextIsYourpPhoneNumber"
         case finallyTellUsALittleAboutYourself = "finallyTellUsALittleAboutYourself"
         case pleaseSelectYouInterest = "pleaseSelectYouInterest"
+        case selectCountryCode = "selectCountryCode"
     }
     
     enum InformationViewError : String{
@@ -96,9 +100,41 @@ struct LocalKeys{
         case minute30Desc = "minute30Desc"
         case minute60 = "minute60"
         case minute60Desc = "minute60Desc"
+        case explainWhyTexty = "explainWhyText"
+        case generatingPlan = "generatingPlan"
+        
     
     }
     
+    
+    
+    
+    enum GeneralError: String{
+        case unknow = "unknow"
+        
+    }
+    
+    enum AuthErrorCode: String{
+        case userNotFound = "userNotFound"
+        case emailAlreadyInUse = "emailAlreadyInUse"
+        case weakPassword = "weakPassword"
+        case invalidMail = "invailEmail"
+        case authFieldsEmpty = "authFieldsEmpty"
+        case signInFailed = "signInFailed"
+        case passwordResetFailed = "passwordResetFailed"
+    }
+    
+    enum CreateHobbyViewErrorCode: String{
+        case hobbyNameRequired = "hobbyNameRequired"
+        case budgetRequired = "budgetRequired"
+        case languageRequired = "languageRequired"
+        case levelRequired = "levelRequired"
+        case resonRequired = "resonRequired"
+        case muniteRequired = "muniteRequired"
+        case pleaseFillAllRequiredFieldsCorrectly = "pleaseFillAllRequiredFieldsCorrectly"
+        case failedToGenerateHobbyPlan = "failedToGenerateHobbyPlan"
+        case createHobbyError = "createHobbyError"
+    }
     
     
 }

@@ -4,7 +4,7 @@
 //
 //  Created by Gokhan Kaya on 10.10.2024.
 //
-
+import SwiftUI
 import Foundation
 
 enum AuthError: LocalizedError {
@@ -21,20 +21,19 @@ enum AuthError: LocalizedError {
     case passwordResetFailed
     case emailVerificationFailed
     case signInFailed
-    case custom(message: String)
     
-    var errorDescription: String? {
+    var errorDescription: LocalizedStringKey? {
         switch self {
         case .unknown:
-            return "An unknown error occurred. Please try again."
+            return LocalKeys.GeneralError.unknow.rawValue.locale()
         case .userNotFound:
-            return "No account found for the provided credentials."
+            return LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
         case .wrongPassword:
             return "The password entered is incorrect."
         case .emailAlreadyInUse:
             return "The email address is already in use by another account."
         case .invalidEmail:
-            return "The email address is not valid."
+            return "The email address is not valid.f"
         case .weakPassword:
             return "The password must be at least 6 characters long."
         case .userDisabled:
@@ -49,54 +48,53 @@ enum AuthError: LocalizedError {
             return "Failed to send email verification."
         case .signInFailed:
             return "Failed to sign in. Please check your credentials."
-        case .custom(let message):
-            return message
+            
+        }
+        
+        
+    }
+    
+    enum AppErrorCode: Error {
+        case emptyField(fieldName: String)
+        case invalidInput(description: String)
+        case networkError
+        case unknownError
+        
+        
+        var localizedDescription: String {
+            switch self {
+            case .emptyField(let fieldName):
+                return "\(fieldName) field cannot be empty."
+            case .invalidInput(let description):
+                return "Invalid input: \(description)"
+            case .networkError:
+                return "A network error occurred. Please try again later."
+            case .unknownError:
+                return "An unknown error occurred. Please contact support."
+            }
         }
     }
     
-    
-}
-
-enum AppErrorCode: Error {
-    case emptyField(fieldName: String)
-    case invalidInput(description: String)
-    case networkError
-    case unknownError
-
-    
-    var localizedDescription: String {
-        switch self {
-        case .emptyField(let fieldName):
-            return "\(fieldName) field cannot be empty."
-        case .invalidInput(let description):
-            return "Invalid input: \(description)"
-        case .networkError:
-            return "A network error occurred. Please try again later."
-        case .unknownError:
-            return "An unknown error occurred. Please contact support."
-        }
-    }
-}
-
-enum APIError: LocalizedError {
-    case requestFailed
-    case invalidResponse
-    case decodingError
-    case unknownError
-    case custom(message: String)
-    
-    var errorDescription: String? {
-        switch self {
-        case .requestFailed:
-            return "The request failed. Please try again."
-        case .invalidResponse:
-            return "The server returned an invalid response."
-        case .decodingError:
-            return "Failed to decode the server's response."
-        case .unknownError:
-            return "An unknown error occurred while processing the request."
-        case .custom(let message):
-            return message
+    enum APIError: LocalizedError {
+        case requestFailed
+        case invalidResponse
+        case decodingError
+        case unknownError
+        case custom(message: String)
+        
+        var errorDescription: String? {
+            switch self {
+            case .requestFailed:
+                return "The request failed. Please try again."
+            case .invalidResponse:
+                return "The server returned an invalid response."
+            case .decodingError:
+                return "Failed to decode the server's response."
+            case .unknownError:
+                return "An unknown error occurred while processing the request."
+            case .custom(let message):
+                return message
+            }
         }
     }
 }

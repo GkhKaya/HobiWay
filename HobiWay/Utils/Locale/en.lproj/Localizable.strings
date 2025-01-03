@@ -22,6 +22,8 @@
 "man" = "Man";
 "woman" = "Woman";
 "other" = "Other";
+"tr" = "TR";
+"eng" = "ENG";
 
 //Auth
 "hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
@@ -41,6 +43,8 @@
 "signInWithGoogle" = "Sign In With Google";
 "ifYouDontHaveAnAccount" = "If you dont have an account";
 "ifYouHaveAnAccount" = "If you have an account";
+"successfullySignedUp" = "Successfully signed up!";
+
 
 //Home View
 "theBestAppForLearnDreamHooby" = "The Best App For Learn Dream Hooby";
@@ -60,6 +64,8 @@
 "nextIsYourpPhoneNumber" = "Next Is Your Phone Number";
 "finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
 "pleaseSelectYouInterest" = "Please select your interest.";
+"selectCountryCode" = "Select Country Code";
+
 
 
 
@@ -96,10 +102,38 @@
 "minute30Desc" = "Half an hour a day can do wonders";
 "minute60" = "60 Minute";
 "minute60Desc" = "If you're serious about this, choose this one.";
+"explainWhyText"= "Why want you learning this hobby. Explain shortly";
+"generatingPlan"="Generating your hobby plan...";
 
 
 
 
+//Error Message
+
+//General Error Message
+"unknow" = "An unknown error occurred. Please try again.";
+
+//Auth Error Message
+"userNotFound" = "No account found for the provided credentials." ;
+"emailAlreadyInUse" = "The email address is already in use by another account.";
+"weakPassword" ="Password must meet the following requirements: at least one uppercase letter, at least one lowercase letter, \
+at least one numeric digit, and at least one special character (e.g., !@#$%^&*).";
+"invailEmail" = "The email address is not valid.";
+"authFieldsEmpty" = "Fields can not be empty.";
+"signInFailed" = "Failed to sign in. Please check your credentials.";
+"passwordResetFailed" = "Failed to send password reset email.";
+
+
+//Create Hobby View Error Message
+"hobbyNameRequired" = "Hobby Name is required.";
+"budgetRequired" = "Budget is required.";
+"languageRequired" = "Language is required.";
+"levelRequired" = "Level is required.";
+"resonRequired" = "Reason is required.";
+"muniteRequired" = "Munite is required.";
+"pleaseFillAllRequiredFieldsCorrectly" = "Please fill all required fields correctly";
+"failedToGenerateHobbyPlan" = "Failed to generate hobby plan";
+"createHobbyError" = "Creating Hobby Error";
 
 
 

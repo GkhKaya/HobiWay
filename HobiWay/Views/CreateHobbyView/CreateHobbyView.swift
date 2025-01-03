@@ -11,8 +11,7 @@ import SwiftUI
 struct CreateHobbyView: View {
     @ObservedObject private var vm = CreateHobbyViewViewModel()
     @State private var caseCounter: Int = 0
-    @State private var showError: Bool = false
-    @State private var errorMessage: String = ""
+    
     @State private var output: String = ""
     
     var body: some View {
@@ -34,8 +33,6 @@ struct CreateHobbyView: View {
                                 withAnimation(.easeInOut(duration: 0.5)) {
                                     caseCounter += 1
                                 }
-                            }else{
-                                self.errorMessage = vm.errorMessage
                             }
                         }, title: LocalKeys.General.next.rawValue.locale())
                     }
@@ -90,8 +87,6 @@ struct CreateHobbyView: View {
                                     withAnimation(.easeInOut(duration: 0.5)) {
                                         caseCounter += 1
                                     }
-                                }else{
-                                    self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
                         }
@@ -122,7 +117,7 @@ struct CreateHobbyView: View {
                                             .frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
                                             .foregroundStyle(vm.selectedLanguage == "tr" ? Color.safetyOrange: .libertyBlue)
                                         
-                                        Text("TR")
+                                        Text(LocalKeys.General.tr.rawValue.locale())
                                             .foregroundStyle(.winterHaven)
                                             .modifier(Px16Bold())
                                     }
@@ -136,7 +131,7 @@ struct CreateHobbyView: View {
                                             .frame(width: geometry.dw(width: 0.3),height: geometry.dh(height: 0.1))
                                             .foregroundStyle(vm.selectedLanguage == "eng" ? Color.safetyOrange: .libertyBlue)
                                         
-                                        Text("ENG")
+                                        Text(LocalKeys.General.eng.rawValue.locale())
                                             .foregroundStyle(.winterHaven)
                                             .modifier(Px16Bold())
                                     }
@@ -149,8 +144,6 @@ struct CreateHobbyView: View {
                                     withAnimation(.easeInOut(duration: 0.5)) {
                                         caseCounter += 1
                                     }
-                                }else{
-                                    self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
                         }
@@ -209,8 +202,6 @@ struct CreateHobbyView: View {
                                     withAnimation(.easeInOut(duration: 0.5)) {
                                         caseCounter += 1
                                     }
-                                }else{
-                                    self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
                             
@@ -267,8 +258,6 @@ struct CreateHobbyView: View {
                                     withAnimation(.easeInOut(duration: 0.5)) {
                                         caseCounter += 1
                                     }
-                                }else{
-                                    self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.next.rawValue.locale())
                             
@@ -281,7 +270,7 @@ struct CreateHobbyView: View {
                         VStack {
                             HStack {
                                 Spacer()
-                                Text("Why want you learning this hobby. Explain shortly")
+                                Text(LocalKeys.CreateHobbyCardView.explainWhyTexty.rawValue.locale())
                                     .modifier(Px18Bold())
                                     .multilineTextAlignment(.center)
                                 Spacer()
@@ -300,12 +289,10 @@ struct CreateHobbyView: View {
                                         if !vm.showError {
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                                NotificationCenter.default.post(name: Notification.Name("NavigateToHome"), object: nil)
-                                                            }
+                                                NotificationCenter.default.post(name: Notification.Name("NavigateToHome"), object: nil)
+                                            }
                                         }
                                     }
-                                } else {
-                                    self.errorMessage = vm.errorMessage
                                 }
                             }, title: LocalKeys.General.finish.rawValue.locale())
                             
@@ -327,9 +314,9 @@ struct CreateHobbyView: View {
                     .padding()
                     .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
+            }.alert(isPresented: $vm.showError) {
+                Alert(title: Text(LocalKeys.CreateHobbyViewErrorCode.createHobbyError.rawValue.locale()), message: Text(vm.errorMessage ?? ""), dismissButton: .default(Text(LocalKeys.General.okay.rawValue.locale())))
             }
-            
-            // Add loading overlay
             if vm.progress {
                 ZStack {
                     Color.black.opacity(0.4)
@@ -340,7 +327,7 @@ struct CreateHobbyView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(1.5)
                         
-                        Text("Generating your hobby plan...")
+                        Text("")
                             .foregroundColor(.white)
                             .font(.headline)
                     }
@@ -352,29 +339,16 @@ struct CreateHobbyView: View {
                 }
                 .transition(.opacity)
             }
-            
-            // Error handling
-            if showError {
-                VStack {
-                    Spacer()
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .padding()
-                        .background(Color.white.opacity(0.8))
-                    
-                        .cornerRadius(8)
-                        .shadow(radius: 10)
-                    Spacer()
-                }
-                .transition(.opacity)
-                .animation(.easeInOut, value: showError)
-            }
         }
-        .onChange(of: vm.showError) { newValue in
-            showError = newValue
-        }
+        
+        // Add loading overlay
+        
+        
+        
     }
+       
 }
+
 
 struct CreateHobbyView_Previews: PreviewProvider {
     static var previews: some View {

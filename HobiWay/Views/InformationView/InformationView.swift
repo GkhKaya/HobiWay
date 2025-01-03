@@ -216,7 +216,7 @@ struct InformationView: View {
                             .multilineTextAlignment(.center)
                         
                         PhoneNumberTextField(
-                            title: "Telefon Numarası",
+                            title: LocalKeys.General.phoneNumber.rawValue.locale(),
                             text: $phoneNumber,
                             selectedCountryCode: $selectedCountryCode
                         )
@@ -441,7 +441,7 @@ struct CountryCodePicker: View {
                     }
                 }
             }
-            .navigationTitle("Ülke Kodu Seç")
+            .navigationTitle(LocalKeys.InformationView.selectCountryCode.rawValue.locale())
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         }
     }

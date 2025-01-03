@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
+@MainActor
 final class AuthSignInViewViewModel : ObservableObject {
     @Published var email : String = ""
     @Published var password : String = ""
@@ -15,6 +17,10 @@ final class AuthSignInViewViewModel : ObservableObject {
     @Published var openInformationView = false
     @Published var openhomeView = false
     @Published  var isSignInSuccessful = false
+    @Published var errorMessage: LocalizedStringKey = ""
+    @Published var showAlert: Bool = false
+
+
     
     
     
@@ -22,11 +28,21 @@ final class AuthSignInViewViewModel : ObservableObject {
     
     func signIn() async throws{
         guard ValidationHelper.isNonEmpty(email),ValidationHelper.isNonEmpty(password) else{
-            throw AuthError.custom(message: "Email or Password is empty")
+            await MainActor.run {
+                self.errorMessage = LocalKeys.AuthErrorCode.authFieldsEmpty.rawValue.locale()
+                self.showAlert = true
+            }
+            throw AuthError.invalidEmail
         }
         
         guard ValidationHelper.isValidEmail(email) else {
-            throw AuthError.custom(message: "Email is not valid form.")
+            await MainActor.run {
+                self.errorMessage = LocalKeys.AuthErrorCode.invalidMail.rawValue.locale()
+                self.showAlert = true
+            }
+          
+            
+            throw AuthError.invalidEmail
         }
         
         if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
@@ -39,6 +55,10 @@ final class AuthSignInViewViewModel : ObservableObject {
                 }
                 
             }catch{
+                Task { @MainActor in
+                    self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
+                    self.showAlert = true
+                }
                 throw AuthError.userNotFound
             }
         }
@@ -56,6 +76,10 @@ final class AuthSignInViewViewModel : ObservableObject {
                 _ = try await authManager.signInWithGoogle(tokens: token)
             }
         }catch{
+            Task { @MainActor in
+                self.errorMessage = LocalKeys.AuthErrorCode.signInFailed.rawValue.locale()
+                self.showAlert = true
+            }
             throw AuthError.signInFailed
         }
         

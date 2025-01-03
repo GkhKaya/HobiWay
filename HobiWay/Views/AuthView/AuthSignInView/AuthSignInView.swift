@@ -13,9 +13,7 @@ struct AuthSignInView: View {
     @ObservedObject private var vm = AuthSignInViewViewModel()
     @State private var showForgotPasswordSheet: Bool = false
 
-    
-    @State private var showAlert = false
-    @State private var alertMessage = ""
+
     @State private var isSignInSuccessful = false
 
     
@@ -69,16 +67,12 @@ struct AuthSignInView: View {
                     // MARK: - Sign In Button
                     Button{
                         Task{
-                            do {
+                            
                                 try await vm.signIn()
                                 
                                 try await vm.openInformationViewFunc()
                                 
-                            } catch {
-                                // If an error occurs, show the alert with an error message
-                                alertMessage = error.localizedDescription
-                                showAlert = true
-                            }
+                            
                         }
                     }label:{
                         Text(LocalKeys.Auth.signIn.rawValue.locale())
@@ -91,8 +85,8 @@ struct AuthSignInView: View {
                     .background(.safetyOrange)
                     .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                     .padding(.top,ProjectPaddings.normal.rawValue)
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Sign In Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    .alert(isPresented: $vm.showAlert) {
+                        Alert(title: Text("Sign In Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
                     }
                     .navigationDestination(isPresented: $vm.openInformationView) {
                         InformationView().navigationBarBackButtonHidden()

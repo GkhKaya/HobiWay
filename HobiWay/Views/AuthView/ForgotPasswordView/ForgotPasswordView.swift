@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ForgotPasswordView: View {
     @ObservedObject private var vm = ForgotPasswordViewViewModel()
-    @State private var showAlert = false
-    @State private var alertMessage = ""
+
     @State private var allertSuccesMessage : LocalizedStringKey?
-    @State private var successAlert = false // Başarı durumu için yeni state
+    @State private var successAlert = false
     
     var body: some View {
         ZStack {
@@ -30,14 +29,11 @@ struct ForgotPasswordView: View {
                 
                 Button{
                     Task{
-                        do {
+               
                             try await vm.resetpAssword()
-                            alertMessage = LocalKeys.Auth.sendedMail.rawValue
+                        allertSuccesMessage = LocalKeys.Auth.sendedMail.rawValue.locale()
                             successAlert = true
-                        } catch {
-                            alertMessage = error.localizedDescription
-                            showAlert = true
-                        }
+                       
                     }
                 }label:{
                     Text(LocalKeys.Auth.forgotPassword.rawValue.locale())
@@ -49,11 +45,11 @@ struct ForgotPasswordView: View {
                 .background(.safetyOrange)
                 .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                 .padding(.top,ProjectPaddings.normal.rawValue)
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                .alert(isPresented: $vm.showAlert) {
+                    Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
                 }
-                .alert(isPresented: $successAlert) {
-                    Alert(title: Text("Success"), message: Text(alertMessage.locale()), dismissButton: .default(Text("OK")))
+                .alert(isPresented: $vm.successAlert) { 
+                    Alert(title: Text("Success"), message: Text(vm.allertSuccesMessage ?? ""), dismissButton: .default(Text("OK")))
                 }
             }.padding()
         }
