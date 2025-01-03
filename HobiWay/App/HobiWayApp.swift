@@ -35,7 +35,7 @@ struct HobiWayApp: App {
   
     var body: some Scene {
         WindowGroup {
-            CreateHobbyView()
+            MainRoot()
         }
     }
 }

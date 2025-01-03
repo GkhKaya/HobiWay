@@ -38,6 +38,7 @@ struct TabBarView: View {
                 }
                 .tag(4)
         }
+        .navigationBarBackButtonHidden()
         .tint(.libertyBlue)
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToHome"))) { _ in
             withAnimation {

@@ -83,6 +83,23 @@ final class CreateHobbyViewViewModel: ObservableObject {
         Time per day: \(self.selectedMunite ?? 0)
         Why do you want to learn this hobby? \(self.explainWhyText)
         Please output in JSON format.
+        
+         
+        json field have to be english. Value can be turkish or english
+        
+        Please output the result in JSON format with the following fields:
+            1.    hobby_name: The name of the hobby (e.g., Painting).
+            2.    budget: The estimated budget for learning this hobby.
+            3.    language: The language in which the plan is written.
+            4.    learning_motivation: The reason for learning this hobby, based on the provided input.
+            5.    learning_level: The starting level of the learner (e.g., Beginner, Intermediate, Advanced).
+            6.    plan: A detailed plan containing the following subfields:
+            •    phases: A list of phases for learning this hobby. Each phase must include:
+            •    duration: The expected time duration for the phase (e.g., “2 weeks”).
+            •    goals: A list of goals to achieve during this phase.
+            •    resources: A list of resources to be used (e.g., books, websites, tools).
+            •    description: A brief description of what this phase entails.
+        
         """
         print(self.prompt)
     }

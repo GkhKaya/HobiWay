@@ -55,7 +55,7 @@ struct HomeView: View {
                     
                    
                 }
-            }
+            }.navigationBarBackButtonHidden()
         }
     }
 }
