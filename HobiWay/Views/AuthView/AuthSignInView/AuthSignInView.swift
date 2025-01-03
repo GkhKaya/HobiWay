@@ -166,7 +166,7 @@ struct AuthSignInView: View {
                         }
                         
                     }.padding(.top,ProjectPaddings.large.rawValue)
-                        .navigationBarBackButtonHidden(true) // Varsayılan geri butonunu gizle
+                        .navigationBarBackButtonHidden(true) 
                         .navigationBarItems(leading: CustomBackButton(presentationMode: _presentationMode))
                     
                     

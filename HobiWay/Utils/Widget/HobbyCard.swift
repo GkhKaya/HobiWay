@@ -9,8 +9,9 @@ import SwiftUI
 
 struct CourseCardView: View {
     let courseTitle: String
-    
     let weekCount: Int
+    let language:String
+    let budget:String
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +24,7 @@ struct CourseCardView: View {
                     .padding()
                 Spacer()
             }
-            .background(Color.orange)
+            .background(Color.safetyOrange)
             
             // Content
             VStack {
@@ -40,9 +41,9 @@ struct CourseCardView: View {
                     Spacer()
                     
                     HStack(spacing: 4) {
-                        Image(systemName: "clock.fill")
+                        Image(systemName: "translate")
                             .foregroundColor(.gray)
-                        Text("\(weekCount) Weeks")
+                        Text("\(language)")
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
@@ -52,9 +53,9 @@ struct CourseCardView: View {
                 
                 HStack {
                     HStack(spacing: 4) {
-                        Image(systemName: "clock.fill")
+                        Image(systemName: "wallet.bifold.fill")
                             .foregroundColor(.gray)
-                        Text("\(weekCount) Weeks")
+                        Text("\(budget)")
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
@@ -80,5 +81,5 @@ struct CourseCardView: View {
 }
 
 #Preview {
-    CourseCardView(courseTitle: "sefa", weekCount: 2)
+    CourseCardView(courseTitle: "sefa", weekCount: 2, language:"tr",budget: "low")
 }
