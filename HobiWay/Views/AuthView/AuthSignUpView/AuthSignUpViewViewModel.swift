@@ -56,7 +56,8 @@ final class AuthSignUpViewViewModel: ObservableObject {
                     age: 0,
                     imageUrl: "",
                     createdAt: Date(),
-                    inroduceYourself: ""
+                    inroduceYourself: "",
+                    hobbies: []
                 )
 
                 if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {

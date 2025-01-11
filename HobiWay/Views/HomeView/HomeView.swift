@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State var isFirstSignIn: Bool = false
+    @ObservedObject private var vm = HomeViewViewModel()
     var body: some View {
         NavigationStack{
             GeometryReader{geometry in
@@ -52,7 +53,12 @@ struct HomeView: View {
                         
                         Spacer()
                     }.padding()
-                    
+                        .onAppear() {
+                            Task{
+                                try await vm.fetchUserAndMatchedHobbies()
+                               
+                            }
+                        }
                    
                 }
             }.navigationBarBackButtonHidden()

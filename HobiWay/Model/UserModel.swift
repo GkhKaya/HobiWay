@@ -19,6 +19,7 @@ struct UserModel: Codable,Identifiable {
     var imageUrl  : String
     var createdAt : Date
     var inroduceYourself : String
+    var hobbies : [String]
     
     
     enum CodingKeys : String, CodingKey {
@@ -32,5 +33,6 @@ struct UserModel: Codable,Identifiable {
         case imageUrl = "image_url"
         case createdAt = "created_at"
         case inroduceYourself = "inroduce_yourself"
+        case hobbies = "hobbies"
     }
 }
