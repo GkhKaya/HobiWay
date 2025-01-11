@@ -17,51 +17,63 @@ struct HomeView: View {
                 ZStack{
                     Color.winterHaven.ignoresSafeArea()
                     
-                    VStack{
-                        HStack {
-                            VStack {
-                                Text(LocalKeys.HomeView.welcomeBack.rawValue.locale())
-                                    .modifier(Px16Light())
+                    if vm.isLoading {
+                        VStack {
+                            ProgressView()
+                                .modifier(ProgressModifier())
+                        }
+                    } else {
+                        VStack{
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(LocalKeys.HomeView.welcomeBack.rawValue.locale())
+                                        .modifier(Px16Light())
+                                    
+                                    Text(vm.userData?.fullName ?? "")
+                                        .modifier(Px18Bold())
+                                }
                                 
-                                Text("Gökhan Kaya")
-                                    .modifier(Px18Bold())
-                            }
-                            
-                          
-                            Spacer()
+                                Spacer()
 
-                            
-                            Button {
                                 
-                            }label: {
-                                Image(systemName: "bell")
-                                    .resizable()
-                                    .frame(width: geometry.dw(width: 0.07),height: geometry.dh(height: 0.039))
-                                    .foregroundStyle(.libertyBlue)
-                            }
+                                Button {
+                                    
+                                }label: {
+                                    Image(systemName: "bell")
+                                        .resizable()
+                                        .frame(width: geometry.dw(width: 0.07),height: geometry.dh(height: 0.039))
+                                        .foregroundStyle(.libertyBlue)
+                                }
                                 
-                            
-                            
-                            
-                        }
-                        Spacer()
-                        
-                        Text(LocalKeys.HomeView.createYourFirstHobbyPlan.rawValue.locale())
-                            .modifier(Px24Bold())
-                   
-                        
-                        
-                        Spacer()
-                    }.padding()
-                        .onAppear() {
-                            Task{
-                                try await vm.fetchUserAndMatchedHobbies()
-                               
+                                
+                                
                             }
-                        }
-                   
+                            .padding()
+                            
+                            if vm.matchedHobbies.isEmpty {
+                                VStack {
+                                    Spacer()
+                                    Text(LocalKeys.HomeView.createYourFirstHobbyPlan.rawValue.locale())
+                                        .modifier(Px24Bold())
+                                    Spacer()
+                                }
+                            } else {
+                                ScrollView {
+                                    LazyVStack {
+                                        ForEach(vm.matchedHobbies) { hobby in
+                                            HobbyCard(hobby: hobby)
+                                        }
+                                    }
+                                }
+                            }
+                        }.padding()
+                    }
                 }
             }.navigationBarBackButtonHidden()
+        }.onAppear{
+            Task{
+                try await vm.fetchUserAndMatchedHobbies()
+            }
         }
     }
 }

@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct CourseCardView: View {
-    let courseTitle: String
-    let weekCount: Int
-    let language:String
-    let budget:String
+struct HobbyCard: View {
+    let hobby: HobbyModel
+    
+    // Toplam süreyi hesaplayan computed property
+   
     
     var body: some View {
         VStack(spacing: 0) {
             // Header
             HStack {
                 Spacer()
-                Text(courseTitle)
+                Text(hobby.hobbyName)
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -30,10 +30,9 @@ struct CourseCardView: View {
             VStack {
                 HStack {
                     HStack(spacing: 4) {
-                        
-                        Image(systemName: "clock.fill")
+                        Image(systemName: "graduationcap.fill")
                             .foregroundColor(.gray)
-                        Text("\(weekCount) Weeks")
+                        Text(hobby.learningLevel)
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
@@ -43,19 +42,18 @@ struct CourseCardView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "translate")
                             .foregroundColor(.gray)
-                        Text("\(language)")
+                        Text(hobby.language)
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
                     .padding()
                 }
-              
                 
                 HStack {
                     HStack(spacing: 4) {
                         Image(systemName: "wallet.bifold.fill")
                             .foregroundColor(.gray)
-                        Text("\(budget)")
+                        Text(hobby.budget)
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
@@ -65,21 +63,18 @@ struct CourseCardView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "clock.fill")
                             .foregroundColor(.gray)
-                        Text("\(weekCount) Weeks")
+                        Text(hobby.totalDuration ?? "")
                             .foregroundColor(.gray)
                             .font(.subheadline)
                     }
                     .padding()
                 }
-            }  .frame(maxWidth: .infinity)
-                .background(Color.white)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
         }
         .cornerRadius(12)
         .shadow(radius: 4)
         .padding()
     }
-}
-
-#Preview {
-    CourseCardView(courseTitle: "sefa", weekCount: 2, language:"tr",budget: "low")
 }

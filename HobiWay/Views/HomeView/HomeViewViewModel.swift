@@ -7,79 +7,77 @@
 
 import Foundation
 
+
 @MainActor
 final class HomeViewViewModel: ObservableObject {
     @Published var userData: UserModel?
     @Published var openAddInformationView: Bool = false
     @Published var userHobbies: [String] = []
     @Published var matchedHobbies: [HobbyModel] = []
+    @Published var matchedHobbiess: [[String: Any]] = []
+    @Published var isLoading: Bool = false
     
     func getAuthedUserData() async throws {
-           if let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() {
-               let authedUserData = try authManager.getAuthenticatedUser()
-               
-               if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {
-                   userData = try await firestoreService.getDocumentWhere(from: "users", where: [("id", authedUserData.uid)])
-                   if let user = userData {
-                       userHobbies = user.hobbies
-                       print("User hobby IDs: \(userHobbies)")
-                   } else {
-                       print("User data could not be found.")
-                   }
-               } else {
-                   print("FirestoreService not available.")
-               }
-           } else {
-               print("FirebaseAuthManager not available.")
-           }
-       }
-
-    func fetchMatchedHobbies() async throws {
-        print("calistim")
-        guard !userHobbies.isEmpty else {
-            print("No hobby IDs available to fetch.")
+        if let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() {
+            let authedUserData = try authManager.getAuthenticatedUser()
+            
+            if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {
+                userData = try await firestoreService.getDocumentWhere(from: "users", where: [("id", authedUserData.uid)])
+                if let user = userData {
+                    userHobbies = user.hobbies
+                }
+            }
+        }
+    }
+    
+    func fetchHobbies() async throws {
+        guard let firestoreService: FirestoreService = ServiceLocator.shared.getService() else {
             return
         }
         
-        guard let firestoreService: FirestoreService = ServiceLocator.shared.getService() else {
-            print("FirestoreService not available.")
+        guard !userHobbies.isEmpty else {
             return
         }
         
         var fetchedHobbies: [HobbyModel] = []
         
-        for hobbyID in userHobbies {
-            print("calistim 1")
-            do {
-                // Firestore'dan veri çekme
-                if let hobby: HobbyModel = try await firestoreService.getDocumentWhere(
+        do {
+            for hobbyId in userHobbies {
+                let hobby: [HobbyModel] = try await firestoreService.getDocumentsWhere(
                     from: "hobbies",
-                    where: [("id", hobbyID)]
-                ) {
-                    print("Fetched hobby: \(hobby)")
-                    fetchedHobbies.append(hobby)
-                    print("calistim 2")
-                } else {
-                    print("No hobby found for ID: \(hobbyID)")
+                    where: [("id", hobbyId)]
+                )
+                
+                fetchedHobbies.append(contentsOf: hobby)
+            }
+            
+            await MainActor.run {
+                self.matchedHobbies = fetchedHobbies
+            }
+        } catch {
+            if let decodingError = error as? DecodingError {
+                // Kritik hata durumlarını sessizce handle et
+                switch decodingError {
+                case .keyNotFound, .typeMismatch:
+                    break
+                default:
+                    break
                 }
-            } catch {
-                print("Error fetching hobby for ID: \(hobbyID), error: \(error.localizedDescription)")
             }
         }
-        
-        matchedHobbies = fetchedHobbies
-        print("Matched hobbies: \(matchedHobbies)")
     }
     
     func fetchUserAndMatchedHobbies() async throws {
-        // Kullanıcı verilerini al
-        try await getAuthedUserData()
+        isLoading = true
         
-        // Elde edilen kullanıcı verilerine dayanarak hobileri al
-        try await fetchMatchedHobbies()
+        defer {
+            isLoading = false
+        }
+        
+        try await getAuthedUserData()
+        try await fetchHobbies()
     }
     
-
     func openAddInformationPage() {
         if userData?.fullName.isEmpty == true {
             openAddInformationView = true

@@ -16,7 +16,8 @@ struct HobbyModel: Codable, Identifiable {
     let language: String
     let learningMotivation: String
     let learningLevel: String
-    let plan: [PlanPhase]
+    let totalDuration: String?
+    let plan: Plan
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,16 +25,27 @@ struct HobbyModel: Codable, Identifiable {
         case hobbyName = "hobby_name"
         case budget
         case language
+        case totalDuration = "total_duration"
         case learningMotivation = "learning_motivation"
         case learningLevel = "learning_level"
         case plan
     }
     
-    struct PlanPhase: Codable {
-        let duration: String
-        let goals: [String]
-        let resources: [String]
-        let description: String
+    struct Plan: Codable {
+        let phases: [Phase]
+        let description: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case phases
+            case description
+        }
+    }
+    
+    struct Phase: Codable {
+        let duration: String?
+        let goals: [String]?
+        let resources: [String]?
+        let description: String?
         
         enum CodingKeys: String, CodingKey {
             case duration
