@@ -27,3 +27,21 @@ struct ButtonWithBg: View {
     }
 }
 
+struct CustomBackButton: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        
+        Button{
+            if presentationMode.wrappedValue.isPresented{
+                presentationMode.wrappedValue.dismiss()
+            }
+        }label: {
+            Image(systemName: "chevron.left")
+                .foregroundStyle(.libertyBlue)
+        }
+        
+        
+    }
+}
+

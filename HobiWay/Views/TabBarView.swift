@@ -14,27 +14,36 @@ struct TabBarView: View {
         TabView(selection: $selectedTab){
             HomeView()
                 .tabItem{
-                    Image(systemName: "house")
+                    Image(systemName: selectedTab == 0 ? "house.fill" : "house")
+                    Text("Home")
                 }
                 .tag(0)
-            ContentView()
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                }
-                .tag(1)
+            
+            // ContentView()
+            //     .tabItem {
+            //         Image(systemName: selectedTab == 1 ? "magnifyingglass.circle.fill" : "magnifyingglass")
+            //         Text("Search")
+            //     }
+            //     .tag(1)
+            
             CreateHobbyView()
                 .tabItem {
-                    Image(systemName: "plus.app")
+                    Image(systemName: selectedTab == 2 ? "plus.app.fill" : "plus.app")
+                    Text("Create")
                 }
                 .tag(2)
-            ContentView()
+            
+            // ContentView()
+            //     .tabItem {
+            //         Image(systemName: selectedTab == 3 ? "heart.fill" : "heart")
+            //         Text("Favorites")
+            //     }
+            //     .tag(3)
+            
+            SettingsView()
                 .tabItem {
-                    Image(systemName: "heart")
-                }
-                .tag(3)
-            ContentView()
-                .tabItem {
-                    Image(systemName: "gear")
+                    Image(systemName: selectedTab == 4 ? "gear.circle.fill" : "gear")
+                    Text("Settings")
                 }
                 .tag(4)
         }

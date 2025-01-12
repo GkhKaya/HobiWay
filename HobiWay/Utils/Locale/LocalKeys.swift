@@ -122,6 +122,7 @@ struct LocalKeys{
         case authFieldsEmpty = "authFieldsEmpty"
         case signInFailed = "signInFailed"
         case passwordResetFailed = "passwordResetFailed"
+        case emailResetFailed = "emailResetFailed"
     }
     
     enum CreateHobbyViewErrorCode: String{

@@ -61,7 +61,10 @@ struct HomeView: View {
                                 ScrollView {
                                     LazyVStack {
                                         ForEach(vm.matchedHobbies) { hobby in
-                                            HobbyCard(hobby: hobby)
+                                            NavigationLink(destination: HobbyDetailView(hobby: hobby)) {
+                                                HobbyCard(hobby: hobby)
+                                            }
+                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                 }
