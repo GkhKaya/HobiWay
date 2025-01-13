@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   HobiWay
 
@@ -6,8 +6,7 @@
   
 */
 
-
-//General
+////MARK: General
 "email" = "Email";
 "password" = "Password";
 "phoneNumber" = "Phone Number";
@@ -24,22 +23,23 @@
 "other" = "Other";
 "tr" = "TR";
 "eng" = "ENG";
+"error" = "Error";
 
+////Mark: General Error Message
+"unknow" = "An unknown error occurred. Please try again.";
 
+////Mark: Auth
 
-
-
-//Auth
 "hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
 "learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Learning a new hobby is a fantastic journey to add color to your life and gain new skills.";
 "signIn" = "Sign In";
 "signUp" = "Sign Up";
 "welcomeBack" = "Welcome Back";
-"sendedMail" = "Sended mail";
 "joinUs" = "Join Us";
 "pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
 "rememberMe" = "Remember Me";
 "forgotPassword" = "Forgot Password";
+"sendedMail" = "Sended mail";
 "pleaseEnterEmail" = "Please enter your email";
 "signInWithApple" = "Sign In With Apple ";
 "signUpWithApple" = "Sign Up With Apple ";
@@ -49,24 +49,51 @@
 "ifYouHaveAnAccount" = "If you have an account";
 "successfullySignedUp" = "Successfully signed up!";
 
-//Home View
+
+////Mark: Auth Error Message
+"userNotFound" = "No account found for the provided credentials." ;
+"emailAlreadyInUse" = "The email address is already in use by another account.";
+"weakPassword" ="Password must meet the following requirements: at least one uppercase letter, at least one lowercase letter, \
+at least one numeric digit, and at least one special character (e.g., !@#$%^&*).";
+"invailEmail" = "The email address is not valid.";
+"authFieldsEmpty" = "Fields can not be empty.";
+"signInFailed" = "Failed to sign in. Please check your credentials.";
+"passwordResetFailed" = "Failed to send password reset email.";
+
+
+
+////Mark: Home View
 "theBestAppForLearnDreamHooby" = "The Best App For Learn Dream Hooby";
 "createYourFirstHobbyPlan" = "Create your first hobby plan";
 "welcomeBack" = "Welcome Back!";
 
-//Information View
+
+
+
+////Mark: Information View
+
 "letsGetToNowYouALittleBit" = "Let's get to know you a little bit";
 "firstLetsLearnYourName" = "First let's learn your name";
 "weAreHobiWayDevelopmentTeam" = "We are HobiWay Development Team";
 "youCanReachUsAnytimeAtHobiwaycontact@devosuit.com" = "You can reach us anytime at hobiwaycontact@devosuit.com";
-"nowLetsKnowYourAgeAndGender" = "Now Let's Know Your Age And Gender";
+ "nowLetsKnowYourAgeAndGender" = "Now Let's Know Your Age And Gender";
 "nextIsYourpPhoneNumber" = "Next Is Your Phone Number";
- "finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
+"finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
 "pleaseSelectYouInterest" = "Please select your interest.";
 "selectCountryCode" = "Select Country Code";
 
 
-//Create Hobby View
+
+
+////Mark: Information View Errors
+"pleaseEnterYourName" = "Please enter your name.";
+"pleaseEnterYourPhoneNumber" = "Please enter your phone number.";
+"pleaseSelectLeastTwoInterest" = "Please select least two interest";
+"pleaseEnterLeast100Characters" = "Please enter least 100 characters";
+
+
+////Mark: Create Hobby View
+
 "pleaseEnterTheHobbyYouWant"="Please enter the hobby you want";
 "chooseTheBudgetYouCanUseForThisHobby"="Choose the budget you can use for this hobby";
 "lowBudget" = "Low Budget";
@@ -93,27 +120,8 @@
 "minute60Desc" = "If you're serious about this, choose this one.";
 "explainWhyText"= "Why want you learning this hobby. Explain shortly";
 "generatingPlan"="Generating your hobby plan...";
- 
 
-
-
-//General Error Message
-"unknow" = "An unknown error occurred. Please try again.";
-
-
-
-//Auth Error Message
-"userNotFound" = "No account found for the provided credentials." ;
-"emailAlreadyInUse" = "The email address is already in use by another account.";
-"weakPassword" ="Password must meet the following requirements: at least one uppercase letter, at least one lowercase letter, \
-at least one numeric digit, and at least one special character (e.g., !@#$%^&*).";
-"invailEmail" = "The email address is not valid.";
-"authFieldsEmpty" = "Fields can not be empty.";
-"signInFailed" = "Failed to sign in. Please check your credentials.";
-"passwordResetFailed" = "Failed to send password reset email.";
-
-
-//Create Hobby View Error Message
+////Mark: Create Hobby View Error Message
 "hobbyNameRequired" = "Hobby Name is required.";
 "budgetRequired" = "Budget is required.";
 "languageRequired" = "Language is required.";
@@ -123,6 +131,32 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "pleaseFillAllRequiredFieldsCorrectly" = "Please fill all required fields correctly";
 "failedToGenerateHobbyPlan" = "Failed to generate hobby plan";
 "createHobbyError" = "Creating Hobby Error";
+
+
+
+////Mark: SettingsView
+"currentPassword" = "Current Password";
+"newPassword" = "New Password";
+"currentemail" = "Current Email";
+"newemail" = "New Email";
+"updatePassword" = "Update Password";
+"updateemail" = "Update Email";
+
+////Mark: SettingsViewError
+"passwordUpdateFailed" = "Failed of password update procress";
+"emailUpdateFailed" = "Failed of email update procress";
+"yourCurrentPasswordIsWrong" = "Current Password Is Wrong";
+"yourCurrentEmailIsWrong" = "Current Email Is Wrong";
+
+
+
+
+
+
+
+
+
+
 
 
 

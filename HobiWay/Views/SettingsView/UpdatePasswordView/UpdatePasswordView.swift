@@ -12,12 +12,14 @@ struct UpdatePasswordView: View {
                 VStack(spacing: 20) {
                     SecureFieldWidget(
                         iconName: "lock.fill",
-                        text: $vm.currentPassword
+                        text: $vm.currentPassword,
+                        placeHolderText: LocalKeys.SettingsView.currentPassword.rawValue.locale()
                     )
                     
                     SecureFieldWidget(
                         iconName: "lock.fill",
-                        text: $vm.newPassword
+                        text: $vm.newPassword,
+                        placeHolderText: LocalKeys.SettingsView.newPassword.rawValue.locale()
                     )
                     
                     Button {
@@ -29,7 +31,7 @@ struct UpdatePasswordView: View {
                             ProgressView()
                                 .tint(.white)
                         } else {
-                            Text("Update Password")
+                            Text(LocalKeys.SettingsView.updatePassword.rawValue.locale())
                                 .modifier(Px16Bold())
                                 .foregroundColor(.white)
                         }
@@ -44,7 +46,7 @@ struct UpdatePasswordView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Update Password")
+            .navigationTitle(LocalKeys.SettingsView.updatePassword.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -57,8 +59,8 @@ struct UpdatePasswordView: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $vm.showAlert) {
-                Button("OK", role: .cancel) { }
+            .alert(LocalKeys.General.error.rawValue.locale(), isPresented: $vm.showAlert) {
+                Button(LocalKeys.General.okay.rawValue.locale(), role: .cancel) { }
             } message: {
                 Text(vm.errorMessage)
             }

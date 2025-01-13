@@ -27,6 +27,13 @@ struct LocalKeys{
         case other = "other"
         case tr = "tr"
         case eng = "eng"
+        case error = "error"
+    }
+    
+    
+    enum GeneralError: String{
+        case unknow = "unknow"
+        
     }
     
     enum HomeView : String{
@@ -54,6 +61,18 @@ struct LocalKeys{
         case ifYouHaveAnAccount = "ifYouHaveAnAccount"
         case pleaseEnterEmail = "pleaseEnterEmail"
         case successfullySignedUp = "successfullySignedUp"
+    }
+    
+    
+    enum AuthErrorCode: String{
+        case userNotFound = "userNotFound"
+        case emailAlreadyInUse = "emailAlreadyInUse"
+        case weakPassword = "weakPassword"
+        case invalidMail = "invailEmail"
+        case authFieldsEmpty = "authFieldsEmpty"
+        case signInFailed = "signInFailed"
+        case passwordResetFailed = "passwordResetFailed"
+        case emailResetFailed = "emailResetFailed"
     }
     
     enum InformationView : String{
@@ -102,27 +121,6 @@ struct LocalKeys{
         case minute60Desc = "minute60Desc"
         case explainWhyTexty = "explainWhyText"
         case generatingPlan = "generatingPlan"
-        
-    
-    }
-    
-    
-    
-    
-    enum GeneralError: String{
-        case unknow = "unknow"
-        
-    }
-    
-    enum AuthErrorCode: String{
-        case userNotFound = "userNotFound"
-        case emailAlreadyInUse = "emailAlreadyInUse"
-        case weakPassword = "weakPassword"
-        case invalidMail = "invailEmail"
-        case authFieldsEmpty = "authFieldsEmpty"
-        case signInFailed = "signInFailed"
-        case passwordResetFailed = "passwordResetFailed"
-        case emailResetFailed = "emailResetFailed"
     }
     
     enum CreateHobbyViewErrorCode: String{
@@ -136,6 +134,28 @@ struct LocalKeys{
         case failedToGenerateHobbyPlan = "failedToGenerateHobbyPlan"
         case createHobbyError = "createHobbyError"
     }
+    
+    enum SettingsView: String{
+        case currentPassword = "currentPassword"
+        case newPassword = "newPassword"
+        case currentemail = "currentemail"
+        case newemail = "newemail"
+        case updatePassword = "updatePassword"
+        case updateemail = "updateemail"
+        
+    }
+    
+    enum SettingsViewErrorCode: String{
+        case passwordUpdateFailed = "passwordUpdateFailed"
+        case emailUpdateFailed = "emailUpdateFailed"
+        case yourCurrentPasswordIsWrong = "yourCurrentPasswordIsWrong"
+        case yourCurrentEmailIsWrong = "yourCurrentEmailIsWrong"
+    }
+
+ 
+
+    
+ 
     
     
 }

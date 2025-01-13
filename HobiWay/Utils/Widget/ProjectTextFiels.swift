@@ -125,6 +125,7 @@ struct SecureFieldWidget: View {
     @State private var isFocused: Bool = false
     @FocusState private var isFieldFocused: Bool
     @State private var isPasswordVisible: Bool = false // Şifre görünürlüğü durumu
+    var placeHolderText: LocalizedStringKey?
     
     var body: some View {
         HStack() {
@@ -133,7 +134,7 @@ struct SecureFieldWidget: View {
             
             ZStack(alignment: .leading) {
                 // Placeholder metni
-                Text(LocalKeys.General.password.rawValue.locale()) // Placeholder metni buraya ekleyin
+                Text(placeHolderText ?? LocalKeys.General.password.rawValue.locale() )
                     .foregroundColor(.winterHaven)
                     .modifier(Px16Regular())
                     .opacity(isFocused || isFieldFocused || !text.isEmpty ? 0 : 1) // Opacity animasyonu

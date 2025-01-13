@@ -28,15 +28,22 @@ final class UpdatePasswordViewViewModel: ObservableObject {
         
         do {
             if let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() {
-                // Önce mevcut şifre ile yeniden doğrulama yap
-                try await authManager.reauthenticateUser(currentPassword: currentPassword)
-                // Sonra yeni şifreyi güncelle
+                
+                
+                do {
+                    try await authManager.reauthenticateUser(currentPassword: currentPassword)
+                } catch {
+                    // Reauthenticate sırasında oluşan hata için farklı bir mesaj
+                    errorMessage = LocalKeys.SettingsViewErrorCode.yourCurrentPasswordIsWrong.rawValue.locale()
+                    showAlert = true
+                    return
+                }
                 try await authManager.updatePassword(newPassword: newPassword)
                 isSuccess = true
             }
         } catch {
-            errorMessage = LocalKeys.AuthErrorCode.passwordResetFailed.rawValue.locale()
+            errorMessage = LocalKeys.SettingsViewErrorCode.passwordUpdateFailed.rawValue.locale()
             showAlert = true
         }
     }
-} 
+}
