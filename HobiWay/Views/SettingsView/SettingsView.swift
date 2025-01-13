@@ -58,19 +58,19 @@ struct SettingsView: View {
                                 spacing: UIScreen.main.bounds.height * 0.02
                             ) {
                                 StatCard(
-                                    title: "Hobbies",
+                                    title: LocalKeys.General.hobbies.rawValue.locale(),
                                     value: "\(vm.totalHobbies)",
                                     icon: "star.fill"
                                 )
                                 
                                 StatCard(
-                                    title: "Gender",
+                                    title: LocalKeys.General.gender.rawValue.locale(),
                                     value: vm.getGenderString(),
                                     icon: "person.fill"
                                 )
                                 
                                 StatCard(
-                                    title: "Age",
+                                    title: LocalKeys.General.age.rawValue.locale(),
                                     value: "\(vm.userData?.age ?? 0)",
                                     icon: "calendar"
                                 )
@@ -79,18 +79,18 @@ struct SettingsView: View {
                             
                             // Account Section
                             VStack(alignment: .leading, spacing: UIScreen.main.bounds.height * 0.02) {
-                                Text("Account")
+                                Text(LocalKeys.General.account.rawValue.locale())
                                     .modifier(Px18Bold())
                                 
                                 Button(action: {}) {
                                     NavigationLink(destination: UpdateEmailView()) {
-                                        SettingsButton(title: "Change Email", icon: "envelope.fill")
+                                        SettingsButton(title:  LocalKeys.SettingsView.changeEmail.rawValue.locale(), icon: "envelope.fill")
                                     }
                                 }
                                 
                                 Button(action: {}) {
                                     NavigationLink(destination: UpdatePasswordView()) {
-                                        SettingsButton(title: "Change Password", icon: "key.fill")
+                                        SettingsButton(title: LocalKeys.SettingsView.changePassword.rawValue.locale(), icon: "key.fill")
                                     }
                                 }
                             }
@@ -102,7 +102,7 @@ struct SettingsView: View {
                                     .modifier(Px18Bold())
                                 
                                 SettingsButton(
-                                    title: "Dark Mode",
+                                    title: LocalKeys.SettingsView.darkMode.rawValue.locale(),
                                     icon: "moon.fill",
                                     hasToggle: true,
                                     isToggled: $isDarkMode
@@ -114,7 +114,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(LocalKeys.SettingsView.settings.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(isDarkMode ? .dark : .light)
         }
@@ -126,7 +126,7 @@ struct SettingsView: View {
 
 struct SettingsButton: View {
     @Environment(\.colorScheme) var colorScheme
-    let title: String
+    let title: LocalizedStringKey
     let icon: String
     var hasToggle: Bool = false
     var isToggled: Binding<Bool>? = nil
@@ -158,7 +158,7 @@ struct SettingsButton: View {
 
 struct StatCard: View {
     @Environment(\.colorScheme) var colorScheme
-    let title: String
+    let title: LocalizedStringKey
     let value: String
     let icon: String
     

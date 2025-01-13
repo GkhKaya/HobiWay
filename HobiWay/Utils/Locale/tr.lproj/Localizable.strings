@@ -24,6 +24,9 @@
 "tr" = "TR";
 "eng" = "ENG";
 "error" = "Error";
+"hobbies"  ="Hobbies";
+"account" = "account";
+
 
 ////Mark: General Error Message
 "unknow" = "An unknown error occurred. Please try again.";
@@ -141,6 +144,11 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "newemail" = "New Email";
 "updatePassword" = "Update Password";
 "updateemail" = "Update Email";
+"changeEmail" = "Change Email";
+"changePassword" = "Change Password";
+"darkMode" = "Dark Mode";
+"settings" = "Settings";
+
 
 ////Mark: SettingsViewError
 "passwordUpdateFailed" = "Failed of password update procress";

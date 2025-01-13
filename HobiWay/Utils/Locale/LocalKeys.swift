@@ -28,6 +28,9 @@ struct LocalKeys{
         case tr = "tr"
         case eng = "eng"
         case error = "error"
+        case hobbies = "hobbies"
+        case account = "account"
+
     }
     
     
@@ -142,6 +145,10 @@ struct LocalKeys{
         case newemail = "newemail"
         case updatePassword = "updatePassword"
         case updateemail = "updateemail"
+        case changeEmail = "changeEmail"
+        case changePassword = "changePassword"
+        case darkMode = "darkMode"
+        case settings = "settings"
         
     }
     
