@@ -2,7 +2,7 @@ import SwiftUI
 
 struct UpdateEmailView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var vm = UpdateEmailViewViewModel()
+    @ObservedObject private var vm = UpdateEmailViewViewModel()
     
     var body: some View {
         NavigationStack {
@@ -10,12 +10,17 @@ struct UpdateEmailView: View {
                 Color.winterHaven.ignoresSafeArea()
                 
                 VStack(spacing: 20) {
+                    // Yeni Email Alanı
                     TextFieldWidget(
                         title: "New Email",
                         iconName: "envelope.fill",
                         text: $vm.newEmail
                     )
                     
+                    // Mevcut Şifre Alanı
+                    SecureFieldWidget(iconName: "lock", text: $vm.currentPassword)
+
+                    // Güncelleme Butonu
                     Button {
                         Task {
                             await vm.updateEmail()
@@ -36,7 +41,7 @@ struct UpdateEmailView: View {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.safetyOrange)
                     )
-                    .disabled(vm.isLoading)
+                    .disabled(vm.isLoading || vm.newEmail.isEmpty || vm.currentPassword.isEmpty)
                 }
                 .padding()
             }
@@ -58,11 +63,11 @@ struct UpdateEmailView: View {
             } message: {
                 Text(vm.errorMessage)
             }
-            .onChange(of: vm.isSuccess) { oldValue, newValue in
+            .onChange(of: vm.isSuccess) { _, newValue in
                 if newValue {
                     dismiss()
                 }
             }
         }
     }
-} 
+}

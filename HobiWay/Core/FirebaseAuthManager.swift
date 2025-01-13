@@ -21,7 +21,7 @@ final class FirebaseAuthManager{
     }
     
     func getProvider() throws{
-        guard let providerData = Auth.auth().currentUser?.providerData else{
+        guard (Auth.auth().currentUser?.providerData) != nil else{
             throw (URLError(.badServerResponse))
         }
         
