@@ -9,7 +9,7 @@ struct UpdatePasswordView: View {
             ZStack {
                 Color.winterHaven.ignoresSafeArea()
                 
-                VStack(spacing: 20) {
+                VStack(spacing: ProjectPaddings.large.rawValue) {
                     SecureFieldWidget(
                         iconName: "lock.fill",
                         text: $vm.currentPassword,

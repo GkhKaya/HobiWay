@@ -9,16 +9,16 @@ struct UpdateEmailView: View {
             ZStack {
                 Color.winterHaven.ignoresSafeArea()
                 
-                VStack(spacing: 20) {
+                VStack(spacing: ProjectPaddings.large.rawValue) {
                     // Yeni Email Alanı
                     TextFieldWidget(
-                        title: "New Email",
+                        title: LocalKeys.SettingsView.newemail.rawValue.locale(),
                         iconName: "envelope.fill",
                         text: $vm.newEmail
                     )
                     
                     // Mevcut Şifre Alanı
-                    SecureFieldWidget(iconName: "lock", text: $vm.currentPassword)
+                    SecureFieldWidget(iconName: "lock", text: $vm.currentPassword,placeHolderText: LocalKeys.SettingsView.currentPassword.rawValue.locale())
 
                     // Güncelleme Butonu
                     Button {
@@ -30,7 +30,7 @@ struct UpdateEmailView: View {
                             ProgressView()
                                 .tint(.white)
                         } else {
-                            Text("Update Email")
+                            Text(LocalKeys.SettingsView.updateemail.rawValue.locale())
                                 .modifier(Px16Bold())
                                 .foregroundColor(.white)
                         }
@@ -45,7 +45,7 @@ struct UpdateEmailView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Update Email")
+            .navigationTitle(LocalKeys.SettingsView.updateemail.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -58,8 +58,8 @@ struct UpdateEmailView: View {
                     }
                 }
             }
-            .alert("Error", isPresented: $vm.showAlert) {
-                Button("OK", role: .cancel) { }
+            .alert(LocalKeys.General.error.rawValue.locale(), isPresented: $vm.showAlert) {
+                Button(LocalKeys.General.okay.rawValue.locale(), role: .cancel) { }
             } message: {
                 Text(vm.errorMessage)
             }

@@ -15,14 +15,13 @@ final class UpdateEmailViewViewModel: ObservableObject {
         guard ValidationHelper.isNonEmpty(newEmail), ValidationHelper.isNonEmpty(currentPassword) else {
             errorMessage = LocalKeys.AuthErrorCode.authFieldsEmpty.rawValue.locale()
             showAlert = true
-            print("Error: Fields are empty.")
+           
             return
         }
 
         guard ValidationHelper.isValidEmail(newEmail) else {
             errorMessage = LocalKeys.AuthErrorCode.invalidMail.rawValue.locale()
             showAlert = true
-            print("Error: Invalid email format - \(newEmail)")
             return
         }
 
@@ -31,12 +30,14 @@ final class UpdateEmailViewViewModel: ObservableObject {
 
         do {
             if let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() {
-                print("Reauthenticating user before updating email.")
-                // Kullanıcıyı yeniden doğrula
-                try await authManager.reauthenticateUser(currentPassword: currentPassword)
+                do{
+                    try await authManager.reauthenticateUser(currentPassword: currentPassword)
+                }catch{
+                    errorMessage = LocalKeys.SettingsViewErrorCode.yourCurrentPasswordIsWrong.rawValue.locale()
+                    showAlert = true
+                    return
+                }
 
-                print("Reauthentication successful. Updating email to \(newEmail)")
-                // Yeni e-posta güncellemesini gerçekleştir
                 try await authManager.updateEmail(newEmail: newEmail)
                 
                 isSuccess = true
@@ -45,23 +46,11 @@ final class UpdateEmailViewViewModel: ObservableObject {
                 print("Error: AuthManager not found.")
             }
         } catch {
-            errorMessage = handleError(error)
+            errorMessage = LocalKeys.SettingsViewErrorCode.emailUpdateFailed.rawValue.locale()
             showAlert = true
             print("Error updating email: \(error.localizedDescription)")
         }
     }
 
-    private func handleError(_ error: Error) -> LocalizedStringKey {
-        if let authError = error as? AuthError {
-            switch authError {
-            case .userNotFound:
-                return LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
-            case .wrongPassword:
-                return LocalKeys.AuthErrorCode.weakPassword.rawValue.locale()
-            default:
-                return LocalKeys.AuthErrorCode.emailResetFailed.rawValue.locale()
-            }
-        }
-        return LocalKeys.AuthErrorCode.emailResetFailed.rawValue.locale()
-    }
+  
 }
