@@ -15,10 +15,8 @@ final class SettingsViewViewModel: ObservableObject {
             return
         }
         
-        // Authenticate olmuş kullanıcının ID'sini al
         let authedUser = try authManager.getAuthenticatedUser()
         
-        // Firestore'dan kullanıcı verilerini çek
         userData = try await firestoreService.getDocumentWhere(
             from: "users",
             where: [("id", authedUser.uid)]
@@ -30,7 +28,6 @@ final class SettingsViewViewModel: ObservableObject {
         }
     }
     
-    // Cinsiyet string'e çeviren helper fonksiyon
     func getGenderString() -> String {
         guard let gender = userData?.gender else { return "Not specified" }
         switch gender {
