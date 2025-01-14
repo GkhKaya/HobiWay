@@ -134,6 +134,21 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "failedToGenerateHobbyPlan" = "Failed to generate hobby plan";
 "createHobbyError" = "Creating Hobby Error";
 
+////Mark: Hobby Detail View
+"level" = "Level";
+"languge" = "Language";
+"budget" = "Budget";
+"duration" = "Duration";
+"learningJourney" = "Learning Journey";
+"swipe" = "Swipe";
+"goalsToAchive" = "Goals to Achive";
+"goals" = "Goals";
+"resources" = "Resources";
+"phease" = "Phease";
+
+
+
+
 
 
 ////Mark: SettingsView

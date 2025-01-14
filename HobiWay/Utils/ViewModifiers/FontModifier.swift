@@ -86,6 +86,12 @@ struct Px16Light: ViewModifier {
     }
 }
 
+struct Px14Regular: ViewModifier {
+    func body(content: Content) -> some View {
+        content.responsiveFont(name: "Poppins-Regular", size: 14).foregroundStyle(.libertyBlue)
+    }
+}
+
 struct Px16Regular: ViewModifier {
     func body(content: Content) -> some View {
         content.responsiveFont(name: "Poppins-Regular", size: 16).foregroundStyle(.libertyBlue)
@@ -107,5 +113,13 @@ struct Px12Light: ViewModifier {
 struct Px12Regular: ViewModifier {
     func body(content: Content) -> some View {
         content.responsiveFont(name: "Poppin-Regular", size: 12).foregroundStyle(.libertyBlue)
+    }
+}
+
+
+
+struct Px6Light: ViewModifier {
+    func body(content: Content) -> some View {
+        content.responsiveFont(name: "Poppins-Light", size: 6).foregroundStyle(.libertyBlue)
     }
 }

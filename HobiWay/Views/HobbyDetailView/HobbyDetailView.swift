@@ -15,63 +15,54 @@ struct HobbyDetailView: View {
                 Color.winterHaven.ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(spacing: 24) {
-                        // Header
-                        VStack(spacing: 16) {
-                            Text(vm.hobby.hobbyName)
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.white)
-                            
-                            if vm.totalGoals > 0 {
-                                Text("\(vm.totalGoals) Goals to Achieve")
-                                    .foregroundColor(.white)
-                                    .font(.subheadline)
-                            }
-                        }
-                        .padding(24)
-                        .background(
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.safetyOrange)
-                                .shadow(radius: 10)
-                        )
-                        .padding(.horizontal)
+                    VStack(spacing: ProjectPaddings.extraLarge.rawValue) {
                         
-                        // Info Cards
-                        LazyVGrid(columns: [
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: 16) {
-                            InfoCard(icon: "graduationcap.fill", title: "Level", value: vm.hobby.learningLevel)
-                            InfoCard(icon: "translate", title: "Language", value: vm.hobby.language)
-                            InfoCard(icon: "wallet.bifold.fill", title: "Budget", value: vm.hobby.budget)
-                            InfoCard(icon: "clock.fill", title: "Duration", value: vm.hobby.totalDuration ?? "Not set")
-                        }
-                        .padding(.horizontal)
+                        HobbyHeaderView(hobbyName: vm.hobby.hobbyName, totalGoals: vm.totalGoals)
+                        
+                        InfoSection(learningLevel: vm.hobby.learningLevel, language: vm.hobby.language, budget: vm.hobby.budget,duration: vm.hobby.totalDuration)
+                        
+                        g
                         
                         // Phases
-                        VStack(alignment: .leading, spacing: 16) {
+                        VStack(
+                            alignment: .leading,
+                            spacing: ProjectPaddings.normal.rawValue
+                        ) {
                             HStack {
-                                Text("Learning Journey")
-                                    .font(.title2)
-                                    .bold()
+                                Text(
+                                    LocalKeys.HobbyDetailView.learningJourney
+                                        .rawValue.locale()
+                                )
+                                .font(.title2)
+                                .bold()
                                 
                                 Spacer()
                                 
                                 // Kaydırma ipucu
-                                HStack(spacing: 4) {
+                                HStack(
+                                    spacing: ProjectPaddings.extraSmall.rawValue
+                                ) {
                                     Image(systemName: "hand.draw.fill")
                                         .foregroundColor(.gray)
-                                    Text("Swipe")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
+                                    Text(
+                                        LocalKeys.HobbyDetailView.swipe.rawValue
+                                            .locale()
+                                    )
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
                                 }
                             }
                             .padding(.horizontal)
                             
                             TabView(selection: $selectedPhase) {
-                                ForEach(Array(vm.hobby.plan.phases.enumerated()), id: \.offset) { index, phase in
-                                    PhaseCard(phase: phase, phaseNumber: index + 1)
-                                        .tag(index)
+                                ForEach(
+                                    Array(vm.hobby.plan.phases.enumerated()),
+                                    id: \.offset
+                                ) { index, phase in
+                                    PhaseCard(
+                                        phase: phase, phaseNumber: index + 1
+                                    )
+                                    .tag(index)
                                 }
                             }
                             .tabViewStyle(.page)
@@ -79,11 +70,18 @@ struct HobbyDetailView: View {
                             
                             // Sayfa indikatörü
                             HStack {
-                                ForEach(0..<vm.hobby.plan.phases.count, id: \.self) { index in
+                                ForEach(
+                                    0..<vm.hobby.plan.phases.count, id: \.self
+                                ) { index in
                                     Circle()
-                                        .fill(index == selectedPhase ? Color.safetyOrange : Color.gray.opacity(0.3))
+                                        .fill(
+                                            index == selectedPhase
+                                            ? Color.safetyOrange
+                                            : Color.gray.opacity(0.3)
+                                        )
                                         .frame(width: 8, height: 8)
-                                        .animation(.easeInOut, value: selectedPhase)
+                                        .animation(
+                                            .easeInOut, value: selectedPhase)
                                 }
                             }
                             .padding(.horizontal)
@@ -108,101 +106,80 @@ struct HobbyDetailView: View {
     }
 }
 
-struct InfoCard: View {
-    let icon: String
-    let title: String
-    let value: String
-    
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 24))
-                .foregroundColor(.safetyOrange)
-            
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.gray)
-            
-            Text(value)
-                .font(.system(size: 16, weight: .semibold))
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.1), radius: 5)
-        )
-    }
-}
 
-struct PhaseCard: View {
-    let phase: HobbyModel.Phase
-    let phaseNumber: Int
-    
+
+
+struct HobbyHeaderView: View {
+    var hobbyName: String
+    var totalGoals: Int
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Phase \(phaseNumber)")
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(.safetyOrange)
-                
-                Spacer()
-                
-                if let duration = phase.duration {
-                    Text(duration)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
+        
+        VStack(spacing: ProjectPaddings.normal.rawValue) {
+            Text(hobbyName)
+                .foregroundStyle(.winterHaven)
+                .modifier(Px32Bold())
+                .padding(
+                    .horizontal,
+                    ProjectPaddings.extraLarge.rawValue
+                )
+                .multilineTextAlignment(.center)
             
-            if let description = phase.description {
-                Text(description)
-                    .font(.body)
-                    .foregroundColor(.gray)
-            }
-            
-            if let goals = phase.goals {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Goals")
-                        .font(.headline)
+            if totalGoals > 0 {
+                HStack {
+                    Text("\(totalGoals)")
+                        .foregroundColor(.winterHaven)
+                        .modifier(Px12Light())
+                        .padding(.trailing,-5)
                     
-                    ForEach(goals, id: \.self) { goal in
-                        HStack {
-                            Image(systemName: "circle.fill")
-                                .font(.system(size: 6))
-                                .foregroundColor(.safetyOrange)
-                            Text(goal)
-                                .font(.subheadline)
-                        }
-                    }
-                }
-            }
-            
-            if let resources = phase.resources {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Resources")
-                        .font(.headline)
                     
-                    ForEach(resources, id: \.self) { resource in
-                        HStack {
-                            Image(systemName: "link")
-                                .foregroundColor(.safetyOrange)
-                            Text(resource)
-                                .font(.subheadline)
-                        }
-                    }
+                    Text(LocalKeys.HobbyDetailView.goalsToAchive.rawValue.locale())
+                        .foregroundColor(.winterHaven)
+                        .modifier(Px12Light())
                 }
+                
             }
         }
-        .padding()
+        .padding(ProjectPaddings.large.rawValue)
         .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.1), radius: 10)
+            RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue)
+                .fill(Color.safetyOrange)
+                .shadow(radius: ProjectRadius.small.rawValue)
         )
         .padding(.horizontal)
     }
-} 
+}
+
+struct InfoSection : View {
+    var learningLevel: String
+    var language : String
+    var budget : String
+    var duration : String?
+    var body: some View {
+        LazyVGrid(
+            columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+            ], spacing: ProjectPaddings.medium.rawValue
+        ) {
+            InfoCard(
+                icon: "graduationcap.fill",
+                title: LocalKeys.HobbyDetailView.level.rawValue
+                    .locale(), value: learningLevel)
+            InfoCard(
+                icon: "translate",
+                title: LocalKeys.HobbyDetailView.languge
+                    .rawValue.locale(), value: language
+            )
+            InfoCard(
+                icon: "wallet.bifold.fill",
+                title: LocalKeys.HobbyDetailView.budget.rawValue
+                    .locale(), value: budget)
+            InfoCard(
+                icon: "clock.fill",
+                title: LocalKeys.HobbyDetailView.duration
+                    .rawValue.locale(),
+                value: duration ?? "Not set")
+        }
+        .padding(.horizontal)
+    }
+}

@@ -138,6 +138,19 @@ struct LocalKeys{
         case createHobbyError = "createHobbyError"
     }
     
+    enum HobbyDetailView : String{
+        case level = "level"
+        case languge = "languge"
+        case budget = "budget"
+        case duration = "duration"
+        case learningJourney = "learningJourney"
+        case swipe = "swipe"
+        case goalsToAchive = "goalsToAchive"
+        case goals = "goals"
+        case resources = "resources"
+        case phease = "phease"
+    }
+    
     enum SettingsView: String{
         case currentPassword = "currentPassword"
         case newPassword = "newPassword"
