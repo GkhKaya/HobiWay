@@ -78,4 +78,39 @@ final class AuthSignUpViewViewModel: ObservableObject {
             }
         }
     }
+    
+    func signUpApple() async{
+       do{
+            let helper = SignInAppleHelper()
+            let tokens = try await helper.startSignInWithAppleFlow()
+       
+            if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
+                let returnerUserData  = try await authManager.signInWithApple(tokens: tokens)
+                let newUser = UserModel(
+                    id: returnerUserData.uid,
+                    mail: returnerUserData.email ?? "Private",
+                    fullName: "",
+                    interests: [],
+                    gender: 1,
+                    phoneNumber: "",
+                    age: 0,
+                    imageUrl: "",
+                    createdAt: Date(),
+                    inroduceYourself: "",
+                    hobbies: []
+                )
+
+                if let firestoreService  :FirestoreService = ServiceLocator.shared.getService(){
+                    try await firestoreService.setDocument(documentId: returnerUserData.uid, in: "users", data: newUser)
+                }else{
+                    self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
+                }
+            }
+        }catch{
+            Task { @MainActor in
+                self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
+                self.showAlert = true
+            }
+        }
+    }
 }

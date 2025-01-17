@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import AuthenticationServices
+
+
 
 struct AuthSignInView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -105,26 +108,28 @@ struct AuthSignInView: View {
                         
                     }.padding(.top,ProjectPaddings.normal.rawValue)
                     
-                    // MARK: - Sign Up Apple Button
-                    
+                    GeometryReader{ geometry in
                     VStack{
-                        Button{
-                            
-                        }label: {
-                            HStack{
-                                Image(ProjectImages.AuthImages.icApple.rawValue)
-                                
-                                Text(LocalKeys.Auth.signInWithApple.rawValue.locale())
-                                    .foregroundStyle(.winterHaven)
-                                    .modifier(Px16Bold())
-                            }
-                        }
-                        .padding()
-                        .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                        .background(.libertyBlue)
-                        .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                         
-                        // MARK: - Sign Up Google Button
+                        // MARK: - Sign in Apple Button
+                        Button{
+                            Task{
+                                try await vm.signInApple()
+                            }
+                        }label: {
+                            SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
+                                .frame(height: geometry.dh(height: 0.21))
+                                .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                .padding()
+                                .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
+                        }
+                        
+
+                                
+                        
+                  
+                        
+                        // MARK: - Sign in Google Button
                         
                         Button{
                             Task{
@@ -139,14 +144,15 @@ struct AuthSignInView: View {
                                 
                                 Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
                                     .foregroundStyle(.libertyBlue)
-                                    .modifier(Px16Bold())
+                                    .modifier(Px16Regular())
                                 
                             } .padding()
+                                
                                 .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
                                 .background(colorScheme == .light ? Color.white : Color.black)
                                 .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                             
-                        }
+                        }.frame(height: geometry.dh(height: 0.21))
                         
                         .padding(.top,ProjectPaddings.extraSmall.rawValue)
                         Spacer()
@@ -168,7 +174,7 @@ struct AuthSignInView: View {
                     }.padding(.top,ProjectPaddings.large.rawValue)
                         .navigationBarBackButtonHidden(true) 
                         .navigationBarItems(leading: CustomBackButton(presentationMode: _presentationMode))
-                    
+                }
                     
                     Spacer()
                 }.padding()

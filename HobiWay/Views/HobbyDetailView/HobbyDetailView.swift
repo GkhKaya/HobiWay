@@ -21,7 +21,7 @@ struct HobbyDetailView: View {
                         
                         InfoSection(learningLevel: vm.hobby.learningLevel, language: vm.hobby.language, budget: vm.hobby.budget,duration: vm.hobby.totalDuration)
                         
-                        g
+                        
                         
                         // Phases
                         VStack(

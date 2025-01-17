@@ -82,10 +82,23 @@ final class AuthSignInViewViewModel : ObservableObject {
             }
             throw AuthError.signInFailed
         }
-        
-        
-        
     }
+    
+    func signInApple() async throws {
+        do{
+            let helper = SignInAppleHelper()
+            let tokens = try await helper.startSignInWithAppleFlow()
+       
+            if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
+                _ = try await authManager.signInWithApple(tokens: tokens)
+            }
+        }catch{
+            Task { @MainActor in
+                self.errorMessage = LocalKeys.AuthErrorCode.signInFailed.rawValue.locale()
+                self.showAlert = true
+            }
+        }
+}
     
     
     

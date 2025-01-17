@@ -74,65 +74,63 @@ struct AuthSignUpView: View {
                         
                     }.padding(.top,ProjectPaddings.normal.rawValue)
                     
-                    // MARK: - Sign Up Apple Button
                     
-                    VStack{
-                        Button{
-                            
-                        }label: {
-                            HStack{
-                                Image(ProjectImages.AuthImages.icApple.rawValue)
-                                
-                                Text(LocalKeys.Auth.signUpWithApple.rawValue.locale())
-                                    .foregroundStyle(.winterHaven)
-                                    .modifier(Px16Bold())
+                    GeometryReader {geometry in
+                        VStack{
+                            // MARK: - Sign up Apple Button
+                            Button{
+                                Task{
+                                     await vm.signUpApple()
+                                }
+                            }label: {
+                                SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
+                                    .frame(height: geometry.dh(height: 0.19))
+                                    .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                    .padding()
+                                    .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
                             }
-                        }
-                        .padding()
-                        .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                        .background(.libertyBlue)
-                        .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                        
-                        // MARK: - Sign Up Google Button
-                        
-                        Button{
                             
-                        }label: {
+                            // MARK: - Sign Up Google Button
                             
-                            HStack{
+                            Button{
                                 
-                                Image(ProjectImages.AuthImages.icGoogle.rawValue)
+                            }label: {
                                 
-                                Text(LocalKeys.Auth.signUpWithGoogle.rawValue.locale())
-                                    .foregroundStyle(.libertyBlue)
-                                    .modifier(Px16Bold())
+                                HStack{
+                                    
+                                    Image(ProjectImages.AuthImages.icGoogle.rawValue)
+                                    
+                                    Text(LocalKeys.Auth.signUpWithGoogle.rawValue.locale())
+                                        .foregroundStyle(.libertyBlue)
+                                        .modifier(Px16Regular())
+                                    
+                                } .padding()
+                                    .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
+                                    .background(colorScheme == .light ? Color.white : Color.black)                         .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                                 
-                            } .padding()
-                                .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                                .background(colorScheme == .light ? Color.white : Color.black)                         .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                            }
                             
-                        }
-                        
-                        .padding(.top,ProjectPaddings.extraSmall.rawValue)
-                        Spacer()
-                        
-                        // MARK: - Sign In  Button
-                        HStack(spacing: 0) {
-                            Text(LocalKeys.Auth.ifYouHaveAnAccount.rawValue.locale())
-                                .font(.custom("Poppins-Regular", size: 16))
-                                .foregroundColor(.libertyBlue)
+                            .padding(.top,ProjectPaddings.extraSmall.rawValue)
+                            Spacer()
                             
-                            Text(" ")
-                            NavigationLink(destination: AuthSignInView()) {
-                                Text(LocalKeys.Auth.signIn.rawValue.locale())
-                                    .font(.custom("Poppins-BoldItalic", size: 16))
+                            // MARK: - Sign In  Button
+                            HStack(spacing: 0) {
+                                Text(LocalKeys.Auth.ifYouHaveAnAccount.rawValue.locale())
+                                    .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.libertyBlue)
+                                
+                                Text(" ")
+                                NavigationLink(destination: AuthSignInView()) {
+                                    Text(LocalKeys.Auth.signIn.rawValue.locale())
+                                        .font(.custom("Poppins-BoldItalic", size: 16))
+                                        .foregroundColor(.libertyBlue)
+                                }
                             }
-                        }
-                        
-                    }.padding(.top,ProjectPaddings.large.rawValue)
-                        .navigationBarBackButtonHidden(true) // Varsayılan geri butonunu gizle
-                        .navigationBarItems(leading: CustomBackButton(presentationMode: _presentationMode))
+                            
+                        }.padding(.top,ProjectPaddings.large.rawValue)
+                            .navigationBarBackButtonHidden(true) // Varsayılan geri butonunu gizle
+                            .navigationBarItems(leading: CustomBackButton(presentationMode: _presentationMode))
+                    }
                     
                     
                     Spacer()
