@@ -19,8 +19,8 @@ final class AuthSignInViewViewModel : ObservableObject {
     @Published  var isSignInSuccessful = false
     @Published var errorMessage: LocalizedStringKey = ""
     @Published var showAlert: Bool = false
-
-
+    
+    
     
     
     
@@ -40,7 +40,7 @@ final class AuthSignInViewViewModel : ObservableObject {
                 self.errorMessage = LocalKeys.AuthErrorCode.invalidMail.rawValue.locale()
                 self.showAlert = true
             }
-          
+            
             
             throw AuthError.invalidEmail
         }
@@ -88,7 +88,7 @@ final class AuthSignInViewViewModel : ObservableObject {
         do{
             let helper = SignInAppleHelper()
             let tokens = try await helper.startSignInWithAppleFlow()
-       
+            
             if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
                 _ = try await authManager.signInWithApple(tokens: tokens)
             }
@@ -97,37 +97,38 @@ final class AuthSignInViewViewModel : ObservableObject {
                 self.errorMessage = LocalKeys.AuthErrorCode.signInFailed.rawValue.locale()
                 self.showAlert = true
             }
-        }
-}
-    
-    
-    
-    func openInformationViewFunc() async throws {
+        }}
         
         
-        if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
-            let userId = try  authManager.getAuthenticatedUser().uid
+        
+        
+        func openInformationViewFunc() async throws {
             
-            if let firestoreService : FirestoreService = ServiceLocator.shared.getService(){
+            
+            if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
+                let userId = try  authManager.getAuthenticatedUser().uid
                 
-                if let userData : UserModel = try await firestoreService.getDocumentWhere(from: "users", where: [(field: "id", value: userId)]){
+                if let firestoreService : FirestoreService = ServiceLocator.shared.getService(){
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                       if userData.age == 0 {
-                                           self.openInformationView = true
-                                       } else {
-                                           self.openhomeView = true
-                                       }
-                                   }
-                   
+                    if let userData : UserModel = try await firestoreService.getDocumentWhere(from: "users", where: [(field: "id", value: userId)]){
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            if userData.age == 0 {
+                                self.openInformationView = true
+                            } else {
+                                self.openhomeView = true
+                            }
+                        }
+                        
+                    }
+                    
                 }
-                
             }
+            
         }
+        
         
     }
-    
-    
-}
 
+    
 

@@ -115,6 +115,7 @@ struct AuthSignInView: View {
                         Button{
                             Task{
                                 try await vm.signInApple()
+                                try await vm.openInformationViewFunc()
                             }
                         }label: {
                             SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
@@ -134,6 +135,7 @@ struct AuthSignInView: View {
                         Button{
                             Task{
                                 try await vm.googleSignIn()
+                                try await vm.openInformationViewFunc()
                                 isSignInSuccessful = true
                             }
                         }label: {

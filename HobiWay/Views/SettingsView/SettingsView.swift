@@ -93,6 +93,14 @@ struct SettingsView: View {
                                         SettingsButton(title: LocalKeys.SettingsView.changePassword.rawValue.locale(), icon: "key.fill")
                                     }
                                 }
+                                Button{
+                                    Task{
+                                        await vm.signOut()
+                                    }
+                                }label: {
+                                    SettingsButton(title: LocalKeys.SettingsView.signOut.rawValue.locale(), icon: "person.slash.fill")
+
+                                }
                             }
                             .padding(.horizontal, UIScreen.main.bounds.width * 0.04)
                             

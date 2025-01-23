@@ -162,6 +162,7 @@ struct LocalKeys{
         case changePassword = "changePassword"
         case darkMode = "darkMode"
         case settings = "settings"
+        case signOut = "signOut"
         
     }
     

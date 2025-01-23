@@ -1,9 +1,12 @@
 import Foundation
+import SwiftUI
 @MainActor
 final class SettingsViewViewModel: ObservableObject {
     @Published var userData: UserModel?
     @Published var isLoading: Bool = false
     @Published var totalHobbies: Int = 0
+    @AppStorage("isRemembered") private var isLoggedIn: Bool = true
+
     
     private let authManager = FirebaseAuthManager()
     
@@ -39,4 +42,23 @@ final class SettingsViewViewModel: ObservableObject {
             return "Other"
         }
     }
-} 
+    
+  
+        func signOut() async {
+                guard let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() else {
+                    return
+                }
+                
+                do {
+                    try authManager.signOut()
+                    DispatchQueue.main.async {
+                                        self.isLoggedIn = false // Kullanıcıyı çıkış yaptır ve giriş ekranına yönlendir
+                                    }
+                } catch {
+                    print("Sign out failed: \(error.localizedDescription)")
+                }
+            }
+        
+        
+    
+}

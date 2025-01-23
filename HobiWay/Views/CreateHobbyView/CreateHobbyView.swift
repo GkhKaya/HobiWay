@@ -290,6 +290,7 @@ struct CreateHobbyView: View {
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                 NotificationCenter.default.post(name: Notification.Name("NavigateToHome"), object: nil)
+                                                caseCounter = 0
                                             }
                                         }
                                     }

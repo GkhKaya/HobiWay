@@ -106,13 +106,11 @@ final class CreateHobbyViewViewModel: ObservableObject {
     
     
     @MainActor
-    func createHobbyPlan() async -> Bool {
+    func createHobbyPlan() async  {
         let geminiManager = GeminiApiManager()
         
         createPrompt()
-        if showError {
-            return false
-        }
+        
         
         do {
             self.progress = true
@@ -126,7 +124,6 @@ final class CreateHobbyViewViewModel: ObservableObject {
                 showError = true
                 errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
                 self.progress = false
-                return false
                 
             }
             
@@ -142,7 +139,7 @@ final class CreateHobbyViewViewModel: ObservableObject {
                 errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
                 self.progress = false
                 self.progress = false
-                return false
+                return
             }
             
             // Kullanıcı bilgilerini al
@@ -174,12 +171,10 @@ final class CreateHobbyViewViewModel: ObservableObject {
                        print("User not found.")
                    }
                     self.progress = false
-                   return true
             
             
         } catch {
             
-            return false
         }
     }
 }

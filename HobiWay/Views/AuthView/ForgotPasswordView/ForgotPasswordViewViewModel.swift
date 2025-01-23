@@ -29,8 +29,8 @@ final class ForgotPasswordViewViewModel: ObservableObject {
         }
         
         guard ValidationHelper.isValidEmail(email) else {
-            DispatchQueue.main.async {
-                self.errorMessage = LocalKeys.AuthErrorCode.invalidMail.rawValue.locale()
+            DispatchQueue.main.async { [self] in
+                errorMessage = LocalKeys.AuthErrorCode.invalidMail.rawValue.locale()
                 self.showAlert = true
             }
             return

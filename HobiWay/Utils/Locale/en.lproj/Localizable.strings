@@ -162,6 +162,7 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "changePassword" = "Change Password";
 "darkMode" = "Dark Mode";
 "settings" = "Settings";
+"signOut" = "Sign Out";
 
 ////Mark: SettingsViewError
 "passwordUpdateFailed" = "Failed of password update procress";

@@ -18,24 +18,22 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct HobiWayApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false // AppStorage ile temayı takip et
 
-    
-    init(){
+    init() {
         let firebaseAuthManager = FirebaseAuthManager()
         ServiceLocator.shared.addService(firebaseAuthManager)
-        
+
         FirebaseApp.configure()
 
         let firestoreService = FirestoreService()
         ServiceLocator.shared.addService(firestoreService)
-
-     
     }
-    
-  
+
     var body: some Scene {
         WindowGroup {
             MainRoot()
+                .preferredColorScheme(isDarkMode ? .dark : .light) // Tema tercihini uygula
         }
     }
 }
