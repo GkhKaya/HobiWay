@@ -118,7 +118,7 @@ struct AuthSignInView: View {
                                 try await vm.openInformationViewFunc()
                             }
                         }label: {
-                            SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
+                            SignInWithAppleButtonViewRepresentable(type: .default, style: colorScheme == .light ? .black : .white)
                                 .frame(height: geometry.dh(height: 0.21))
                                 .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                                 .padding()
@@ -146,7 +146,7 @@ struct AuthSignInView: View {
                                 
                                 Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
                                     .foregroundStyle(.libertyBlue)
-                                    .modifier(Px16Regular())
+                                    .modifier(Px18Regular())
                                 
                             } .padding()
                                 
