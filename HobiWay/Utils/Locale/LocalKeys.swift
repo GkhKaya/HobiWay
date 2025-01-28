@@ -136,6 +136,7 @@ struct LocalKeys{
         case pleaseFillAllRequiredFieldsCorrectly = "pleaseFillAllRequiredFieldsCorrectly"
         case failedToGenerateHobbyPlan = "failedToGenerateHobbyPlan"
         case createHobbyError = "createHobbyError"
+        case adultContent = "adultContent"
     }
     
     enum HobbyDetailView : String{

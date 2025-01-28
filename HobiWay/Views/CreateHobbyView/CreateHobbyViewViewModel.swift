@@ -26,10 +26,13 @@ final class CreateHobbyViewViewModel: ObservableObject {
     func validateInputs(step: Int) {
         switch step {
         case 0:
-            if hobbyName.isEmpty {
-                showError = true
-                errorMessage = LocalKeys.CreateHobbyViewErrorCode.hobbyNameRequired.rawValue.locale()
-            }
+                if hobbyName.isEmpty {
+                    showError = true
+                    errorMessage = LocalKeys.CreateHobbyViewErrorCode.hobbyNameRequired.rawValue.locale()
+                } else if containsProhibitedContent(hobbyName) {
+                    showError = true
+                    errorMessage = LocalKeys.CreateHobbyViewErrorCode.adultContent.rawValue.locale()
+                }
         case 1:
             if selectedBudget == nil {
                 showError = true
@@ -127,6 +130,8 @@ final class CreateHobbyViewViewModel: ObservableObject {
                 
             }
             
+            print("\(geminiManager.result)")
+            
             // JSON string'i temizle
             var cleanedJSON = geminiManager.result.trimmingCharacters(in: .whitespacesAndNewlines)
             cleanedJSON = cleanedJSON.replacingOccurrences(of: "```json", with: "")
@@ -177,4 +182,101 @@ final class CreateHobbyViewViewModel: ObservableObject {
             
         }
     }
+    
+    private let prohibitedKeywords: Set<String> = [
+        // İngilizce Yasaklı Kelimeler
+        "sex", "porn", "erotic", "nude", "escort", "strip", "fetish", "bdsm", "hardcore",
+        "adult", "nsfw", "xxx", "taboo", "hentai", "camgirl", "cam", "swinger", "orgy",
+        "dominatrix", "sado", "maso", "sugar daddy", "sugar baby", "playboy", "naked", "lingerie",
+        
+        // Türkçe Yasaklı Kelimeler
+        "aşk", "pornografi", "erotik", "çıplak", "escort", "fetiş", "bdsm", "hardcore", "yetişkin",
+        "nsfw", "yasaklı", "şeker baba", "şeker kız", "playboy", "çırılçıplak", "iç çamaşırı", "sikiş",
+        "porno", "fahişe", "kucaklama", "çiftleşme", "seks", "mastürbasyon", "vücut", "peşin", "kucak",
+        "hard", "adult", "rapist", "molestation", "orgasm", "climax", "violation", "abuse", "lick", "blowjob"
+    ]
+
+    private func containsProhibitedContent(_ input: String) -> Bool {
+        let lowercasedInput = input.lowercased()
+        
+        // 1. Tam Eşleşme Kontrolü
+        if prohibitedKeywords.contains(lowercasedInput) {
+            return true
+        }
+        
+        // 2. Yasaklı Kelime İçerik Kontrolü
+        for keyword in prohibitedKeywords {
+            if lowercasedInput.contains(keyword) {
+                return true
+            }
+        }
+        
+        // 3. Yazım Hataları ve Benzerlik Kontrolü (Levenshtein Mesafesi)
+        return isAdultContent(lowercasedInput)
+    }
+
+    /// Levenshtein Mesafesi ile Benzerlik Kontrolü
+    private func isAdultContent(_ input: String) -> Bool {
+        for keyword in prohibitedKeywords {
+            // 0'a kadar benzerlik kontrolü yapıyoruz. Yani kelimeler tamamen eşleşmelidir.
+            if levenshteinDistance(input, keyword) <= 0 {
+                return true
+            }
+        }
+        return false
+    }
+
+    /// Levenshtein Mesafesi Hesaplama
+    private func levenshteinDistance(_ a: String, _ b: String) -> Int {
+        let aCount = a.count
+        let bCount = b.count
+        
+        guard aCount != 0, bCount != 0 else { return max(aCount, bCount) }
+        
+        var matrix = Array(repeating: Array(repeating: 0, count: bCount + 1), count: aCount + 1)
+        
+        for i in 0...aCount { matrix[i][0] = i }
+        for j in 0...bCount { matrix[0][j] = j }
+        
+        for i in 1...aCount {
+            for j in 1...bCount {
+                let cost = a[a.index(a.startIndex, offsetBy: i - 1)] == b[b.index(b.startIndex, offsetBy: j - 1)] ? 0 : 1
+                matrix[i][j] = min(matrix[i - 1][j] + 1, min(matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost))
+            }
+        }
+        
+        return matrix[aCount][bCount]
+    }
+
+    /// RegEx kullanarak özel karakterleri tespit etme
+    private func containsSpecialCharacters(_ input: String) -> Bool {
+        let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9\\s]", options: .caseInsensitive)
+        let range = NSRange(location: 0, length: input.utf16.count)
+        return regex.firstMatch(in: input, options: [], range: range) != nil
+    }
+
+    /// Gelişmiş analiz: Kelimelerin kökünü bulma
+    private func containsRootWords(_ input: String) -> Bool {
+        // Bu örnekte basit bir kök kelime analizi yaptık. Daha karmaşık bir çözüm için NLP kullanılabilir.
+        let rootWords: Set<String> = ["porno", "seks", "fetiş", "hardcore", "mastürbasyon"]
+        let lowercasedInput = input.lowercased()
+        
+        for word in rootWords {
+            if lowercasedInput.contains(word) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /// Ana içerik kontrolü: Hem yazım hatalarını hem özel karakterleri kontrol etme
+    private func validateInput(_ input: String) -> Bool {
+        if containsProhibitedContent(input) || containsSpecialCharacters(input) || containsRootWords(input) {
+            return false
+        }
+        return true
+    }
 }
+
+
+

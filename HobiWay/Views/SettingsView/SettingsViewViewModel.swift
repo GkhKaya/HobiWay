@@ -52,7 +52,7 @@ final class SettingsViewViewModel: ObservableObject {
                 do {
                     try authManager.signOut()
                     DispatchQueue.main.async {
-                                        self.isLoggedIn = false // Kullanıcıyı çıkış yaptır ve giriş ekranına yönlendir
+                                        self.isLoggedIn = false 
                                     }
                 } catch {
                     print("Sign out failed: \(error.localizedDescription)")
