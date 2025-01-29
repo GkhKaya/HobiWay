@@ -60,5 +60,9 @@ final class SettingsViewViewModel: ObservableObject {
             }
         
         
-    
+    func getInitials(from fullName: String) -> String {
+        let words = fullName.split(separator: " ")  // Boşluklara göre ayır
+        let initials = words.compactMap { $0.first?.uppercased() } // Her kelimenin ilk harfini al
+        return initials.joined()  // Harfleri birleştir
+    }
 }

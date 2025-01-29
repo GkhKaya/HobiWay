@@ -108,7 +108,6 @@ final class CreateHobbyViewViewModel: ObservableObject {
     
     
     
-    @MainActor
     func createHobbyPlan() async  {
         let geminiManager = GeminiApiManager()
         

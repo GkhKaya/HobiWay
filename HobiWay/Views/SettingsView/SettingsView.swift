@@ -24,10 +24,9 @@ struct SettingsView: View {
                                         height: UIScreen.main.bounds.width * 0.2
                                     )
                                     .overlay(
-                                        Text(vm.userData?.fullName.prefix(1).uppercased() ?? "")
+                                        Text(vm.getInitials(from: vm.userData?.fullName ?? ""))
                                             .modifier(Px24Bold())
-                                            .foregroundColor(.white)
-                                    )
+                                            .foregroundColor(.white)                                    )
                                 
                                 VStack(spacing: 8) {
                                     Text(vm.userData?.fullName ?? "")
