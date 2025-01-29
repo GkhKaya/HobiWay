@@ -15,6 +15,7 @@ final class AuthSignUpViewViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var showAlert: Bool = false
     @Published var errorMessage: LocalizedStringKey = ""
+    @Published var showSuccessAlert: Bool = false // Başarı alert'i için yeni state
     
     @MainActor
     func signUp() async throws {
@@ -62,6 +63,7 @@ final class AuthSignUpViewViewModel: ObservableObject {
 
                 if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {
                     try await firestoreService.setDocument(documentId: returnerUserData.uid, in: "users", data: newUser)
+                    self.showSuccessAlert = true
                 } else {
                     Task { @MainActor in
                         self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
@@ -102,10 +104,49 @@ final class AuthSignUpViewViewModel: ObservableObject {
 
                 if let firestoreService  :FirestoreService = ServiceLocator.shared.getService(){
                     try await firestoreService.setDocument(documentId: returnerUserData.uid, in: "users", data: newUser)
+                    self.showSuccessAlert = true
                 }else{
                     self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
                 }
             }
+        }catch{
+            Task { @MainActor in
+                self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
+                self.showAlert = true
+            }
+        }
+    }
+    
+    
+    func signUpGoogle() async throws {
+        do{
+            let helper = SignInGoogleHelper()
+            let token = try await helper.signIn()
+            
+            if let authManaher : FirebaseAuthManager = ServiceLocator.shared.getService(){
+                let returnedUserData = try await authManaher.signInWithGoogle(tokens: token)
+                let newUser = UserModel(
+                    id: returnedUserData.uid,
+                    mail: returnedUserData.email ?? "Private",
+                    fullName: "",
+                    interests: [],
+                    gender: 1,
+                    phoneNumber: "",
+                    age: 0,
+                    imageUrl: "",
+                    createdAt: Date(),
+                    inroduceYourself: "",
+                    hobbies: []
+                )
+                
+                if let firestoreService  :FirestoreService = ServiceLocator.shared.getService(){
+                    try await firestoreService.setDocument(documentId: returnedUserData.uid, in: "users", data: newUser)
+                    self.showSuccessAlert = true
+                }else{
+                    self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()
+                }
+            }
+
         }catch{
             Task { @MainActor in
                 self.errorMessage = LocalKeys.AuthErrorCode.userNotFound.rawValue.locale()

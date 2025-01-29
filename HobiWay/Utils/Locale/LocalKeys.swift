@@ -30,6 +30,8 @@ struct LocalKeys{
         case error = "error"
         case hobbies = "hobbies"
         case account = "account"
+        case success = "success"
+        
 
     }
     
@@ -64,6 +66,7 @@ struct LocalKeys{
         case ifYouHaveAnAccount = "ifYouHaveAnAccount"
         case pleaseEnterEmail = "pleaseEnterEmail"
         case successfullySignedUp = "successfullySignedUp"
+        case accountCreatedSuccessful = "accountCreatedSuccessful"
     }
     
     

@@ -68,23 +68,7 @@ struct HobbyDetailView: View {
                             .tabViewStyle(.page)
                             .frame(height: 400)
                             
-                            // Sayfa indikatörü
-                            HStack {
-                                ForEach(
-                                    0..<vm.hobby.plan.phases.count, id: \.self
-                                ) { index in
-                                    Circle()
-                                        .fill(
-                                            index == selectedPhase
-                                            ? Color.safetyOrange
-                                            : Color.gray.opacity(0.3)
-                                        )
-                                        .frame(width: 8, height: 8)
-                                        .animation(
-                                            .easeInOut, value: selectedPhase)
-                                }
-                            }
-                            .padding(.horizontal)
+                            
                         }
                     }
                     .padding(.vertical)

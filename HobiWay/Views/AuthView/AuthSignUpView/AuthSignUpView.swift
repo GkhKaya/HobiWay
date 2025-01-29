@@ -93,7 +93,9 @@ struct AuthSignUpView: View {
                             // MARK: - Sign Up Google Button
                             
                             Button{
-                                
+                                Task{
+                                    try await vm.signUpGoogle()
+                                }
                             }label: {
                                 
                                 HStack{
@@ -142,6 +144,16 @@ struct AuthSignUpView: View {
                       dismissButton: .default(Text(LocalKeys.General.okay.rawValue.locale())) {
                                               navigateToSignIn = true // Set navigation to true when alert is dismissed
                                           })
+                }
+            
+                .alert(isPresented: $vm.showSuccessAlert) {
+                    Alert(
+                        title: Text(LocalKeys.General.success.rawValue.locale()),
+                        message: Text(LocalKeys.Auth.accountCreatedSuccessful.rawValue.locale()),
+                        dismissButton: .default(Text(LocalKeys.General.okay.rawValue.locale())) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    )
                 }
             }
             .navigationBarBackButtonHidden(true)
