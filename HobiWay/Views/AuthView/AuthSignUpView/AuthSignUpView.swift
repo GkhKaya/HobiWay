@@ -77,38 +77,55 @@ struct AuthSignUpView: View {
                     
                     GeometryReader {geometry in
                         VStack{
-                            // MARK: - Sign up Apple Button
-                            Button{
-                                Task{
-                                     await vm.signUpApple()
+                            HStack{
+                                Spacer()
+
+                                // MARK: - Sign in Apple Button
+                                Button{
+                                    Task{
+                                        try await vm.signUpApple()
+                                    }
+                                }label: {
+                                    SignInWithAppleButtonViewRepresentable(type: .default, style: colorScheme == .light ? .black : .white)
+                                        .frame(width:geometry.dw(width: 0.4),height: geometry.dh(height: 0.3))
+                                        .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                        .padding()
                                 }
-                            }label: {
-                                SignInWithAppleButtonViewRepresentable(type: .default, style: .black)
-                                    .frame(height: geometry.dh(height: 0.19))
-                                    .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                                    .padding()
-                                    .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                            }
-                            
-                            // MARK: - Sign Up Google Button
-                            
-                            Button{
-                                Task{
-                                    try await vm.signUpGoogle()
-                                }
-                            }label: {
                                 
-                                HStack{
+                                // MARK: - Sign in Google Button
+                                
+                                Button{
+                                    Task{
+                                        try await vm.signUpGoogle()
+                                    }
+                                }label: {
                                     
-                                    Image(ProjectImages.AuthImages.icGoogle.rawValue)
+                                    HStack{
+                                        
+                                        Image(ProjectImages.AuthImages.icGoogle.rawValue)
+                                            .padding(.leading,6)
+                                        
+                                        Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
+                                            .multilineTextAlignment(.center)
+                                            .foregroundStyle(.libertyBlue)
+                                            .modifier(Px12Regular())
+                                            
+                                            
+                                        
+                                        
+                                    }
+                                    .frame(width:geometry.dw(width: 0.4),height: geometry.dh(height: 0.3))
+
+                                        
+                                        .background(colorScheme == .light ? Color.white : Color.black)
+                                        .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
                                     
-                                    Text(LocalKeys.Auth.signUpWithGoogle.rawValue.locale())
-                                        .foregroundStyle(.libertyBlue)
-                                        .modifier(Px16Regular())
-                                    
-                                } .padding()
-                                    .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                                    .background(colorScheme == .light ? Color.white : Color.black)                         .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                }
+                                        
+                                
+                                Spacer()
+
+                                
                                 
                             }
                             
@@ -118,14 +135,14 @@ struct AuthSignUpView: View {
                             // MARK: - Sign In  Button
                             HStack(spacing: 0) {
                                 Text(LocalKeys.Auth.ifYouHaveAnAccount.rawValue.locale())
-                                    .font(.custom("Poppins-Regular", size: 16))
                                     .foregroundColor(.libertyBlue)
+                                    .modifier(Px12Regular())
                                 
                                 Text(" ")
-                                NavigationLink(destination: AuthSignInView()) {
+                                NavigationLink(destination: AuthSignUpView()) {
                                     Text(LocalKeys.Auth.signIn.rawValue.locale())
-                                        .font(.custom("Poppins-BoldItalic", size: 16))
                                         .foregroundColor(.libertyBlue)
+                                        .modifier(Px12Bold())
                                 }
                             }
                             

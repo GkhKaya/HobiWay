@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   HobiWay
 
@@ -25,7 +25,8 @@
 "eng" = "ENG";
 "error" = "Error";
 "hobbies"  ="Hobbies";
-"account" = "account";
+"account" = "Account";
+
 
 ////Mark: General Error Message
 "unknow" = "An unknown error occurred. Please try again.";
@@ -149,8 +150,6 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 
 
 
-
-
 ////Mark: SettingsView
 "currentPassword" = "Current Password";
 "newPassword" = "New Password";
@@ -163,6 +162,7 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "darkMode" = "Dark Mode";
 "settings" = "Settings";
 "signOut" = "Sign Out";
+
 
 ////Mark: SettingsViewError
 "passwordUpdateFailed" = "Failed of password update procress";

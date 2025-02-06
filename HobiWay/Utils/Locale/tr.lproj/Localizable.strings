@@ -1,4 +1,4 @@
-/*
+/* 
   Localizable.strings
   HobiWay
 
@@ -7,179 +7,152 @@
 */
 
 ////MARK: General
-"email" = "Email";
-"password" = "Password";
-"phoneNumber" = "Phone Number";
-"fullName" = "Full Name";
-"next" = "Next";
-"hello" = "Hello";
-"age" = "Age";
-"gender"  ="Gender";
-"finish"  ="Finish";
-"alert" = "Alert";
-"okay" = "Okay";
-"man" = "Man";
-"woman" = "Woman";
-"other" = "Other";
+"email" = "E-posta";
+"password" = "Şifre";
+"phoneNumber" = "Telefon Numarası";
+"fullName" = "Ad Soyad";
+"next" = "İleri";
+"hello" = "Merhaba";
+"age" = "Yaş";
+"gender"  ="Cinsiyet";
+"finish"  ="Bitir";
+"alert" = "Uyarı";
+"okay" = "Tamam";
+"man" = "Erkek";
+"woman" = "Kadın";
+"other" = "Diğer";
 "tr" = "TR";
 "eng" = "ENG";
-"error" = "Error";
-"hobbies"  ="Hobbies";
-"account" = "Account";
+"error" = "Hata";
+"hobbies"  ="Hobiler";
+"account" = "Hesap";
 
 
 ////Mark: General Error Message
-"unknow" = "An unknown error occurred. Please try again.";
+"unknow" = "Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.";
 
 ////Mark: Auth
 
-"hereYouCanLearnAnyHobbyYouWant" = "Here You Can Learn Any Hobby You Want";
-"learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Learning a new hobby is a fantastic journey to add color to your life and gain new skills.";
-"signIn" = "Sign In";
-"signUp" = "Sign Up";
-"welcomeBack" = "Welcome Back";
-"joinUs" = "Join Us";
-"pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Please enter your details to continue learning about your hobbies.";
-"rememberMe" = "Remember Me";
-"forgotPassword" = "Forgot Password";
-"sendedMail" = "Sended mail";
-"pleaseEnterEmail" = "Please enter your email";
-"signInWithApple" = "Sign In With Apple ";
-"signUpWithApple" = "Sign Up With Apple ";
-"signUpWithGoogle" = "Sign Up With Google";
-"signInWithGoogle" = "Sign In With Google";
-"ifYouDontHaveAnAccount" = "If you dont have an account";
-"ifYouHaveAnAccount" = "If you have an account";
-"successfullySignedUp" = "Successfully signed up!";
+"hereYouCanLearnAnyHobbyYouWant" = "Burada istediğiniz herhangi bir hobiyi öğrenebilirsiniz.";
+"learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Yeni bir hobi öğrenmek, hayatınıza renk katmak ve yeni beceriler kazanmak için harika bir yolculuktur.";
+"signIn" = "Giriş Yap";
+"signUp" = "Kayıt Ol";
+"welcomeBack" = "Tekrar Hoş Geldiniz";
+"joinUs" = "Bize Katılın";
+"pleaseEnterYourDetailsToContinueLearningAboutYourHobbies" = "Hobileriniz hakkında öğrenmeye devam etmek için bilgilerinizi girin.";
+"rememberMe" = "Beni Hatırla";
+"forgotPassword" = "Şifremi Unuttum";
+"sendedMail" = "E-posta gönderildi";
+"pleaseEnterEmail" = "Lütfen e-posta adresinizi girin";
+"signInWithApple" = "Apple ile Giriş Yap";
+"signUpWithApple" = "Apple ile Kayıt Ol";
+"signUpWithGoogle" = "Google ile Kayıt Ol";
+"signInWithGoogle" = "Google ile Giriş Yap";
+"ifYouDontHaveAnAccount" = "Eğer bir hesabınız yoksa";
+"ifYouHaveAnAccount" = "Eğer bir hesabınız varsa";
+"successfullySignedUp" = "Başarıyla kayıt oldunuz!";
 
 
 ////Mark: Auth Error Message
-"userNotFound" = "No account found for the provided credentials." ;
-"emailAlreadyInUse" = "The email address is already in use by another account.";
-"weakPassword" ="Password must meet the following requirements: at least one uppercase letter, at least one lowercase letter, \
-at least one numeric digit, and at least one special character (e.g., !@#$%^&*).";
-"invailEmail" = "The email address is not valid.";
-"authFieldsEmpty" = "Fields can not be empty.";
-"signInFailed" = "Failed to sign in. Please check your credentials.";
-"passwordResetFailed" = "Failed to send password reset email.";
-
+"userNotFound" = "Girilen bilgilere ait bir hesap bulunamadı.";
+"emailAlreadyInUse" = "Bu e-posta adresi başka bir hesap tarafından kullanılmaktadır.";
+"weakPassword" ="Şifre aşağıdaki gereksinimleri karşılamalıdır: en az bir büyük harf, en az bir küçük harf, en az bir rakam ve en az bir özel karakter (!@#$%^&* gibi).";
+"invailEmail" = "Girilen e-posta adresi geçerli değil.";
+"authFieldsEmpty" = "Alanlar boş bırakılamaz.";
+"signInFailed" = "Giriş yapılamadı. Lütfen bilgilerinizi kontrol edin.";
+"passwordResetFailed" = "Şifre sıfırlama e-postası gönderilemedi.";
 
 
 ////Mark: Home View
-"theBestAppForLearnDreamHooby" = "The Best App For Learn Dream Hooby";
-"createYourFirstHobbyPlan" = "Create your first hobby plan";
-"welcomeBack" = "Welcome Back!";
-
-
+"theBestAppForLearnDreamHooby" = "Hayalinizdeki hobiyi öğrenmek için en iyi uygulama";
+"createYourFirstHobbyPlan" = "İlk hobi planınızı oluşturun";
+"welcomeBack" = "Tekrar Hoş Geldiniz!";
 
 
 ////Mark: Information View
 
-"letsGetToNowYouALittleBit" = "Let's get to know you a little bit";
-"firstLetsLearnYourName" = "First let's learn your name";
-"weAreHobiWayDevelopmentTeam" = "We are HobiWay Development Team";
-"youCanReachUsAnytimeAtHobiwaycontact@devosuit.com" = "You can reach us anytime at hobiwaycontact@devosuit.com";
- "nowLetsKnowYourAgeAndGender" = "Now Let's Know Your Age And Gender";
-"nextIsYourpPhoneNumber" = "Next Is Your Phone Number";
-"finallyTellUsALittleAboutYourself" = "Finally, tell us a little about yourself.";
-"pleaseSelectYouInterest" = "Please select your interest.";
-"selectCountryCode" = "Select Country Code";
-
-
+"letsGetToNowYouALittleBit" = "Sizi biraz tanıyalım";
+"firstLetsLearnYourName" = "Öncelikle adınızı öğrenelim";
+"weAreHobiWayDevelopmentTeam" = "Biz HobiWay Geliştirme Ekibiyiz";
+"youCanReachUsAnytimeAtHobiwaycontact@devosuit.com" = "Bize dilediğiniz zaman hobiwaycontact@devosuit.com adresinden ulaşabilirsiniz.";
+"nowLetsKnowYourAgeAndGender" = "Şimdi yaşınızı ve cinsiyetinizi öğrenelim";
+"nextIsYourpPhoneNumber" = "Sırada telefon numaranız var";
+"finallyTellUsALittleAboutYourself" = "Son olarak, kendiniz hakkında biraz bilgi verin.";
+"pleaseSelectYouInterest" = "Lütfen ilgi alanlarınızı seçin.";
+"selectCountryCode" = "Ülke kodunu seçin";
 
 
 ////Mark: Information View Errors
-"pleaseEnterYourName" = "Please enter your name.";
-"pleaseEnterYourPhoneNumber" = "Please enter your phone number.";
-"pleaseSelectLeastTwoInterest" = "Please select least two interest";
-"pleaseEnterLeast100Characters" = "Please enter least 100 characters";
+"pleaseEnterYourName" = "Lütfen adınızı girin.";
+"pleaseEnterYourPhoneNumber" = "Lütfen telefon numaranızı girin.";
+"pleaseSelectLeastTwoInterest" = "Lütfen en az iki ilgi alanı seçin.";
+"pleaseEnterLeast100Characters" = "Lütfen en az 100 karakter girin.";
 
 
 ////Mark: Create Hobby View
 
-"pleaseEnterTheHobbyYouWant"="Please enter the hobby you want";
-"chooseTheBudgetYouCanUseForThisHobby"="Choose the budget you can use for this hobby";
-"lowBudget" = "Low Budget";
-"lowBudgetDesc"= "Roadmap with the least possible budget";
-"mediumBudget" = "Medium Budget";
-"mediumBudgetDesc"="A roadmap created with a medium budget max 100$";
-"highBudget" = "High Budget";
-"highBudgetDesc" = "A roadmap without budget constraints";
-"pleaseSelectRoadmapLanguage" = "Please Select Roadmap Language";
-"activeLanguages" = "Active Languages";
-"selectLevel" = "Please select the starting level of the roadmap";
-"beginnerLevel" = "Beginner Level";
-"beginnerLevelDesc" = "Roadmap starts from 0";
-"intermediateLevel" = "Intermediate Level";
-"intermediateLevelDesc" = "Starts at intermediate level, skipping the starting name";
-"advancedLevel" = "Advanced Level";
-"advancedLevelDesc" = "You should choose it for more than what you know.";
-"pleaseChooseTheMinutesYouCanSparePerDay" = "Please Choose the Minutes You Can Spare Per Day";
-"minute15" = "15 Minute";
-"minute15Desc" = "If you have little free time, choose this one";
-"minute30" = "30 Minute";
-"minute30Desc" = "Half an hour a day can do wonders";
-"minute60" = "60 Minute";
-"minute60Desc" = "If you're serious about this, choose this one.";
-"explainWhyText"= "Why want you learning this hobby. Explain shortly";
-"generatingPlan"="Generating your hobby plan...";
+"pleaseEnterTheHobbyYouWant"="Lütfen öğrenmek istediğiniz hobiyi girin";
+"chooseTheBudgetYouCanUseForThisHobby"="Bu hobi için kullanabileceğiniz bütçeyi seçin";
+"lowBudget" = "Düşük Bütçe";
+"lowBudgetDesc"= "En az maliyetle oluşturulmuş bir yol haritası";
+"mediumBudget" = "Orta Bütçe";
+"mediumBudgetDesc"="Maksimum 100$ bütçeyle oluşturulmuş bir yol haritası";
+"highBudget" = "Yüksek Bütçe";
+"highBudgetDesc" = "Bütçe sınırı olmadan oluşturulmuş bir yol haritası";
+"pleaseSelectRoadmapLanguage" = "Lütfen yol haritası dilini seçin";
+"activeLanguages" = "Aktif Diller";
+"selectLevel" = "Lütfen başlangıç seviyesini seçin";
+"beginnerLevel" = "Başlangıç Seviyesi";
+"beginnerLevelDesc" = "Yol haritası sıfırdan başlar";
+"intermediateLevel" = "Orta Seviye";
+"intermediateLevelDesc" = "Başlangıç adımını atlayarak orta seviyeden başlar";
+"advancedLevel" = "İleri Seviye";
+"advancedLevelDesc" = "Mevcut bilginizin ötesinde bilgi edinmek için seçin.";
+"pleaseChooseTheMinutesYouCanSparePerDay" = "Günde ayırabileceğiniz süreyi seçin";
+"minute15" = "15 Dakika";
+"minute15Desc" = "Az boş zamanınız varsa bunu seçin";
+"minute30" = "30 Dakika";
+"minute30Desc" = "Günde yarım saat harikalar yaratabilir";
+"minute60" = "60 Dakika";
+"minute60Desc" = "Eğer ciddiseniz, bunu seçin.";
+"explainWhyText"= "Bu hobiyi neden öğrenmek istediğinizi kısaca açıklayın";
+"generatingPlan"="Hobi planınız oluşturuluyor...";
+
 
 ////Mark: Create Hobby View Error Message
-"hobbyNameRequired" = "Hobby Name is required.";
-"budgetRequired" = "Budget is required.";
-"languageRequired" = "Language is required.";
-"levelRequired" = "Level is required.";
-"resonRequired" = "Reason is required.";
-"muniteRequired" = "Munite is required.";
-"pleaseFillAllRequiredFieldsCorrectly" = "Please fill all required fields correctly";
-"failedToGenerateHobbyPlan" = "Failed to generate hobby plan";
-"createHobbyError" = "Creating Hobby Error";
+"hobbyNameRequired" = "Hobi Adı gereklidir.";
+"budgetRequired" = "Bütçe gereklidir.";
+"languageRequired" = "Dil gereklidir.";
+"levelRequired" = "Seviye gereklidir.";
+"resonRequired" = "Sebep gereklidir.";
+"muniteRequired" = "Dakika gereklidir.";
+"pleaseFillAllRequiredFieldsCorrectly" = "Lütfen tüm gerekli alanları doğru şekilde doldurun";
+"failedToGenerateHobbyPlan" = "Hobi planı oluşturulamadı";
+"createHobbyError" = "Hobi Oluşturma Hatası";
+
 
 ////Mark: Hobby Detail View
-"level" = "Level";
-"languge" = "Language";
-"budget" = "Budget";
-"duration" = "Duration";
-"learningJourney" = "Learning Journey";
-"swipe" = "Swipe";
-"goalsToAchive" = "Goals to Achive";
-"goals" = "Goals";
-"resources" = "Resources";
-"phease" = "Phease";
-
-
+"level" = "Seviye";
+"languge" = "Dil";
+"budget" = "Bütçe";
+"duration" = "Süre";
+"learningJourney" = "Öğrenme Yolculuğu";
+"swipe" = "Kaydır";
+"goalsToAchive" = "Başarılması Gereken Hedefler";
+"goals" = "Hedefler";
+"resources" = "Kaynaklar";
+"phease" = "Aşama";
 
 
 ////Mark: SettingsView
-"currentPassword" = "Current Password";
-"newPassword" = "New Password";
-"currentemail" = "Current Email";
-"newemail" = "New Email";
-"updatePassword" = "Update Password";
-"updateemail" = "Update Email";
-"changeEmail" = "Change Email";
-"changePassword" = "Change Password";
-"darkMode" = "Dark Mode";
-"settings" = "Settings";
-"signOut" = "Sign Out";
-
-
-////Mark: SettingsViewError
-"passwordUpdateFailed" = "Failed of password update procress";
-"emailUpdateFailed" = "Failed of email update procress";
-"yourCurrentPasswordIsWrong" = "Current Password Is Wrong";
-"yourCurrentEmailIsWrong" = "Current Email Is Wrong";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"currentPassword" = "Mevcut Şifre";
+"newPassword" = "Yeni Şifre";
+"currentemail" = "Mevcut E-posta";
+"newemail" = "Yeni E-posta";
+"updatePassword" = "Şifreyi Güncelle";
+"updateemail" = "E-postayı Güncelle";
+"changeEmail" = "E-postayı Değiştir";
+"changePassword" = "Şifreyi Değiştir";
+"darkMode" = "Karanlık Mod";
+"settings" = "Ayarlar";
+"signOut" = "Çıkış Yap";

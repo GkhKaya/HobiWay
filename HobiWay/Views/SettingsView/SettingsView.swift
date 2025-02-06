@@ -26,7 +26,7 @@ struct SettingsView: View {
                                     .overlay(
                                         Text(vm.getInitials(from: vm.userData?.fullName ?? ""))
                                             .modifier(Px24Bold())
-                                            .foregroundColor(.white)                                    )
+                                            .foregroundColor(.white))
                                 
                                 VStack(spacing: 8) {
                                     Text(vm.userData?.fullName ?? "")

@@ -18,7 +18,7 @@ struct UpdateEmailView: View {
                     )
                     
                     // Mevcut Şifre Alanı
-                    SecureFieldWidget(iconName: "lock", text: $vm.currentPassword,placeHolderText: LocalKeys.SettingsView.currentPassword.rawValue.locale())
+                    SecureFieldWidget(iconName: "lock", text: $vm.currentPassword, placeHolderText: LocalKeys.SettingsView.currentPassword.rawValue.locale())
 
                     // Güncelleme Butonu
                     Button {
@@ -47,24 +47,22 @@ struct UpdateEmailView: View {
             }
             .navigationTitle(LocalKeys.SettingsView.updateemail.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundStyle(.libertyBlue)
-                    }
-                }
-            }
+            
             .alert(LocalKeys.General.error.rawValue.locale(), isPresented: $vm.showAlert) {
                 Button(LocalKeys.General.okay.rawValue.locale(), role: .cancel) { }
             } message: {
                 Text(vm.errorMessage)
             }
-            .onChange(of: vm.isSuccess) { _, newValue in
+            
+            // iOS 16 ve iOS 17 için uyumlu değişiklik izleme
+            .onChange(of: vm.isSuccess) { newValue in
                 if newValue {
+                    dismiss()
+                }
+            }
+            .onAppear {
+                // iOS 16 için alternatif çözüm (iOS 17'de onChange çalışıyor)
+                if vm.isSuccess {
                     dismiss()
                 }
             }

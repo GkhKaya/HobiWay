@@ -1,5 +1,7 @@
 import SwiftUI
 
+import SwiftUI
+
 struct UpdatePasswordView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm = UpdatePasswordViewViewModel()
@@ -10,18 +12,21 @@ struct UpdatePasswordView: View {
                 Color.winterHaven.ignoresSafeArea()
                 
                 VStack(spacing: ProjectPaddings.large.rawValue) {
+                    // Mevcut Şifre Alanı
                     SecureFieldWidget(
                         iconName: "lock.fill",
                         text: $vm.currentPassword,
                         placeHolderText: LocalKeys.SettingsView.currentPassword.rawValue.locale()
                     )
                     
+                    // Yeni Şifre Alanı
                     SecureFieldWidget(
                         iconName: "lock.fill",
                         text: $vm.newPassword,
                         placeHolderText: LocalKeys.SettingsView.newPassword.rawValue.locale()
                     )
                     
+                    // Güncelleme Butonu
                     Button {
                         Task {
                             await vm.updatePassword()
@@ -48,27 +53,25 @@ struct UpdatePasswordView: View {
             }
             .navigationTitle(LocalKeys.SettingsView.updatePassword.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundStyle(.libertyBlue)
-                    }
-                }
-            }
+           
             .alert(LocalKeys.General.error.rawValue.locale(), isPresented: $vm.showAlert) {
                 Button(LocalKeys.General.okay.rawValue.locale(), role: .cancel) { }
             } message: {
                 Text(vm.errorMessage)
             }
-            .onChange(of: vm.isSuccess) { oldValue, newValue in
+            
+            // iOS 16 ve iOS 17 için uyumlu değişiklik izleme
+            .onChange(of: vm.isSuccess) { newValue in
                 if newValue {
+                    dismiss()
+                }
+            }
+            .onAppear {
+                // iOS 16 için alternatif çözüm (iOS 17'de onChange çalışıyor)
+                if vm.isSuccess {
                     dismiss()
                 }
             }
         }
     }
-} 
+}

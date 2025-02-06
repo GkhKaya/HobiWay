@@ -15,7 +15,8 @@ struct RememberStyle : ToggleStyle {
         } label: {
             HStack {
                 Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                    .contentTransition(.symbolEffect).foregroundStyle(.libertyBlue)
+                    .foregroundStyle(.libertyBlue)
+                    .animation(.easeInOut, value: configuration.isOn) // iOS 16 uyumluluğu
                 Text(LocalKeys.Auth.rememberMe.rawValue.locale())
                     .modifier(Px16Light())
                     .foregroundStyle(Color.libertyBlue)
@@ -23,7 +24,6 @@ struct RememberStyle : ToggleStyle {
         }.tint(.primary)
     }
 }
-
 
 #Preview(){
     AuthSignInView()

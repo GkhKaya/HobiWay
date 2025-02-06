@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 final class InformationViewViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var fullPhoneNumber: String = ""

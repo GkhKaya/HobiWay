@@ -110,66 +110,73 @@ struct AuthSignInView: View {
                     
                     GeometryReader{ geometry in
                     VStack{
-                        
-                        // MARK: - Sign in Apple Button
-                        Button{
-                            Task{
-                                try await vm.signInApple()
-                                try await vm.openInformationViewFunc()
+                        HStack{
+                            Spacer()
+                            // MARK: - Sign in Apple Button
+                            Button{
+                                Task{
+                                    try await vm.signInApple()
+                                    try await vm.openInformationViewFunc()
+                                }
+                            }label: {
+                                SignInWithAppleButtonViewRepresentable(type: .default, style: colorScheme == .light ? .black : .white)
+                                    .frame(width:geometry.dw(width: 0.4),height: geometry.dh(height: 0.3))
+                                    .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                    .padding()
                             }
-                        }label: {
-                            SignInWithAppleButtonViewRepresentable(type: .default, style: colorScheme == .light ? .black : .white)
-                                .frame(height: geometry.dh(height: 0.21))
-                                .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                                .padding()
-                                .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
+                            
+                            // MARK: - Sign in Google Button
+                            
+                            Button{
+                                Task{
+                                    try await vm.googleSignIn()
+                                    try await vm.openInformationViewFunc()
+                                    isSignInSuccessful = true
+                                }
+                            }label: {
+                                
+                                HStack{
+                                    
+                                    Image(ProjectImages.AuthImages.icGoogle.rawValue)
+                                        .padding(.leading,6)
+                                    
+                                    Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
+                                        .multilineTextAlignment(.center)
+                                        .foregroundStyle(.libertyBlue)
+                                        .modifier(Px12Regular())
+                                        
+                                        
+                                    
+                                    
+                                }
+                                .frame(width:geometry.dw(width: 0.4),height: geometry.dh(height: 0.3))
+
+                                    
+                                    .background(colorScheme == .light ? Color.white : Color.black)
+                                    .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
+                                
+                            }
+                                    
+                            
+                      
+                            Spacer()
+
+                            
                         }
                         
-
-                                
                         
-                  
-                        
-                        // MARK: - Sign in Google Button
-                        
-                        Button{
-                            Task{
-                                try await vm.googleSignIn()
-                                try await vm.openInformationViewFunc()
-                                isSignInSuccessful = true
-                            }
-                        }label: {
-                            
-                            HStack{
-                                
-                                Image(ProjectImages.AuthImages.icGoogle.rawValue)
-                                
-                                Text(LocalKeys.Auth.signInWithGoogle.rawValue.locale())
-                                    .foregroundStyle(.libertyBlue)
-                                    .modifier(Px18Regular())
-                                
-                            } .padding()
-                                
-                                .padding(.horizontal,ProjectRadius.extraLarge.rawValue)
-                                .background(colorScheme == .light ? Color.white : Color.black)
-                                .clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normal.rawValue))
-                            
-                        }.frame(height: geometry.dh(height: 0.21))
-                        
-                        .padding(.top,ProjectPaddings.extraSmall.rawValue)
-                        Spacer()
                         
                         // MARK: - Sign In  Button
                         HStack(spacing: 0) {
                             Text(LocalKeys.Auth.ifYouDontHaveAnAccount.rawValue.locale())
-                                .font(.custom("Poppins-Regular", size: 16))
                                 .foregroundColor(.libertyBlue)
+                                .modifier(Px12Regular())
                             
                             Text(" ")
                             NavigationLink(destination: AuthSignUpView()) {
                                 Text(LocalKeys.Auth.signUp.rawValue.locale())
-                                    .font(.custom("Poppins-BoldItalic", size: 16))
                                     .foregroundColor(.libertyBlue)
+                                    .modifier(Px12Bold())
                             }
                         }
                         
