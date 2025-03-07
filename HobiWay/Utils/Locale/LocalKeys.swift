@@ -31,6 +31,8 @@ struct LocalKeys{
         case hobbies = "hobbies"
         case account = "account"
         case success = "success"
+        case yes = "yes"
+        case no = "no"
         
 
     }
@@ -91,6 +93,17 @@ struct LocalKeys{
         case finallyTellUsALittleAboutYourself = "finallyTellUsALittleAboutYourself"
         case pleaseSelectYouInterest = "pleaseSelectYouInterest"
         case selectCountryCode = "selectCountryCode"
+        case whatShouldToWriteAboutYourself = "whatToWriteAboutYourself"
+        case educationAndMajor = "educationAndMajor"
+        case hobbiesAndInterests = "hobbiesAndInterests"
+        case favoriteBookMovieSeries = "favoriteBookMovieSeries"
+        case lifeDreams = "lifeDreams"
+        case careerAndJobInterests = "careerAndJobInterests"
+        case travelExperiences = "travelExperiences"
+        case specialSkills = "specialSkills"
+        case inspirationalPeople = "inspirationalPeople"
+        case dailyActivities = "dailyActivities"
+        case lifePhilosophy = "lifePhilosophy"
     }
     
     enum InformationViewError : String{
@@ -98,6 +111,7 @@ struct LocalKeys{
         case pleaseEnterYourPhoneNumber = "pleaseEnterYourPhoneNumber"
         case pleaseSelectLeastTwoInterest = "pleaseSelectLeastTwoInterest"
         case pleaseEnterLeast100Characters = "pleaseEnterLeast100Characters"
+       
     }
     
     enum CreateHobbyCardView: String{
@@ -167,6 +181,8 @@ struct LocalKeys{
         case darkMode = "darkMode"
         case settings = "settings"
         case signOut = "signOut"
+        case deleteAccount = "deleteAccount"
+        case areYouSureForDeleteAccount = "areYouSureForDeleteAccount"
         
     }
     

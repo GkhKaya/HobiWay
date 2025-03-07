@@ -19,6 +19,7 @@ final class AuthSignInViewViewModel : ObservableObject {
     @Published  var isSignInSuccessful = false
     @Published var errorMessage: LocalizedStringKey = ""
     @Published var showAlert: Bool = false
+    @Published var isAppleSignIn: Bool = false
     
     
     
@@ -91,6 +92,8 @@ final class AuthSignInViewViewModel : ObservableObject {
             
             if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
                 _ = try await authManager.signInWithApple(tokens: tokens)
+                
+                isAppleSignIn = true
             }
         }catch{
             Task { @MainActor in

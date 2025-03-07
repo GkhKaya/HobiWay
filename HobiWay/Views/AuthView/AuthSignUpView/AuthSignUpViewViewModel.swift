@@ -85,13 +85,19 @@ final class AuthSignUpViewViewModel: ObservableObject {
        do{
             let helper = SignInAppleHelper()
             let tokens = try await helper.startSignInWithAppleFlow()
+           
+           let appleEmail = tokens.email ?? "Private"
+                       let appleFullName = tokens.name ?? ""
+           
+           print("SignUpApple - Email: \(appleEmail)")
+                       print("SignUpApple - Full Name: \(appleFullName)")
        
             if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
                 let returnerUserData  = try await authManager.signInWithApple(tokens: tokens)
                 let newUser = UserModel(
                     id: returnerUserData.uid,
-                    mail: returnerUserData.email ?? "Private",
-                    fullName: "",
+                    mail: appleEmail,
+                                    fullName: appleFullName,
                     interests: [],
                     gender: 1,
                     phoneNumber: "",

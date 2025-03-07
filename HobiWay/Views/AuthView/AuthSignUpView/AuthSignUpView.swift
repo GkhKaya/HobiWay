@@ -130,6 +130,7 @@ struct AuthSignUpView: View {
                             }
                             
                             .padding(.top,ProjectPaddings.extraSmall.rawValue)
+                            
                             Spacer()
                             
                             // MARK: - Sign In  Button

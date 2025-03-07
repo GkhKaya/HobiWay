@@ -16,7 +16,8 @@ protocol FirestoreServiceProtocol{
     func addDocument<T: Encodable>(to collection: String, data: T) async throws
     func getDocumentWhere<T: Decodable>(from collection: String, where conditions: [(field: String, value: Any)]) async throws -> T?
     func updateDocument(in collection: String, documentId: String, with data: [String: Any]) async throws
-    func setDocument<T: Encodable>(documentId: String, in collection: String, data: T) async throws 
+    func setDocument<T: Encodable>(documentId: String, in collection: String, data: T) async throws
+    func deleteDocument(from collection: String, documentId: String) async throws
 
 }
 
@@ -146,6 +147,18 @@ class FirestoreService : FirestoreServiceProtocol{
                 print("Document successfully updated")
             } catch {
                 print("Error updating document: \(error)")
+                throw error
+            }
+        }
+    
+    func deleteDocument(from collection: String, documentId: String) async throws {
+            let documentRef = db.collection(collection).document(documentId)
+            
+            do {
+                try await documentRef.delete()
+                print("Document with ID \(documentId) successfully deleted from collection \(collection)")
+            } catch {
+                print("Error deleting document: \(error)")
                 throw error
             }
         }

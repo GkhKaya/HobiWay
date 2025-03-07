@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "logohobi.png",
+      "filename" : "Adsız tasarım.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "logohobi 1.png",
+      "filename" : "Adsız tasarım 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "logohobi 2.png",
+      "filename" : "Adsız tasarım 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

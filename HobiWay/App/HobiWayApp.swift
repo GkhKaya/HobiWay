@@ -15,6 +15,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+
+
 @main
 struct HobiWayApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate

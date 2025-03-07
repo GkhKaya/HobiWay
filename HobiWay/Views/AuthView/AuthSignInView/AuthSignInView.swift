@@ -92,7 +92,7 @@ struct AuthSignInView: View {
                         Alert(title: Text("Sign In Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
                     }
                     .navigationDestination(isPresented: $vm.openInformationView) {
-                        InformationView().navigationBarBackButtonHidden()
+                        InformationView(isAppleSignIn: vm.isAppleSignIn).navigationBarBackButtonHidden()
                     }
                     
                     // MARK: - or Text
@@ -164,9 +164,10 @@ struct AuthSignInView: View {
                             
                         }
                         
+                        Spacer()
+
                         
-                        
-                        // MARK: - Sign In  Button
+                        // MARK: - Sign Up  Button
                         HStack(spacing: 0) {
                             Text(LocalKeys.Auth.ifYouDontHaveAnAccount.rawValue.locale())
                                 .foregroundColor(.libertyBlue)

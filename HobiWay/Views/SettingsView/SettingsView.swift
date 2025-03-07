@@ -1,8 +1,10 @@
+
 import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var vm = SettingsViewViewModel()
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    @State private var showDeleteConfirmation: Bool = false // Alert için yeni state
     
     var body: some View {
         NavigationStack {
@@ -15,7 +17,7 @@ struct SettingsView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: UIScreen.main.bounds.height * 0.03) {
-                            // User Info Card
+                            // User Info Card (değişmeden kalır)
                             VStack(spacing: UIScreen.main.bounds.height * 0.02) {
                                 Circle()
                                     .fill(Color.safetyOrange)
@@ -47,7 +49,7 @@ struct SettingsView: View {
                             )
                             .padding(.horizontal, UIScreen.main.bounds.width * 0.04)
                             
-                            // Stats Grid
+                            // Stats Grid (değişmeden kalır)
                             LazyVGrid(
                                 columns: [
                                     GridItem(.flexible(), spacing: UIScreen.main.bounds.width * 0.04),
@@ -83,7 +85,7 @@ struct SettingsView: View {
                                 
                                 Button(action: {}) {
                                     NavigationLink(destination: UpdateEmailView()) {
-                                        SettingsButton(title:  LocalKeys.SettingsView.changeEmail.rawValue.locale(), icon: "envelope.fill")
+                                        SettingsButton(title: LocalKeys.SettingsView.changeEmail.rawValue.locale(), icon: "envelope.fill")
                                     }
                                 }
                                 
@@ -92,18 +94,25 @@ struct SettingsView: View {
                                         SettingsButton(title: LocalKeys.SettingsView.changePassword.rawValue.locale(), icon: "key.fill")
                                     }
                                 }
-                                Button{
-                                    Task{
+                                
+                                Button {
+                                    Task {
                                         await vm.signOut()
                                     }
-                                }label: {
+                                } label: {
                                     SettingsButton(title: LocalKeys.SettingsView.signOut.rawValue.locale(), icon: "person.slash.fill")
-
+                                }
+                                
+                                Button {
+                                    // Butona tıklanınca alert’i göster
+                                    showDeleteConfirmation = true
+                                } label: {
+                                    SettingsButton(title: LocalKeys.SettingsView.deleteAccount.rawValue.locale(), icon: "person.fill.xmark")
                                 }
                             }
                             .padding(.horizontal, UIScreen.main.bounds.width * 0.04)
                             
-                            // App Section
+                            // App Section (değişmeden kalır)
                             VStack(alignment: .leading, spacing: UIScreen.main.bounds.height * 0.02) {
                                 Text("App")
                                     .modifier(Px18Bold())
@@ -124,6 +133,23 @@ struct SettingsView: View {
             .navigationTitle(LocalKeys.SettingsView.settings.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(isDarkMode ? .dark : .light)
+            // Alert eklemesi
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text(LocalKeys.SettingsView.deleteAccount.rawValue.locale()),
+                    message: Text(LocalKeys.SettingsView.areYouSureForDeleteAccount.rawValue.locale()),
+                    primaryButton: .destructive(Text(LocalKeys.General.yes.rawValue.locale())) {
+                        Task {
+                            do {
+                                try await vm.deleteAccount()
+                            } catch {
+                                print("Hesap silme hatası: \(error)")
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel(Text(LocalKeys.General.no.rawValue.locale()))
+                )
+            }
         }
         .task {
             try? await vm.fetchUserData()
@@ -131,6 +157,7 @@ struct SettingsView: View {
     }
 }
 
+// StatCard ve SettingsButton yapıları değişmeden kalır
 struct SettingsButton: View {
     @Environment(\.colorScheme) var colorScheme
     let title: LocalizedStringKey
@@ -192,4 +219,4 @@ struct StatCard: View {
                 .shadow(color: colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1), radius: 5)
         )
     }
-} 
+}

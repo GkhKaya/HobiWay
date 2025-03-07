@@ -58,6 +58,30 @@ final class SettingsViewViewModel: ObservableObject {
                     print("Sign out failed: \(error.localizedDescription)")
                 }
             }
+    
+    func deleteAccount() async  throws{
+        guard let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() else {
+            return
+        }
+        
+        guard let firestoreManager: FirestoreService = ServiceLocator.shared.getService() else {
+            return
+        }
+        do{
+            let userData = try  authManager.getAuthenticatedUser()
+            
+            try await firestoreManager.deleteDocument(from: "users", documentId: userData.uid)
+           
+            try await authManager.deleteAccount()
+            
+            DispatchQueue.main.async {
+                                self.isLoggedIn = false
+                            }
+            
+        }catch {
+            print("Delete account failed: \(error.localizedDescription)")
+        }
+    }
         
         
     func getInitials(from fullName: String) -> String {

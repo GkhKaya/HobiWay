@@ -126,20 +126,25 @@ final class SignInAppleHelper: NSObject {
 extension SignInAppleHelper: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        guard
-            let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-            let appleIDToken = appleIDCredential.identityToken,
-            let idTokenString = String(data: appleIDToken, encoding: .utf8),
-            let nonce = currentNonce else {
-            completionHandler?(.failure(URLError(.badServerResponse)))
-            return
-        }
-        let name = appleIDCredential.fullName?.givenName
-        let email = appleIDCredential.email
+            guard
+                let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                let appleIDToken = appleIDCredential.identityToken,
+                let idTokenString = String(data: appleIDToken, encoding: .utf8),
+                let nonce = currentNonce else {
+                completionHandler?(.failure(URLError(.badServerResponse)))
+                return
+            }
+            let name = appleIDCredential.fullName?.givenName
+            let email = appleIDCredential.email
+            
+            // Apple’dan gelen ham veriyi logla
+            print("Apple Credential - Email: \(String(describing: email))")
+            print("Apple Credential - Given Name: \(String(describing: name))")
+            print("Apple Credential - Full Name: \(String(describing: appleIDCredential.fullName))")
 
-        let tokens = SignInWithAppleResult(token: idTokenString, nonce: nonce, name: name, email: email)
-        completionHandler?(.success(tokens))
-    }
+            let tokens = SignInWithAppleResult(token: idTokenString, nonce: nonce, name: name, email: email)
+            completionHandler?(.success(tokens))
+        }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("Sign in with Apple errored: \(error)")

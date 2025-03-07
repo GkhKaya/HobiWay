@@ -26,6 +26,8 @@
 "error" = "Hata";
 "hobbies"  ="Hobiler";
 "account" = "Hesap";
+"yes" = "Evet";
+"no" = "Hayır";
 
 
 ////Mark: General Error Message
@@ -80,6 +82,18 @@
 "finallyTellUsALittleAboutYourself" = "Son olarak, kendiniz hakkında biraz bilgi verin.";
 "pleaseSelectYouInterest" = "Lütfen ilgi alanlarınızı seçin.";
 "selectCountryCode" = "Ülke kodunu seçin";
+
+"whatShouldToWriteAboutYourself" = "Kendin hakkında ne yazabilirsin?";
+"educationAndMajor" = "Eğitim geçmişin ve bölümün";
+"hobbiesAndInterests" = "Hobilerin ve ilgi alanların";
+"favoriteBookMovieSeries" = "Favori kitabın, filmin veya dizin";
+"lifeDreams" = "Bir gün gerçekleştirmek istediğin bir hayalin";
+"careerAndJobInterests" = "Kariyer ve iş alanındaki ilgilerin";
+"travelExperiences" = "Seyahat ettiğin veya etmek istediğin yerler";
+"specialSkills" = "Özel yeteneklerin veya becerilerin";
+"inspirationalPeople" = "Hayranlık duyduğun veya ilham aldığın kişiler";
+"dailyActivities" = "Keyif aldığın günlük aktiviteler";
+"lifePhilosophy" = "Hayat felsefen veya değerlerin";
 
 
 ////Mark: Information View Errors
@@ -156,3 +170,6 @@
 "darkMode" = "Karanlık Mod";
 "settings" = "Ayarlar";
 "signOut" = "Çıkış Yap";
+"deleteAccount" = "Hesabı Sil";
+"areYouSureForDeleteAccount" = "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.";
+

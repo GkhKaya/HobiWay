@@ -15,8 +15,10 @@ struct InformationView: View {
     @State private var showPhoneNumber = false
     @State private var showHobbyCategory = false
     @State private var showIntroduceYourSelf = false
+    @State private var showSuggestions = false
     @State private var phoneNumber: String = ""
     @State private var selectedCountryCode = CountryCode(name: "Turkey", dial_code: "+90", code: "TR")
+    @State var isAppleSignIn: Bool
     
     @ObservedObject private var vm = InformationViewViewModel()
     
@@ -46,7 +48,7 @@ struct InformationView: View {
                 }
                 
                 // MARK: - Fullname Part
-                if showFullnamePart {
+                if !isAppleSignIn && showFullnamePart {
                     VStack {
                         Text(LocalKeys.InformationView.firstLetsLearnYourName.rawValue.locale())
                             .modifier(Px24Bold())
@@ -127,8 +129,11 @@ struct InformationView: View {
                                     showFullnamePart = true
                                 }
                             } label: {
-                                Image(systemName: "chevron.left")
-                                    .foregroundStyle(.libertyBlue)
+                                if !isAppleSignIn{
+                                    Image(systemName: "chevron.left")
+                                        .foregroundStyle(.libertyBlue)
+                                }
+                                
                             }
                             Spacer()
                         }
@@ -371,6 +376,10 @@ struct InformationView: View {
                         .navigationDestination(isPresented: $vm.openHomeView) {
                             TabBarView().ignoresSafeArea()
                         }
+                        
+                        SuggestionToggleView(showSuggestions: $showSuggestions)
+
+                        
                         Spacer()
                     }
                     .padding()
@@ -389,7 +398,11 @@ struct InformationView: View {
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn(duration: 1.0)) {
-                            showFullnamePart = true
+                            if !isAppleSignIn{
+                                showFullnamePart = true
+                            }else{
+                                showAgeAndGender = true
+                            }
                         }
                     }
                 }
@@ -398,51 +411,71 @@ struct InformationView: View {
     }
 }
 
-#Preview {
-    InformationView()
-}
 
 
 
 
 
-struct CountryCodePicker: View {
-    @Binding var selectedCountryCode: CountryCode
-    @State private var searchText: String = ""
-    let countries: [CountryCode]
-    @Environment(\.dismiss) var dismiss // Dismiss environment variable to close the sheet
+
+struct SuggestionToggleView: View {
+    @Binding var showSuggestions: Bool
     
-    var filteredCountries: [CountryCode] {
-        if searchText.isEmpty {
-            return countries
-        } else {
-            return countries.filter {
-                $0.name.lowercased().contains(searchText.lowercased()) ||
-                $0.dial_code.contains(searchText) ||
-                $0.code.lowercased().contains(searchText.lowercased())
-            }
-        }
-    }
-    
+    let suggestions = [
+        "Eğitim geçmişin ve hangi bölümü okuduğun",
+        "Hangi hobilerle ilgilendiğin",
+        "En sevdiğin kitap, film veya dizi",
+        "Bir gün gerçekleştirmek istediğin hayalin",
+        "Hangi alanlarda çalıştığın veya çalışmak istediğin",
+        "Seyahat ettiğin veya etmek istediğin yerler",
+        "Özel yeteneklerin veya becerilerin",
+        "Sevdiğin veya ilham aldığın kişiler",
+        "Günlük hayatta en çok yaptığın aktiviteler",
+        "Hayat felsefen veya benimsediğin değerler"
+    ]
+
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(filteredCountries) { country in
-                    Button(action: {
-                        selectedCountryCode = country
-                        dismiss() // Automatically close the sheet after selection
-                    }) {
-                        HStack {
-                            Text(country.dial_code)
-                            Text(country.name)
-                            Spacer()
-                            Text(country.code)
+        VStack(alignment: .leading) {
+            // Başlık Butonu
+            Button(action: {
+                withAnimation {
+                    showSuggestions.toggle()
+                }
+            }) {
+                HStack {
+                    Text("Ne yazacağımı bilmiyorum")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                    Spacer()
+                    Image(systemName: showSuggestions ? "chevron.up" : "chevron.down")
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            
+            // Açılırsa ScrollView içinde öneriler
+            if showSuggestions {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(suggestions, id: \.self) { item in
+                            HStack {
+                                Image(systemName: "circle.fill")
+                                    .font(.system(size: 6))
+                                    .foregroundColor(.blue)
+                                Text(item)
+                                    .font(.body)
+                            }
                         }
                     }
+                    .padding()
                 }
+                .frame(height: 150) // ScrollView yüksekliği
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
-            .navigationTitle(LocalKeys.InformationView.selectCountryCode.rawValue.locale())
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         }
+        .padding(.top, ProjectPaddings.normal.rawValue)
     }
 }
