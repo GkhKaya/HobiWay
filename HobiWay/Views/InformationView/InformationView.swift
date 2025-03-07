@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct InformationView: View {
     @State private var showInitialText = false
     @State private var showFullnamePart = false
-    @State private var showContactText  = false
+    @State private var showContactText = false
     @State private var showAgeAndGender = false
     @State private var showPhoneNumber = false
     @State private var showHobbyCategory = false
@@ -30,8 +32,6 @@ struct InformationView: View {
         LocalKeys.General.other.rawValue.locale()
     ]
     
-    
-    // Alert için gerekli değişken
     @State private var showAlert = false
     @State private var alertMessage = ""
     
@@ -61,22 +61,20 @@ struct InformationView: View {
                                 alertMessage = LocalKeys.InformationViewError.pleaseEnterYourName.rawValue
                                 showAlert = true
                             } else {
-                                Task{
-                                    withAnimation(.easeOut(duration: 1.0)){
+                                Task {
+                                    withAnimation(.easeOut(duration: 1.0)) {
                                         showFullnamePart = false
                                     }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                                        withAnimation(.easeIn(duration: 1.0)){
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        withAnimation(.easeIn(duration: 1.0)) {
                                             showContactText = true
                                         }
                                     }
-                                    
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                         withAnimation(.easeOut(duration: 1.0)) {
                                             showContactText = false
                                         }
                                     }
-                                    
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                                         withAnimation(.easeOut(duration: 1.0)) {
                                             showAgeAndGender = true
@@ -91,37 +89,30 @@ struct InformationView: View {
                 
                 // MARK: - Contact Text
                 if showContactText {
-                    VStack(){
-                        
-                        
-                        HStack{
+                    VStack {
+                        HStack {
                             Text(LocalKeys.General.hello.rawValue.locale())
                                 .multilineTextAlignment(.center)
                                 .modifier(Px24Bold())
                             Text("\(vm.name)")
                                 .multilineTextAlignment(.center)
                                 .modifier(Px24Bold())
-                            
-                            
-                            
                         }
                         
                         Text(LocalKeys.InformationView.weAreHobiWayDevelopmentTeam.rawValue.locale())
                             .multilineTextAlignment(.center)
                             .modifier(Px16Bold())
                         
-                        
                         Text(LocalKeys.InformationView.youCanReachUsAnytimeAtHobiwaycontactdevosuitcom.rawValue.locale())
                             .multilineTextAlignment(.center)
                             .modifier(Px16Bold())
-                            .padding(.top,ProjectPaddings.large.rawValue)
+                            .padding(.top, ProjectPaddings.large.rawValue)
                     }.padding()
                 }
                 
                 // MARK: - Age and Gender Part
                 if showAgeAndGender {
                     VStack {
-                        
                         HStack {
                             Button {
                                 withAnimation {
@@ -129,11 +120,10 @@ struct InformationView: View {
                                     showFullnamePart = true
                                 }
                             } label: {
-                                if !isAppleSignIn{
+                                if !isAppleSignIn {
                                     Image(systemName: "chevron.left")
                                         .foregroundStyle(.libertyBlue)
                                 }
-                                
                             }
                             Spacer()
                         }
@@ -142,7 +132,6 @@ struct InformationView: View {
                         Text(LocalKeys.InformationView.nowLetsKnowYourAgeAndGender.rawValue.locale())
                             .modifier(Px24Bold())
                             .multilineTextAlignment(.center)
-                        
                         
                         HStack {
                             VStack {
@@ -178,38 +167,56 @@ struct InformationView: View {
                         }
                         .padding(.top, ProjectPaddings.normal.rawValue)
                         
-                        ButtonWithBg(action: {
-                            vm.selectedAge = selectedAge
-                            vm.selectedGender = selectedGender
-                            
-                            withAnimation(.easeOut(duration: 1.0)) {
-                                showAgeAndGender = false
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                withAnimation(.easeIn(duration: 1.0)) {
-                                    showPhoneNumber = true
+                        VStack(spacing: ProjectPaddings.small.rawValue) {
+                            ButtonWithBg(action: {
+                                vm.selectedAge = selectedAge
+                                vm.selectedGender = selectedGender
+                                
+                                withAnimation(.easeOut(duration: 1.0)) {
+                                    showAgeAndGender = false
                                 }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation(.easeIn(duration: 1.0)) {
+                                        showPhoneNumber = true
+                                    }
+                                }
+                            }, title: LocalKeys.General.next.rawValue.locale())
+                            
+                            Button(action: {
+                                vm.selectedAge = nil
+                                vm.selectedGender = -1
+                                
+                                withAnimation(.easeOut(duration: 1.0)) {
+                                    showAgeAndGender = false
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation(.easeIn(duration: 1.0)) {
+                                        showPhoneNumber = true
+                                    }
+                                }
+                            }) {
+                                Text(LocalKeys.InformationView.idontwantspecify.rawValue.locale())
+                                    .foregroundStyle(.blue)
+                                    .modifier(Px12Bold())
                             }
-                        }, title: LocalKeys.General.next.rawValue.locale())
+                        }
+                        .padding(.top, ProjectPaddings.normal.rawValue)
                         
                         Spacer()
                     }
                     .padding()
                 }
+                
                 // MARK: - Phone Number Part
                 if showPhoneNumber {
-                    
-                    
                     VStack {
-                        
                         HStack {
-                            Button() {
+                            Button {
                                 withAnimation {
                                     showPhoneNumber = false
                                     showAgeAndGender = true
                                 }
-                                
-                            }label: {
+                            } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(.libertyBlue)
                             }
@@ -226,14 +233,31 @@ struct InformationView: View {
                             selectedCountryCode: $selectedCountryCode
                         )
                         
-                        ButtonWithBg(action: {
-                            if phoneNumber.isEmpty {
-                                alertMessage = LocalKeys.InformationViewError.pleaseEnterYourPhoneNumber.rawValue
-                                showAlert = true
-                            } else {
-                                Task{
-                                    vm.fullPhoneNumber = "\(selectedCountryCode.dial_code)\(phoneNumber)"
-                                    withAnimation(.easeOut(duration:1.0)) {
+                        VStack(spacing: ProjectPaddings.small.rawValue) {
+                            ButtonWithBg(action: {
+                                if phoneNumber.isEmpty {
+                                    alertMessage = LocalKeys.InformationViewError.pleaseEnterYourPhoneNumber.rawValue
+                                    showAlert = true
+                                } else {
+                                    Task {
+                                        vm.fullPhoneNumber = "\(selectedCountryCode.dial_code)\(phoneNumber)"
+                                        withAnimation(.easeOut(duration: 1.0)) {
+                                            showPhoneNumber = false
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            withAnimation(.easeInOut(duration: 1.0)) {
+                                                showHobbyCategory = true
+                                            }
+                                        }
+                                        try await vm.fetchHobbyCategory()
+                                    }
+                                }
+                            }, title: LocalKeys.General.next.rawValue.locale())
+                            
+                            Button(action: {
+                                vm.fullPhoneNumber = nil
+                                Task {
+                                    withAnimation(.easeOut(duration: 1.0)) {
                                         showPhoneNumber = false
                                     }
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -242,11 +266,13 @@ struct InformationView: View {
                                         }
                                     }
                                     try await vm.fetchHobbyCategory()
-                                    
                                 }
-                                
+                            }) {
+                                Text(LocalKeys.InformationView.idontwantspecify.rawValue.locale())
+                                    .foregroundStyle(.blue)
+                                    .modifier(Px12Bold())
                             }
-                        }, title: LocalKeys.General.next.rawValue.locale())
+                        }
                         .padding(.top, ProjectPaddings.normal.rawValue)
                         
                         Spacer()
@@ -257,18 +283,16 @@ struct InformationView: View {
                 // MARK: - Hobby Category
                 if showHobbyCategory {
                     VStack {
-                        if vm.showProgress{
+                        if vm.showProgress {
                             ProgressView()
-                        }else{
-                            
+                        } else {
                             HStack {
-                                Button() {
+                                Button {
                                     withAnimation {
                                         showHobbyCategory = false
                                         showPhoneNumber = true
                                     }
-                                    
-                                }label: {
+                                } label: {
                                     Image(systemName: "chevron.left")
                                         .foregroundStyle(.libertyBlue)
                                 }
@@ -284,10 +308,8 @@ struct InformationView: View {
                                     ForEach(vm.hobbyCategoery, id: \.id) { category in
                                         Button(action: {
                                             if vm.selectedInterests.contains(where: { $0.id == category.id }) {
-                                                // If the category is already selected, remove it from the list
                                                 vm.selectedInterests.removeAll { $0.id == category.id }
                                             } else {
-                                                // Otherwise, add it to the selected categories list
                                                 vm.selectedInterests.append(category)
                                             }
                                         }) {
@@ -295,10 +317,9 @@ struct InformationView: View {
                                                 Text(category.name)
                                                     .foregroundStyle(Color.winterHaven)
                                                     .modifier(Px16Bold())
-                                                    .frame(width:geometry.dw(width: 0.3),height:geometry.dh(height: 0.1))
+                                                    .frame(width: geometry.dw(width: 0.3), height: geometry.dh(height: 0.1))
                                                     .background(vm.selectedInterests.contains(where: { $0.id == category.id }) ? Color.safetyOrange : Color.libertyBlue)
                                                     .cornerRadius(ProjectRadius.normal.rawValue)
-                                                
                                             }
                                             .padding()
                                         }
@@ -307,13 +328,12 @@ struct InformationView: View {
                                 .padding(.horizontal)
                             }
                             
-                            
                             ButtonWithBg(action: {
                                 if vm.selectedInterests.count < 2 {
                                     alertMessage = LocalKeys.InformationViewError.pleaseSelectLeastTwoInterest.rawValue
                                     showAlert = true
                                 } else {
-                                    withAnimation(.easeOut(duration:1.0)) {
+                                    withAnimation(.easeOut(duration: 1.0)) {
                                         showHobbyCategory = false
                                     }
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -327,7 +347,6 @@ struct InformationView: View {
                             
                             Spacer()
                         }
-                       
                     }
                     .padding()
                 }
@@ -335,16 +354,13 @@ struct InformationView: View {
                 // MARK: - Introduce Yourself
                 if showIntroduceYourSelf {
                     VStack {
-                        
-                        
                         HStack {
-                            Button() {
+                            Button {
                                 withAnimation {
                                     showIntroduceYourSelf = false
                                     showHobbyCategory = true
                                 }
-                                
-                            }label: {
+                            } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(.libertyBlue)
                             }
@@ -365,9 +381,9 @@ struct InformationView: View {
                                 alertMessage = LocalKeys.InformationViewError.pleaseEnterLeast100Characters.rawValue
                                 showAlert = true
                             } else {
-                                Task{
-                                    do{
-                                       try await vm.addUserInformation()
+                                Task {
+                                    do {
+                                        try await vm.addUserInformation()
                                     }
                                 }
                             }
@@ -378,7 +394,6 @@ struct InformationView: View {
                         }
                         
                         SuggestionToggleView(showSuggestions: $showSuggestions)
-
                         
                         Spacer()
                     }
@@ -398,9 +413,9 @@ struct InformationView: View {
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         withAnimation(.easeIn(duration: 1.0)) {
-                            if !isAppleSignIn{
+                            if !isAppleSignIn {
                                 showFullnamePart = true
-                            }else{
+                            } else {
                                 showAgeAndGender = true
                             }
                         }
@@ -410,12 +425,6 @@ struct InformationView: View {
         }
     }
 }
-
-
-
-
-
-
 
 struct SuggestionToggleView: View {
     @Binding var showSuggestions: Bool
@@ -432,10 +441,9 @@ struct SuggestionToggleView: View {
         "Günlük hayatta en çok yaptığın aktiviteler",
         "Hayat felsefen veya benimsediğin değerler"
     ]
-
+    
     var body: some View {
         VStack(alignment: .leading) {
-            // Başlık Butonu
             Button(action: {
                 withAnimation {
                     showSuggestions.toggle()
@@ -454,7 +462,6 @@ struct SuggestionToggleView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
-            // Açılırsa ScrollView içinde öneriler
             if showSuggestions {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
@@ -470,7 +477,7 @@ struct SuggestionToggleView: View {
                     }
                     .padding()
                 }
-                .frame(height: 150) // ScrollView yüksekliği
+                .frame(height: 150)
                 .background(Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .transition(.opacity.combined(with: .move(edge: .top)))
@@ -478,4 +485,8 @@ struct SuggestionToggleView: View {
         }
         .padding(.top, ProjectPaddings.normal.rawValue)
     }
+}
+
+#Preview {
+    InformationView(isAppleSignIn: false)
 }

@@ -104,6 +104,7 @@ struct LocalKeys{
         case inspirationalPeople = "inspirationalPeople"
         case dailyActivities = "dailyActivities"
         case lifePhilosophy = "lifePhilosophy"
+        case idontwantspecify = "idontwantspecify"
     }
     
     enum InformationViewError : String{
