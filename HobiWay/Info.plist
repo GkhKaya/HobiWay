@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
 	<key>CFBundleSignature</key>
 	<string></string>
 	<key>CFBundleURLTypes</key>
@@ -23,12 +21,6 @@
 	<string>241869775098-i2jpvj2tr5ep4clt25vfj5aokvkuc5d5.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Montserrat-Bold.tff</string>
-		<string>Montserrat-BoldItalic.ttf</string>
-		<string>Montserrat-ExtraBold.tff</string>
-		<string>Montserrat-Light.ttf</string>
-		<string>Montserrat-Medium.ttf</string>
-		<string>Montserrat-Regular.ttf</string>
 		<string>SixtyfourConvergence-Regular.ttf</string>
 		<string>Poppins-Bold.ttf</string>
 		<string>Poppins-BoldItalic.ttf</string>

@@ -130,6 +130,12 @@ struct SettingsView: View {
                     }
                 }
             }
+            .refreshable {
+                Task{
+                    try await vm.fetchUserData() // Verileri yeniden al
+                }
+                                    
+                                }
             .navigationTitle(LocalKeys.SettingsView.settings.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(isDarkMode ? .dark : .light)
@@ -150,10 +156,12 @@ struct SettingsView: View {
                     secondaryButton: .cancel(Text(LocalKeys.General.no.rawValue.locale()))
                 )
             }
+        }.onAppear{
+            Task{
+                try? await vm.fetchUserData()
+            }
         }
-        .task {
-            try? await vm.fetchUserData()
-        }
+        
     }
 }
 
