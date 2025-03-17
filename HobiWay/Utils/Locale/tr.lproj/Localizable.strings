@@ -176,3 +176,9 @@
 "deleteAccount" = "Hesabı Sil";
 "areYouSureForDeleteAccount" = "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.";
 
+////Mark: NoInternetView
+
+"noInternetConnection" = "İnternet Bağlantısı Yok";
+"offlineMessage" = "Çevrimdışı gibisiniz. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.";
+"openSettings" = "Ayarları Aç";
+"retry" = "Tekrar Dene";

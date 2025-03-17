@@ -95,25 +95,33 @@ class FirestoreService : FirestoreServiceProtocol{
     }
     
     func getDocumentWhere<T>(from collection: String, where conditions: [(field: String, value: Any)]) async throws -> T? where T: Decodable {
-           var query: Query = db.collection(collection)
-           
-           for condition in conditions {
-               query = query.whereField(condition.field, isEqualTo: condition.value)
-           }
-           
-           let snapshot = try await query.getDocuments()
-           
-           guard let document = snapshot.documents.first else {
-               return nil
-           }
-           
-           do {
-               let decodedObject = try document.data(as: T.self)
-               return decodedObject
-           } catch {
-               throw error
-           }
-       }
+        var query: Query = db.collection(collection)
+        
+        for condition in conditions {
+            query = query.whereField(condition.field, isEqualTo: condition.value)
+            print("Query condition added: \(condition.field) == \(condition.value)")
+        }
+        
+        let snapshot = try await query.getDocuments()
+        print("Query executed, document count: \(snapshot.documents.count)")
+        
+        guard let document = snapshot.documents.first else {
+            print("No documents found for query in collection: \(collection)")
+            return nil
+        }
+        
+        let documentData = document.data()
+        print("Document data: \(documentData)")
+        
+        do {
+            let decodedObject = try document.data(as: T.self)
+            print("Decoded object: \(decodedObject)")
+            return decodedObject
+        } catch {
+            print("Decoding error: \(error.localizedDescription)")
+            throw error
+        }
+    }
     
     func addDocument<T>(to collection: String, data: T) async throws where T: Encodable {
             let collectionRef = db.collection(collection)

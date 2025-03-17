@@ -189,7 +189,11 @@ at least one numeric digit, and at least one special character (e.g., !@#$%^&*).
 "yourCurrentPasswordIsWrong" = "Current Password Is Wrong";
 "yourCurrentEmailIsWrong" = "Current Email Is Wrong";
 
-
+////Mark: NoInternetView
+"noInternetConnection" = "No Internet Connection";
+"offlineMessage" = "It looks like you're offline. Please check your internet connection and try again.";
+"openSettings" = "Open Settings";
+"retry" = "Retry";
 
 
 

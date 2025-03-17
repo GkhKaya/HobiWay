@@ -196,7 +196,12 @@ struct LocalKeys{
 
  
 
-    
+    enum NoInternetViewKeys: String {
+        case noInternetConnection = "noInternetConnection"
+        case offlineMessage = "offlineMessage"
+        case openSettings = "openSettings"
+        case retry = "retry"
+    }
  
     
     

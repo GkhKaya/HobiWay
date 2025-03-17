@@ -105,31 +105,36 @@ final class AuthSignInViewViewModel : ObservableObject {
         
         
         
-        func openInformationViewFunc() async throws {
-            
-            
-            if let authManager : FirebaseAuthManager = ServiceLocator.shared.getService(){
-                let userId = try  authManager.getAuthenticatedUser().uid
+    func openInformationViewFunc() async throws {
+        print("openInformationViewFunc() started")
+        if let authManager: FirebaseAuthManager = ServiceLocator.shared.getService() {
+            do {
+                let userId = try authManager.getAuthenticatedUser().uid
+                print("Authenticated user ID: \(userId)")
                 
-                if let firestoreService : FirestoreService = ServiceLocator.shared.getService(){
-                    
-                    if let userData : UserModel = try await firestoreService.getDocumentWhere(from: "users", where: [(field: "id", value: userId)]){
-                        
+                if let firestoreService: FirestoreService = ServiceLocator.shared.getService() {
+                    print("Fetching user data from Firestore")
+                    if let userData: UserModel = try await firestoreService.getDocumentWhere(from: "users", where: [(field: "id", value: userId)]) {
+                        print("User data retrieved: age = \(userData.age)")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             if userData.age == 0 {
+                                print("Setting openInformationView = true")
                                 self.openInformationView = true
                             } else {
+                                print("Setting openhomeView = true")
                                 self.openhomeView = true
                             }
                         }
-                        
+                    } else {
+                        print("No user data found in Firestore")
                     }
-                    
                 }
+            } catch {
+                print("Error in openInformationViewFunc: \(error.localizedDescription)")
+                throw error
             }
-            
         }
-        
+    }
         
     }
 
