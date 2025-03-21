@@ -1,9 +1,8 @@
-/* 
+/*
   Localizable.strings
   HobiWay
 
   Created by Gokhan Kaya on 5.10.2024.
-  
 */
 
 ////MARK: General
@@ -26,15 +25,14 @@
 "error" = "Hata";
 "hobbies"  ="Hobiler";
 "account" = "Hesap";
+"success" = "Başarılı"; // Eksik anahtar eklendi
 "yes" = "Evet";
 "no" = "Hayır";
-
 
 ////Mark: General Error Message
 "unknow" = "Bilinmeyen bir hata oluştu. Lütfen tekrar deneyin.";
 
 ////Mark: Auth
-
 "hereYouCanLearnAnyHobbyYouWant" = "Burada istediğiniz herhangi bir hobiyi öğrenebilirsiniz.";
 "learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills" = "Yeni bir hobi öğrenmek, hayatınıza renk katmak ve yeni beceriler kazanmak için harika bir yolculuktur.";
 "signIn" = "Giriş Yap";
@@ -53,7 +51,7 @@
 "ifYouDontHaveAnAccount" = "Eğer bir hesabınız yoksa";
 "ifYouHaveAnAccount" = "Eğer bir hesabınız varsa";
 "successfullySignedUp" = "Başarıyla kayıt oldunuz!";
-
+"accountCreatedSuccessful" = "Hesap başarıyla oluşturuldu"; // Eksik anahtar eklendi
 
 ////Mark: Auth Error Message
 "userNotFound" = "Girilen bilgilere ait bir hesap bulunamadı.";
@@ -63,16 +61,14 @@
 "authFieldsEmpty" = "Alanlar boş bırakılamaz.";
 "signInFailed" = "Giriş yapılamadı. Lütfen bilgilerinizi kontrol edin.";
 "passwordResetFailed" = "Şifre sıfırlama e-postası gönderilemedi.";
-
+"emailResetFailed" = "E-posta sıfırlama e-postası gönderilemedi"; // Eksik anahtar eklendi
 
 ////Mark: Home View
 "theBestAppForLearnDreamHooby" = "Hayalinizdeki hobiyi öğrenmek için en iyi uygulama";
 "createYourFirstHobbyPlan" = "İlk hobi planınızı oluşturun";
 "welcomeBack" = "Tekrar Hoş Geldiniz!";
 
-
 ////Mark: Information View
-
 "letsGetToNowYouALittleBit" = "Sizi biraz tanıyalım";
 "firstLetsLearnYourName" = "Öncelikle adınızı öğrenelim";
 "weAreHobiWayDevelopmentTeam" = "Biz HobiWay Geliştirme Ekibiyiz";
@@ -82,8 +78,7 @@
 "finallyTellUsALittleAboutYourself" = "Son olarak, kendiniz hakkında biraz bilgi verin.";
 "pleaseSelectYouInterest" = "Lütfen ilgi alanlarınızı seçin.";
 "selectCountryCode" = "Ülke kodunu seçin";
-
-"whatShouldToWriteAboutYourself" = "Kendin hakkında ne yazabilirsin?";
+"whatShouldToWriteAboutYourself" = "Kendin hakkında ne yazabilirsin?"; // Uyumsuzluk düzeltildi
 "educationAndMajor" = "Eğitim geçmişin ve bölümün";
 "hobbiesAndInterests" = "Hobilerin ve ilgi alanların";
 "favoriteBookMovieSeries" = "Favori kitabın, filmin veya dizin";
@@ -94,10 +89,7 @@
 "inspirationalPeople" = "Hayranlık duyduğun veya ilham aldığın kişiler";
 "dailyActivities" = "Keyif aldığın günlük aktiviteler";
 "lifePhilosophy" = "Hayat felsefen veya değerlerin";
-"idontwantspecify" = "I do not want to specify";
-
-
-
+"idontwantspecify" = "Belirtmek istemiyorum";
 
 ////Mark: Information View Errors
 "pleaseEnterYourName" = "Lütfen adınızı girin.";
@@ -105,15 +97,13 @@
 "pleaseSelectLeastTwoInterest" = "Lütfen en az iki ilgi alanı seçin.";
 "pleaseEnterLeast100Characters" = "Lütfen en az 100 karakter girin.";
 
-
 ////Mark: Create Hobby View
-
-"pleaseEnterTheHobbyYouWant"="Lütfen öğrenmek istediğiniz hobiyi girin";
-"chooseTheBudgetYouCanUseForThisHobby"="Bu hobi için kullanabileceğiniz bütçeyi seçin";
+"pleaseEnterTheHobbyYouWant" = "Lütfen öğrenmek istediğiniz hobiyi girin";
+"chooseTheBudgetYouCanUseForThisHobby" = "Bu hobi için kullanabileceğiniz bütçeyi seçin";
 "lowBudget" = "Düşük Bütçe";
-"lowBudgetDesc"= "En az maliyetle oluşturulmuş bir yol haritası";
+"lowBudgetDesc" = "En az maliyetle oluşturulmuş bir yol haritası";
 "mediumBudget" = "Orta Bütçe";
-"mediumBudgetDesc"="Maksimum 100$ bütçeyle oluşturulmuş bir yol haritası";
+"mediumBudgetDesc" = "Maksimum 100$ bütçeyle oluşturulmuş bir yol haritası";
 "highBudget" = "Yüksek Bütçe";
 "highBudgetDesc" = "Bütçe sınırı olmadan oluşturulmuş bir yol haritası";
 "pleaseSelectRoadmapLanguage" = "Lütfen yol haritası dilini seçin";
@@ -132,9 +122,8 @@
 "minute30Desc" = "Günde yarım saat harikalar yaratabilir";
 "minute60" = "60 Dakika";
 "minute60Desc" = "Eğer ciddiseniz, bunu seçin.";
-"explainWhyText"= "Bu hobiyi neden öğrenmek istediğinizi kısaca açıklayın";
-"generatingPlan"="Hobi planınız oluşturuluyor...";
-
+"explainWhyText" = "Bu hobiyi neden öğrenmek istediğinizi kısaca açıklayın"; // Uyumsuzluk düzeltildi
+"generatingPlan" = "Hobi planınız oluşturuluyor...";
 
 ////Mark: Create Hobby View Error Message
 "hobbyNameRequired" = "Hobi Adı gereklidir.";
@@ -146,7 +135,7 @@
 "pleaseFillAllRequiredFieldsCorrectly" = "Lütfen tüm gerekli alanları doğru şekilde doldurun";
 "failedToGenerateHobbyPlan" = "Hobi planı oluşturulamadı";
 "createHobbyError" = "Hobi Oluşturma Hatası";
-
+"adultContent" = "Yetişkin içerik tespit edildi"; // Eksik anahtar eklendi
 
 ////Mark: Hobby Detail View
 "level" = "Seviye";
@@ -159,7 +148,6 @@
 "goals" = "Hedefler";
 "resources" = "Kaynaklar";
 "phease" = "Aşama";
-
 
 ////Mark: SettingsView
 "currentPassword" = "Mevcut Şifre";
@@ -177,7 +165,6 @@
 "areYouSureForDeleteAccount" = "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.";
 
 ////Mark: NoInternetView
-
 "noInternetConnection" = "İnternet Bağlantısı Yok";
 "offlineMessage" = "Çevrimdışı gibisiniz. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.";
 "openSettings" = "Ayarları Aç";

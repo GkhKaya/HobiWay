@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct LocalKeys{
+struct LocalKeys {
     
-    enum General : String{
+    enum General: String {
         case email = "email"
         case password = "password"
         case phoneNumber = "phoneNumber"
@@ -33,23 +33,19 @@ struct LocalKeys{
         case success = "success"
         case yes = "yes"
         case no = "no"
-        
-
     }
     
-    
-    enum GeneralError: String{
+    enum GeneralError: String {
         case unknow = "unknow"
-        
     }
     
-    enum HomeView : String{
+    enum HomeView: String {
         case theBestAppForLearnDreamHooby = "theBestAppForLearnDreamHooby"
         case createYourFirstHobbyPlan = "createYourFirstHobbyPlan"
         case welcomeBack = "welcomeBack"
     }
     
-    enum Auth : String{
+    enum Auth: String {
         case hereYouCanLearnAnyHobbyYouWant = "hereYouCanLearnAnyHobbyYouWant"
         case learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills = "learningANewHobbyIsAFantasticJourneyToAddColorToYourLifeAndGainNewSkills"
         case signIn = "signIn"
@@ -71,8 +67,7 @@ struct LocalKeys{
         case accountCreatedSuccessful = "accountCreatedSuccessful"
     }
     
-    
-    enum AuthErrorCode: String{
+    enum AuthErrorCode: String {
         case userNotFound = "userNotFound"
         case emailAlreadyInUse = "emailAlreadyInUse"
         case weakPassword = "weakPassword"
@@ -83,17 +78,17 @@ struct LocalKeys{
         case emailResetFailed = "emailResetFailed"
     }
     
-    enum InformationView : String{
+    enum InformationView: String {
         case letsGetToNowYouALittleBit = "letsGetToNowYouALittleBit"
         case firstLetsLearnYourName = "firstLetsLearnYourName"
         case weAreHobiWayDevelopmentTeam = "weAreHobiWayDevelopmentTeam"
-        case youCanReachUsAnytimeAtHobiwaycontactdevosuitcom = "youCanReachUsAnytimeAtHobiwaycontact@devosuit.com"
+        case youCanReachUsAnytimeAtHobiwaycontactdevosuitcom = "youCanReachUsAnytimeAtHobiwaycontact@devosuit.com" // Uyumsuzluk düzeltildi
         case nowLetsKnowYourAgeAndGender = "nowLetsKnowYourAgeAndGender"
         case nextIsYourpPhoneNumber = "nextIsYourpPhoneNumber"
         case finallyTellUsALittleAboutYourself = "finallyTellUsALittleAboutYourself"
         case pleaseSelectYouInterest = "pleaseSelectYouInterest"
         case selectCountryCode = "selectCountryCode"
-        case whatShouldToWriteAboutYourself = "whatToWriteAboutYourself"
+        case whatShouldToWriteAboutYourself = "whatShouldToWriteAboutYourself" // Uyumsuzluk düzeltildi
         case educationAndMajor = "educationAndMajor"
         case hobbiesAndInterests = "hobbiesAndInterests"
         case favoriteBookMovieSeries = "favoriteBookMovieSeries"
@@ -107,15 +102,14 @@ struct LocalKeys{
         case idontwantspecify = "idontwantspecify"
     }
     
-    enum InformationViewError : String{
+    enum InformationViewError: String {
         case pleaseEnterYourName = "pleaseEnterYourName"
         case pleaseEnterYourPhoneNumber = "pleaseEnterYourPhoneNumber"
         case pleaseSelectLeastTwoInterest = "pleaseSelectLeastTwoInterest"
         case pleaseEnterLeast100Characters = "pleaseEnterLeast100Characters"
-       
     }
     
-    enum CreateHobbyCardView: String{
+    enum CreateHobbyCardView: String {
         case chooseTheBudgetYouCanUseForThisHobby = "chooseTheBudgetYouCanUseForThisHobby"
         case pleaseEnterTheHobbyYouWant = "pleaseEnterTheHobbyYouWant"
         case lowBudget = "lowBudget"
@@ -140,11 +134,11 @@ struct LocalKeys{
         case minute30Desc = "minute30Desc"
         case minute60 = "minute60"
         case minute60Desc = "minute60Desc"
-        case explainWhyTexty = "explainWhyText"
+        case explainWhyTexty = "explainWhyText" // Uyumsuzluk düzeltildi
         case generatingPlan = "generatingPlan"
     }
     
-    enum CreateHobbyViewErrorCode: String{
+    enum CreateHobbyViewErrorCode: String {
         case hobbyNameRequired = "hobbyNameRequired"
         case budgetRequired = "budgetRequired"
         case languageRequired = "languageRequired"
@@ -157,7 +151,7 @@ struct LocalKeys{
         case adultContent = "adultContent"
     }
     
-    enum HobbyDetailView : String{
+    enum HobbyDetailView: String {
         case level = "level"
         case languge = "languge"
         case budget = "budget"
@@ -170,7 +164,7 @@ struct LocalKeys{
         case phease = "phease"
     }
     
-    enum SettingsView: String{
+    enum SettingsView: String {
         case currentPassword = "currentPassword"
         case newPassword = "newPassword"
         case currentemail = "currentemail"
@@ -184,29 +178,24 @@ struct LocalKeys{
         case signOut = "signOut"
         case deleteAccount = "deleteAccount"
         case areYouSureForDeleteAccount = "areYouSureForDeleteAccount"
-        
     }
     
-    enum SettingsViewErrorCode: String{
+    enum SettingsViewErrorCode: String {
         case passwordUpdateFailed = "passwordUpdateFailed"
         case emailUpdateFailed = "emailUpdateFailed"
         case yourCurrentPasswordIsWrong = "yourCurrentPasswordIsWrong"
         case yourCurrentEmailIsWrong = "yourCurrentEmailIsWrong"
     }
-
- 
-
+    
     enum NoInternetViewKeys: String {
         case noInternetConnection = "noInternetConnection"
         case offlineMessage = "offlineMessage"
         case openSettings = "openSettings"
         case retry = "retry"
     }
- 
-    
-    
 }
-extension String{
+
+extension String {
     /// It localize any string from Localizable string
     /// - Returns: localized value
     func locale() -> LocalizedStringKey {
