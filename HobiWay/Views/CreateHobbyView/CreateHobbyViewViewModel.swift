@@ -26,13 +26,13 @@ final class CreateHobbyViewViewModel: ObservableObject {
     func validateInputs(step: Int) {
         switch step {
         case 0:
-                if hobbyName.isEmpty {
-                    showError = true
-                    errorMessage = LocalKeys.CreateHobbyViewErrorCode.hobbyNameRequired.rawValue.locale()
-                } else if containsProhibitedContent(hobbyName) {
-                    showError = true
-                    errorMessage = LocalKeys.CreateHobbyViewErrorCode.adultContent.rawValue.locale()
-                }
+            if hobbyName.isEmpty {
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.hobbyNameRequired.rawValue.locale()
+            } else if containsProhibitedContent(hobbyName) {
+                showError = true
+                errorMessage = LocalKeys.CreateHobbyViewErrorCode.adultContent.rawValue.locale()
+            }
         case 1:
             if selectedBudget == nil {
                 showError = true
@@ -62,8 +62,6 @@ final class CreateHobbyViewViewModel: ObservableObject {
             break
         }
     }
-    
- 
     
     func createPrompt() {
         guard !hobbyName.isEmpty,
@@ -103,82 +101,72 @@ final class CreateHobbyViewViewModel: ObservableObject {
             •    resources: A list of resources to be used (e.g., books, websites, tools).
             •    description: A brief description of what this phase entails.
         """
-        print(self.prompt)
     }
     
-    
-    
-    func createHobbyPlan() async  {
+    func createHobbyPlan() async {
         let geminiManager = GeminiApiManager()
         
         createPrompt()
         
+        progress = true
         
         do {
-            self.progress = true
             // Gemini'den JSON yanıtını al
             try await geminiManager.generateTextToText(prompt: prompt)
-  
-          
             
-            // Gemini'den gelen sonucu kontrol et
             if geminiManager.result.isEmpty {
                 showError = true
                 errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
-                self.progress = false
-                
+                progress = false
+                return
             }
             
-            print("\(geminiManager.result)")
-            
-            // JSON string'i temizle
             var cleanedJSON = geminiManager.result.trimmingCharacters(in: .whitespacesAndNewlines)
             cleanedJSON = cleanedJSON.replacingOccurrences(of: "```json", with: "")
             cleanedJSON = cleanedJSON.replacingOccurrences(of: "```", with: "")
             cleanedJSON = cleanedJSON.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            // JSON'ı parse et
             guard let jsonData = cleanedJSON.data(using: .utf8),
                   var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .fragmentsAllowed) as? [String: Any] else {
                 errorMessage = LocalKeys.CreateHobbyViewErrorCode.failedToGenerateHobbyPlan.rawValue.locale()
-                self.progress = false
-                self.progress = false
+                progress = false
                 return
             }
             
-            // Kullanıcı bilgilerini al
             let authUser = try userManager.getAuthenticatedUser()
             let userId = authUser.uid
-            
-            // UUID ve user_id ekle
             let documentId = UUID().uuidString
             jsonObject["id"] = documentId
             jsonObject["user_id"] = userId
             
-            // Firestore'a kaydet - document ID'yi direkt olarak belirtiyoruz
-            try await firestoreService.db.collection("hobbies").document(documentId).setData(jsonObject)
+            // Firestore işlemlerini ayrı bir fonksiyona taşıyoruz
+            try await saveHobbyToFirestore(jsonObject: jsonObject, userId: userId, documentId: documentId)
             
-            let userRef = firestoreService.db.collection("users").document(userId)
-                   let userSnapshot = try await userRef.getDocument()
-                   
-            if userSnapshot.exists, let userData = userSnapshot.data() {
-                       // Eğer 'hobbies' dizisi varsa, yeni hobbyId'yi ekleyin
-                       var hobbies = userData["hobbies"] as? [String] ?? [String]()
-                       hobbies.append(documentId)  // Yeni hobbyId'yi ekle
-                       
-                       // Kullanıcı belgesini güncelle
-                       try await userRef.updateData([
-                           "hobbies": hobbies  // 'hobbies' dizisini güncelle
-                       ])
-                       print("User's hobby added successfully.")
-                   } else {
-                       print("User not found.")
-                   }
-                    self.progress = false
-            
+            progress = false
             
         } catch {
+            progress = false
+            showError = true
+            errorMessage = "Hata: \(error.localizedDescription)".locale()
+        }
+    }
+    
+    // Firestore işlemlerini @MainActor dışı bir bağlamda yapan yardımcı fonksiyon
+    private nonisolated func saveHobbyToFirestore(jsonObject: [String: Any], userId: String, documentId: String) async throws {
+        // Firestore'a kaydet
+        try await firestoreService.db.collection("hobbies").document(documentId).setData(jsonObject)
+        
+        // Kullanıcı belgesini güncelle
+        let userRef = await firestoreService.db.collection("users").document(userId)
+        let userSnapshot = try await userRef.getDocument()
+        
+        if userSnapshot.exists, let userData = userSnapshot.data() {
+            var hobbies = userData["hobbies"] as? [String] ?? [String]()
+            hobbies.append(documentId)
             
+            try await userRef.updateData([
+                "hobbies": hobbies
+            ])
         }
     }
     
@@ -198,26 +186,21 @@ final class CreateHobbyViewViewModel: ObservableObject {
     private func containsProhibitedContent(_ input: String) -> Bool {
         let lowercasedInput = input.lowercased()
         
-        // 1. Tam Eşleşme Kontrolü
         if prohibitedKeywords.contains(lowercasedInput) {
             return true
         }
         
-        // 2. Yasaklı Kelime İçerik Kontrolü
         for keyword in prohibitedKeywords {
             if lowercasedInput.contains(keyword) {
                 return true
             }
         }
         
-        // 3. Yazım Hataları ve Benzerlik Kontrolü (Levenshtein Mesafesi)
         return isAdultContent(lowercasedInput)
     }
 
-    /// Levenshtein Mesafesi ile Benzerlik Kontrolü
     private func isAdultContent(_ input: String) -> Bool {
         for keyword in prohibitedKeywords {
-            // 0'a kadar benzerlik kontrolü yapıyoruz. Yani kelimeler tamamen eşleşmelidir.
             if levenshteinDistance(input, keyword) <= 0 {
                 return true
             }
@@ -225,7 +208,6 @@ final class CreateHobbyViewViewModel: ObservableObject {
         return false
     }
 
-    /// Levenshtein Mesafesi Hesaplama
     private func levenshteinDistance(_ a: String, _ b: String) -> Int {
         let aCount = a.count
         let bCount = b.count
@@ -247,16 +229,13 @@ final class CreateHobbyViewViewModel: ObservableObject {
         return matrix[aCount][bCount]
     }
 
-    /// RegEx kullanarak özel karakterleri tespit etme
     private func containsSpecialCharacters(_ input: String) -> Bool {
         let regex = try! NSRegularExpression(pattern: "[^a-zA-Z0-9\\s]", options: .caseInsensitive)
         let range = NSRange(location: 0, length: input.utf16.count)
         return regex.firstMatch(in: input, options: [], range: range) != nil
     }
 
-    /// Gelişmiş analiz: Kelimelerin kökünü bulma
     private func containsRootWords(_ input: String) -> Bool {
-        // Bu örnekte basit bir kök kelime analizi yaptık. Daha karmaşık bir çözüm için NLP kullanılabilir.
         let rootWords: Set<String> = ["porno", "seks", "fetiş", "hardcore", "mastürbasyon"]
         let lowercasedInput = input.lowercased()
         
@@ -268,7 +247,6 @@ final class CreateHobbyViewViewModel: ObservableObject {
         return false
     }
 
-    /// Ana içerik kontrolü: Hem yazım hatalarını hem özel karakterleri kontrol etme
     private func validateInput(_ input: String) -> Bool {
         if containsProhibitedContent(input) || containsSpecialCharacters(input) || containsRootWords(input) {
             return false
@@ -276,6 +254,3 @@ final class CreateHobbyViewViewModel: ObservableObject {
         return true
     }
 }
-
-
-
