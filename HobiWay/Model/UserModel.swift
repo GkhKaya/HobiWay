@@ -13,7 +13,7 @@ struct UserModel: Codable, Identifiable {
     var mail: String
     var fullName: String
     var interests: [String]
-    var gender: Int
+    var gender: Int?
     var phoneNumber: String? // Opsiyonel yap
     var age: Int
     var imageUrl: String? // Opsiyonel yap

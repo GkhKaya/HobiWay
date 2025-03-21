@@ -65,6 +65,7 @@ struct LocalKeys {
         case pleaseEnterEmail = "pleaseEnterEmail"
         case successfullySignedUp = "successfullySignedUp"
         case accountCreatedSuccessful = "accountCreatedSuccessful"
+        case continueAsGuest = "continueAsGuest"
     }
     
     enum AuthErrorCode: String {

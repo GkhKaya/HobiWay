@@ -111,4 +111,9 @@ final class AuthSignInViewViewModel: ObservableObject {
             }
         }
     }
+    
+    func continueAsGuest() {
+        UserDefaults.standard.set(true, forKey: "guest")
+        openhomeView = true // Kullanıcıyı ana ekrana yönlendir
+    }
 }

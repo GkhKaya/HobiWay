@@ -52,6 +52,7 @@
 "ifYouHaveAnAccount" = "If you have an account";
 "successfullySignedUp" = "Successfully signed up!";
 "accountCreatedSuccessful" = "Account created successfully"; // Eksik anahtar eklendi
+"continueAsGuest" = "Continue As Guest";
 
 ////Mark: Auth Error Message
 "userNotFound" = "No account found for the provided credentials.";
@@ -175,3 +176,4 @@
 "offlineMessage" = "It looks like you're offline. Please check your internet connection and try again.";
 "openSettings" = "Open Settings";
 "retry" = "Retry";
+

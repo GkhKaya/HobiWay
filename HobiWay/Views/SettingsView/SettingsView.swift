@@ -1,10 +1,10 @@
-
 import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var vm = SettingsViewViewModel()
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    @State private var showDeleteConfirmation: Bool = false // Alert için yeni state
+    @State private var showDeleteConfirmation: Bool = false
+    @Environment(\.dismiss) var dismiss // Ekranı kapatmak için
     
     var body: some View {
         NavigationStack {
@@ -17,7 +17,7 @@ struct SettingsView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: UIScreen.main.bounds.height * 0.03) {
-                            // User Info Card (değişmeden kalır)
+                            // User Info Card
                             VStack(spacing: UIScreen.main.bounds.height * 0.02) {
                                 Circle()
                                     .fill(Color.safetyOrange)
@@ -26,16 +26,17 @@ struct SettingsView: View {
                                         height: UIScreen.main.bounds.width * 0.2
                                     )
                                     .overlay(
-                                        Text(vm.getInitials(from: vm.userData?.fullName ?? ""))
+                                        Text(vm.isGuest ? "G" : vm.getInitials(from: vm.userData?.fullName ?? ""))
                                             .modifier(Px24Bold())
-                                            .foregroundColor(.white))
+                                            .foregroundColor(.white)
+                                    )
                                 
                                 VStack(spacing: 8) {
-                                    Text(vm.userData?.fullName ?? "")
+                                    Text(vm.isGuest ? "Misafir" : vm.userData?.fullName ?? "")
                                         .modifier(Px18Bold())
                                         .foregroundColor(.white)
                                     
-                                    Text(vm.userData?.mail ?? "")
+                                    Text(vm.isGuest ? "Misafir Kullanıcı" : vm.userData?.mail ?? "")
                                         .modifier(Px16Regular())
                                         .foregroundColor(.white.opacity(0.8))
                                 }
@@ -49,7 +50,7 @@ struct SettingsView: View {
                             )
                             .padding(.horizontal, UIScreen.main.bounds.width * 0.04)
                             
-                            // Stats Grid (değişmeden kalır)
+                            // Stats Grid
                             LazyVGrid(
                                 columns: [
                                     GridItem(.flexible(), spacing: UIScreen.main.bounds.width * 0.04),
@@ -66,13 +67,13 @@ struct SettingsView: View {
                                 
                                 StatCard(
                                     title: LocalKeys.General.gender.rawValue.locale(),
-                                    value: vm.getGenderString(),
+                                    value: vm.isGuest ? "N/A" : vm.getGenderString(),
                                     icon: "person.fill"
                                 )
                                 
                                 StatCard(
                                     title: LocalKeys.General.age.rawValue.locale(),
-                                    value: "\(vm.userData?.age ?? 0)",
+                                    value: vm.isGuest ? "N/A" : "\(vm.userData?.age ?? 0)",
                                     icon: "calendar"
                                 )
                             }
@@ -83,36 +84,47 @@ struct SettingsView: View {
                                 Text(LocalKeys.General.account.rawValue.locale())
                                     .modifier(Px18Bold())
                                 
-                                Button(action: {}) {
-                                    NavigationLink(destination: UpdateEmailView()) {
-                                        SettingsButton(title: LocalKeys.SettingsView.changeEmail.rawValue.locale(), icon: "envelope.fill")
+                                if !vm.isGuest {
+                                    Button(action: {}) {
+                                        NavigationLink(destination: UpdateEmailView()) {
+                                            SettingsButton(title: LocalKeys.SettingsView.changeEmail.rawValue.locale(), icon: "envelope.fill")
+                                        }
                                     }
-                                }
-                                
-                                Button(action: {}) {
-                                    NavigationLink(destination: UpdatePasswordView()) {
-                                        SettingsButton(title: LocalKeys.SettingsView.changePassword.rawValue.locale(), icon: "key.fill")
+                                    
+                                    Button(action: {}) {
+                                        NavigationLink(destination: UpdatePasswordView()) {
+                                            SettingsButton(title: LocalKeys.SettingsView.changePassword.rawValue.locale(), icon: "key.fill")
+                                        }
                                     }
                                 }
                                 
                                 Button {
+                                    print("Sign Out butonuna basıldı")
                                     Task {
                                         await vm.signOut()
+                                        dismiss() // Ekranı kapat
                                     }
                                 } label: {
-                                    SettingsButton(title: LocalKeys.SettingsView.signOut.rawValue.locale(), icon: "person.slash.fill")
+                                    SettingsButton(
+                                        title: LocalKeys.SettingsView.signOut.rawValue.locale(),
+                                        icon: "person.slash.fill"
+                                    )
                                 }
                                 
-                                Button {
-                                    // Butona tıklanınca alert’i göster
-                                    showDeleteConfirmation = true
-                                } label: {
-                                    SettingsButton(title: LocalKeys.SettingsView.deleteAccount.rawValue.locale(), icon: "person.fill.xmark")
+                                if !vm.isGuest {
+                                    Button {
+                                        showDeleteConfirmation = true
+                                    } label: {
+                                        SettingsButton(
+                                            title: LocalKeys.SettingsView.deleteAccount.rawValue.locale(),
+                                            icon: "person.fill.xmark"
+                                        )
+                                    }
                                 }
                             }
                             .padding(.horizontal, UIScreen.main.bounds.width * 0.04)
                             
-                            // App Section (değişmeden kalır)
+                            // App Section
                             VStack(alignment: .leading, spacing: UIScreen.main.bounds.height * 0.02) {
                                 Text("App")
                                     .modifier(Px18Bold())
@@ -131,15 +143,13 @@ struct SettingsView: View {
                 }
             }
             .refreshable {
-                Task{
-                    try await vm.fetchUserData() // Verileri yeniden al
+                Task {
+                    try await vm.fetchUserData()
                 }
-                                    
-                                }
+            }
             .navigationTitle(LocalKeys.SettingsView.settings.rawValue.locale())
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            // Alert eklemesi
             .alert(isPresented: $showDeleteConfirmation) {
                 Alert(
                     title: Text(LocalKeys.SettingsView.deleteAccount.rawValue.locale()),
@@ -156,12 +166,12 @@ struct SettingsView: View {
                     secondaryButton: .cancel(Text(LocalKeys.General.no.rawValue.locale()))
                 )
             }
-        }.onAppear{
-            Task{
+        }
+        .onAppear {
+            Task {
                 try? await vm.fetchUserData()
             }
         }
-        
     }
 }
 

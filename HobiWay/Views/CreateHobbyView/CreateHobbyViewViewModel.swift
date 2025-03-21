@@ -22,6 +22,7 @@ final class CreateHobbyViewViewModel: ObservableObject {
     
     private let firestoreService = FirestoreService()
     private let userManager = FirebaseAuthManager()
+    private let isGuest: Bool = UserDefaults.standard.bool(forKey: "guest") // Misafir durumu
     
     func validateInputs(step: Int) {
         switch step {
@@ -133,14 +134,20 @@ final class CreateHobbyViewViewModel: ObservableObject {
                 return
             }
             
-            let authUser = try userManager.getAuthenticatedUser()
-            let userId = authUser.uid
             let documentId = UUID().uuidString
             jsonObject["id"] = documentId
-            jsonObject["user_id"] = userId
             
-            // Firestore işlemlerini ayrı bir fonksiyona taşıyoruz
-            try await saveHobbyToFirestore(jsonObject: jsonObject, userId: userId, documentId: documentId)
+            if isGuest {
+                // Misafir kullanıcı için UserDefaults’a kaydet
+                jsonObject["user_id"] = "guest" // Misafir için sabit bir user_id
+                try await saveHobbyLocally(jsonObject: jsonObject)
+            } else {
+                // Oturum açmış kullanıcı için Firestore’a kaydet
+                let authUser = try userManager.getAuthenticatedUser()
+                let userId = authUser.uid
+                jsonObject["user_id"] = userId
+                try await saveHobbyToFirestore(jsonObject: jsonObject, userId: userId, documentId: documentId)
+            }
             
             progress = false
             
@@ -151,12 +158,10 @@ final class CreateHobbyViewViewModel: ObservableObject {
         }
     }
     
-    // Firestore işlemlerini @MainActor dışı bir bağlamda yapan yardımcı fonksiyon
+    // Firestore’a kaydetme (oturum açmış kullanıcılar için)
     private nonisolated func saveHobbyToFirestore(jsonObject: [String: Any], userId: String, documentId: String) async throws {
-        // Firestore'a kaydet
         try await firestoreService.db.collection("hobbies").document(documentId).setData(jsonObject)
         
-        // Kullanıcı belgesini güncelle
         let userRef = await firestoreService.db.collection("users").document(userId)
         let userSnapshot = try await userRef.getDocument()
         
@@ -168,6 +173,13 @@ final class CreateHobbyViewViewModel: ObservableObject {
                 "hobbies": hobbies
             ])
         }
+    }
+    
+    // UserDefaults’a kaydetme (misafir kullanıcılar için)
+    private func saveHobbyLocally(jsonObject: [String: Any]) async throws {
+        var localHobbies = UserDefaults.standard.array(forKey: "localHobbies") as? [[String: Any]] ?? []
+        localHobbies.append(jsonObject)
+        UserDefaults.standard.set(localHobbies, forKey: "localHobbies")
     }
     
     private let prohibitedKeywords: Set<String> = [

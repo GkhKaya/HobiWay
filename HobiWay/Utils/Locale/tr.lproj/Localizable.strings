@@ -52,6 +52,8 @@
 "ifYouHaveAnAccount" = "Eğer bir hesabınız varsa";
 "successfullySignedUp" = "Başarıyla kayıt oldunuz!";
 "accountCreatedSuccessful" = "Hesap başarıyla oluşturuldu"; // Eksik anahtar eklendi
+"continueAsGuest" = "Misafir olarak devam et";
+
 
 ////Mark: Auth Error Message
 "userNotFound" = "Girilen bilgilere ait bir hesap bulunamadı.";
